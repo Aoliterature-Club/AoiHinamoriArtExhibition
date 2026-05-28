@@ -138,18 +138,18 @@ function renderGoodsList() {
   goodsList.innerHTML = Object.entries(inventory)
     .map(
       ([id, item]) => `
-        <article class="goods-card glass-panel p-4 flex items-center justify-between gap-4 group transition-all duration-300 gothic-glow" data-id="${id}">
-            <div class="flex items-center gap-4 md:gap-6 min-w-0">
-                <div class="relative w-20 h-20 md:w-24 md:h-32 overflow-hidden rounded bg-surface-container flex-shrink-0">
+        <article class="goods-card glass-panel p-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6 group transition-all duration-300 gothic-glow" data-id="${id}">
+            <div class="flex items-center gap-4 md:gap-6 min-w-0 w-full lg:flex-1">
+                <div class="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-24 lg:h-32 overflow-hidden rounded bg-surface-container flex-shrink-0">
                     <img class="w-full h-full object-contain transition-all duration-700" alt="${item.name}" src="${item.image}" />
                 </div>
-                <div class="min-w-0">
-                    <h2 class="font-title-md text-title-md text-secondary leading-snug">${item.name}</h2>
+                <div class="min-w-0 flex-1">
+                    <h2 class="font-title-md text-title-md text-secondary leading-snug break-words">${item.name}</h2>
                     ${item.detail ? `<p class="hidden sm:block text-label-sm font-label-sm text-on-surface-variant mt-2 mb-2 leading-relaxed opacity-90">${item.detail}</p>` : ""}
                     <span class="text-on-surface-variant font-label-sm">NT$ ${formatPrice(item.price)}</span>
                 </div>
             </div>
-            <div class="qty-control flex items-center gap-2 md:gap-4 bg-surface-container-high rounded-full md:rounded-lg p-1 md:p-2 border border-outline-variant/30 flex-shrink-0">
+            <div class="qty-control flex items-center justify-between lg:justify-center gap-2 lg:gap-4 bg-surface-container-high rounded-full lg:rounded-lg p-1 lg:p-2 border border-outline-variant/30 flex-shrink-0 w-full lg:w-40">
                 <button class="stepper-btn material-symbols-outlined text-on-surface-variant disabled:opacity-30 disabled:grayscale hover:text-primary w-11 h-11 flex items-center justify-center" type="button" data-id="${id}" data-delta="-1" disabled>remove</button>
                 <span class="qty-display font-label-sm w-6 text-center" id="qty-${id}">0</span>
                 <button class="stepper-btn material-symbols-outlined text-secondary hover:text-primary w-11 h-11 flex items-center justify-center" type="button" data-id="${id}" data-delta="1">add</button>

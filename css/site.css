@@ -232,8 +232,9 @@ iframe {
         align-items: flex-start;
     }
 
-    .qty-control {
-        margin-top: 18px;
+    .goods-card .qty-control {
+        margin-top: 0;
+        min-height: 52px;
     }
 
     .calculator-frame {
