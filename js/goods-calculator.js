@@ -257,10 +257,209 @@ function resetCalculator() {
   calculateTotal();
 }
 
+function getSelectedItems() {
+  return Object.values(inventory)
+    .filter((item) => item.qty > 0)
+    .map((item) => ({
+      name: item.name,
+      qty: item.qty,
+      price: item.price,
+      subtotal: item.price * item.qty,
+    }));
+}
+
+function getSelectedTotal(items) {
+  return items.reduce((sum, item) => sum + item.subtotal, 0);
+}
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+  const chars = Array.from(text);
+  let line = "";
+  let currentY = y;
+
+  chars.forEach((char) => {
+    const testLine = line + char;
+    if (ctx.measureText(testLine).width > maxWidth && line) {
+      ctx.fillText(line, x, currentY);
+      line = char;
+      currentY += lineHeight;
+      return;
+    }
+    line = testLine;
+  });
+
+  if (line) {
+    ctx.fillText(line, x, currentY);
+  }
+
+  return currentY + lineHeight;
+}
+
+function getWrappedLineCount(ctx, text, maxWidth) {
+  const chars = Array.from(text);
+  let line = "";
+  let lines = 1;
+
+  chars.forEach((char) => {
+    const testLine = line + char;
+    if (ctx.measureText(testLine).width > maxWidth && line) {
+      lines += 1;
+      line = char;
+      return;
+    }
+    line = testLine;
+  });
+
+  return lines;
+}
+
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+
+function exportSummaryImage() {
+  const items = getSelectedItems();
+  if (!items.length) {
+    window.alert("請先選擇至少一項商品，再輸出圖片。");
+    return;
+  }
+
+  const total = getSelectedTotal(items);
+  const width = 1080;
+  const rowHeight = 72;
+  const measureCanvas = document.createElement("canvas");
+  const measureCtx = measureCanvas.getContext("2d");
+  const rowHeights = items.map((item) => {
+    if (!measureCtx) return rowHeight;
+    measureCtx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+    const lineCount = getWrappedLineCount(measureCtx, item.name, 520);
+    return Math.max(rowHeight, lineCount * 30 + 24);
+  });
+  const listHeight = rowHeights.reduce(
+    (sum, heightValue) => sum + heightValue,
+    0,
+  );
+  const height = Math.max(760, 292 + listHeight + 260);
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const padding = 75;
+  ctx.fillStyle = "#080808";
+  ctx.fillRect(0, 0, width, height);
+
+  const gradient = ctx.createRadialGradient(
+    width * 0.55,
+    0,
+    80,
+    width * 0.55,
+    0,
+    height,
+  );
+  gradient.addColorStop(0, "rgba(90, 18, 30, 0.55)");
+  gradient.addColorStop(0.5, "rgba(18, 12, 14, 0.96)");
+  gradient.addColorStop(1, "rgba(8, 8, 8, 1)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  drawRoundedRect(ctx, 36, 36, width - 72, height - 72, 18);
+  ctx.fillStyle = "rgba(20, 20, 20, 0.82)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(233, 195, 73, 0.55)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.fillStyle = "#d9002a";
+  ctx.fillRect(padding, 86, 4, 88);
+
+  ctx.fillStyle = "#e9c349";
+  ctx.font = "700 22px 'JetBrains Mono', monospace";
+  ctx.letterSpacing = "4px";
+  ctx.fillText("GOODS CALCULATOR", padding + 28, 110);
+
+  ctx.fillStyle = "#f4eeee";
+  ctx.font = "700 54px 'Bodoni Moda', 'Noto Serif TC', serif";
+  ctx.fillText("周邊商品金額試算", padding + 28, 166);
+
+  ctx.fillStyle = "#e6bdb9";
+  ctx.font = "600 24px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+  ctx.fillText("Aoi Hinamori Art Exhibition", padding + 28, 212);
+
+  let y = 292;
+  ctx.strokeStyle = "rgba(233, 195, 73, 0.28)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padding, y - 34);
+  ctx.lineTo(width - padding, y - 34);
+  ctx.stroke();
+
+  items.forEach((item, index) => {
+    ctx.fillStyle = "#e6bdb9";
+    ctx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+    drawWrappedText(ctx, item.name, padding, y, 520, 30);
+
+    ctx.fillStyle = "#e9c349";
+    ctx.font = "700 22px 'JetBrains Mono', monospace";
+    ctx.fillText(`x${item.qty}`, 660, y);
+
+    ctx.fillStyle = "#f4eeee";
+    ctx.textAlign = "left";
+    ctx.fillText("NT$ ", width - padding - 160, y);
+    ctx.textAlign = "right";
+    ctx.fillText(formatPrice(item.subtotal), width - padding, y);
+    ctx.textAlign = "left";
+
+    y += rowHeights[index];
+  });
+
+  ctx.beginPath();
+  ctx.moveTo(padding, y + 8);
+  ctx.lineTo(width - padding, y + 8);
+  ctx.strokeStyle = "rgba(233, 195, 73, 0.35)";
+  ctx.stroke();
+
+  y += 88;
+  ctx.fillStyle = "#e6bdb9";
+  ctx.font = "700 24px 'JetBrains Mono', monospace";
+  ctx.fillText("TOTAL", padding, y);
+
+  ctx.fillStyle = "#e9c349";
+  ctx.font = "700 30px 'JetBrains Mono', monospace";
+  ctx.fillText("NT$ ", width - padding - 400, y);
+
+  ctx.fillStyle = "#d9002a";
+  ctx.font = "800 68px 'Bodoni Moda', serif";
+  ctx.textAlign = "right";
+  ctx.fillText(formatPrice(total), width - padding, y + 8);
+  ctx.textAlign = "left";
+
+  ctx.fillStyle = "rgba(230, 189, 185, 0.72)";
+  ctx.font = "500 18px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+  ctx.fillText("Aoi Hinamori Art Exhibition", padding, height - 82);
+
+  const link = document.createElement("a");
+  link.download = `aoi-hinamori-art-exhibition-goods-${Date.now()}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderGoodsList();
   document.querySelectorAll(".calculator-reset").forEach((button) => {
     button.addEventListener("click", resetCalculator);
+  });
+  document.querySelectorAll(".calculator-export").forEach((button) => {
+    button.addEventListener("click", exportSummaryImage);
   });
   calculateTotal();
 });
