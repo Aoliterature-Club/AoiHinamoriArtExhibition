@@ -60,10 +60,34 @@ iframe {
 }
 
 .pv-modal.is-open,
+.image-modal.is-open,
 .transport-modal.is-open,
 .transport-modal:target,
 .calculator-modal.is-open {
     display: flex;
+}
+
+#mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(24px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#mobile-menu.is-open {
+    display: flex;
+}
+
+#mobile-menu.is-visible {
+    opacity: 1;
 }
 
 .transport-trigger,
@@ -106,6 +130,17 @@ iframe {
 
 .calculator-modal > div {
     max-height: calc(100vh - 80px);
+}
+
+.image-modal-panel {
+    max-height: calc(100vh - 88px);
+}
+
+.image-modal-image {
+    display: block;
+    width: 100%;
+    max-height: min(74vh, 780px);
+    object-fit: contain;
 }
 
 .goods-card {
@@ -164,6 +199,19 @@ iframe {
 
 .source-link:hover .source-link-arrow {
     transform: translateX(3px);
+}
+
+.profile-spark {
+    width: 12px;
+    height: 12px;
+}
+
+.profile-spark-blue {
+    fill: #8bd1f9;
+}
+
+.profile-spark-pink {
+    fill: #ff91b4;
 }
 
 ::-webkit-scrollbar {

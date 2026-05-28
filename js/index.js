@@ -35,8 +35,15 @@ const transportCloseButton = document.getElementById('transport-modal-close');
 const transportOpenButton = document.getElementById('transport-open');
 const calculatorModal = document.getElementById('calculator-modal');
 const calculatorFrame = document.getElementById('calculator-frame');
-const calculatorOpenButton = document.getElementById('calculator-open');
+const calculatorTriggers = document.querySelectorAll('.calculator-trigger');
 const calculatorCloseButton = document.getElementById('calculator-modal-close');
+const imageModal = document.getElementById('image-modal');
+const imageModalContent = document.getElementById('image-modal-content');
+const imageModalTitle = document.getElementById('image-modal-title');
+const imageModalText = document.getElementById('image-modal-text');
+const imageModalLink = document.getElementById('image-modal-link');
+const imageModalCloseButton = document.getElementById('image-modal-close');
+const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 
 function withOrigin(src) {
     const videoUrl = new URL(src);
@@ -46,7 +53,7 @@ function withOrigin(src) {
     return videoUrl.toString();
 }
 
-function openPvModal() {
+function openPvModal(isUserClick = false) {
     if (!pvModal || !pvPlayer) return;
 
     if (window.location.protocol === 'file:') {
@@ -60,7 +67,15 @@ function openPvModal() {
     pvFrameWrap?.classList.remove('hidden');
     pvLocalWarning?.classList.add('hidden');
 
-    pvPlayer.src = withOrigin(pvPlayer.dataset.src);
+    let videoUrl = withOrigin(pvPlayer.dataset.src);
+    if (isUserClick) {
+        videoUrl = videoUrl.replace('mute=1', 'mute=0');
+        pvSoundToggle?.classList.add('hidden');
+    } else {
+        pvSoundToggle?.classList.remove('hidden');
+    }
+
+    pvPlayer.src = videoUrl;
     pvModal.classList.add('is-open');
     pvModal.setAttribute('aria-hidden', 'false');
 }
@@ -128,16 +143,56 @@ function closeCalculatorModal() {
     calculatorModal.setAttribute('aria-hidden', 'true');
 }
 
-pvOpenButton?.addEventListener('click', openPvModal);
-pvNavOpenButton?.addEventListener('click', (event) => {
-    event.preventDefault();
-    openPvModal();
+function setModalText(element, value) {
+    if (!element) return;
+
+    if (value) {
+        element.textContent = value;
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('hidden');
+    }
+}
+
+function openImageModal(src, title, description, link) {
+    if (!imageModal || !imageModalContent) return;
+    imageModalContent.src = src;
+
+    setModalText(imageModalTitle, title);
+    setModalText(imageModalText, description);
+
+    if (imageModalLink) {
+        if (link) {
+            imageModalLink.href = link;
+            imageModalLink.classList.remove('hidden');
+            imageModalLink.classList.add('flex');
+        } else {
+            imageModalLink.classList.add('hidden');
+            imageModalLink.classList.remove('flex');
+        }
+    }
+
+    imageModal.classList.add('is-open');
+    imageModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeImageModal() {
+    if (!imageModal) return;
+    imageModal.classList.remove('is-open');
+    imageModal.setAttribute('aria-hidden', 'true');
+    setTimeout(() => { imageModalContent.src = ''; }, 300); // Clear after transition
+}
+
+pvOpenButton?.addEventListener('click', () => openPvModal(true));
+pvNavOpenButton?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPvModal(true);
 });
 pvCloseButton?.addEventListener('click', closePvModal);
 pvSoundToggle?.addEventListener('click', enablePvSound);
 transportCloseButton?.addEventListener('click', closeTransportModal);
 transportOpenButton?.addEventListener('click', openTransportModal);
-calculatorOpenButton?.addEventListener('click', openCalculatorModal);
+calculatorTriggers.forEach(btn => btn.addEventListener('click', openCalculatorModal));
 calculatorCloseButton?.addEventListener('click', closeCalculatorModal);
 document.querySelectorAll('#faq button').forEach((button) => {
     button.addEventListener('click', () => {
@@ -155,6 +210,17 @@ calculatorModal?.addEventListener('click', (event) => {
         closeCalculatorModal();
     }
 });
+lightboxTriggers.forEach(img => {
+    img.addEventListener('click', () => {
+        openImageModal(img.src, img.dataset.title, img.dataset.description, img.dataset.link);
+    });
+});
+imageModalCloseButton?.addEventListener('click', closeImageModal);
+imageModal?.addEventListener('click', (event) => {
+    if (event.target === imageModal) {
+        closeImageModal();
+    }
+});
 pvModal?.addEventListener('click', (event) => {
     if (event.target === pvModal) {
         closePvModal();
@@ -166,12 +232,64 @@ document.addEventListener('keydown', (event) => {
         closePvModal();
         closeTransportModal();
         closeCalculatorModal();
+        closeImageModal();
     }
 });
+
+// Mobile Menu
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+function openMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('is-open');
+    setTimeout(() => {
+        mobileMenu.classList.add('is-visible');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('is-visible');
+    setTimeout(() => {
+        mobileMenu.classList.remove('is-open');
+    }, 300);
+    document.body.style.overflow = '';
+}
+
+mobileMenuBtn?.addEventListener('click', openMobileMenu);
+mobileMenuCloseBtn?.addEventListener('click', closeMobileMenu);
+mobileNavLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
+// Scroll Spy for Navigation Links
+const navLinks = document.querySelectorAll('.desktop-nav-link, .mobile-nav-link');
+const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.remove('text-on-surface-variant', 'hover:text-secondary');
+                    link.classList.add('text-secondary', 'hover:text-primary');
+                } else {
+                    link.classList.remove('text-secondary', 'hover:text-primary');
+                    link.classList.add('text-on-surface-variant', 'hover:text-secondary');
+                }
+            });
+        }
+    });
+}, { rootMargin: '-30% 0px -30% 0px' });
+
+document.querySelectorAll('section[id]').forEach(sec => spyObserver.observe(sec));
 
 window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-inline-pv="true"]').forEach((player) => {
         player.src = withOrigin(player.dataset.src);
     });
-    window.setTimeout(openPvModal, 500);
+    window.setTimeout(() => openPvModal(false), 500);
 });
