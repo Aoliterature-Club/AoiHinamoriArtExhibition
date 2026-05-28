@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="dark" lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/tailwind.css?v=20260528-11" />
+    <link rel="stylesheet" href="css/theme.css?v=20260528-11" />
+    <link rel="stylesheet" href="css/site.css?v=20260528-11" />
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md overflow-x-hidden min-h-screen"
+  >
+    <main
+      class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 pb-44 lg:pb-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-6 md:gap-gutter"
+    >
+      <section class="space-y-6 md:space-y-8">
+        <div class="border-l-2 border-primary-container pl-5 md:pl-6 py-2">
+          <p
+            class="text-label-sm font-label-sm text-secondary tracking-[0.28em] uppercase mb-3"
+          >
+            GOODS CALCULATOR
+          </p>
+          <h1
+            class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase"
+          >
+            周邊商品金額試算
+          </h1>
+          <p
+            class="text-on-surface-variant font-body-md md:font-body-lg italic mt-2"
+          >
+            選擇想購入的品項，快速估算展場周邊總金額。
+          </p>
+        </div>
+
+        <div class="space-y-4" id="goods-list"></div>
+      </section>
+
+      <aside class="hidden lg:block">
+        <div
+          class="glass-panel p-8 sticky top-8 rounded-xl border-outline-variant/50"
+        >
+          <div class="border-b border-outline-variant/30 pb-6 mb-6">
+            <h2
+              class="font-display-lg text-headline-lg text-on-surface tracking-wide"
+            >
+              總覽
+            </h2>
+            <p
+              class="text-label-sm font-label-sm text-on-tertiary-fixed-variant uppercase"
+            >
+              估算
+            </p>
+          </div>
+          <div class="pt-6">
+            <div class="flex justify-between items-end">
+              <span class="font-label-sm text-on-tertiary-fixed-variant"
+                >總金額</span
+              >
+              <div class="text-right">
+                <span class="text-secondary font-label-sm mr-2">NT$</span>
+                <span
+                  class="text-primary-container font-display-lg text-display-lg total-amount"
+                  >0</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="pt-6 space-y-4 mb-10 min-h-[100px] border-t border-outline-variant/30"
+            id="breakdown"
+          >
+            <p
+              class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic"
+            >
+              選擇任一商品開始計算...
+            </p>
+          </div>
+          <div class="mt-8 grid grid-cols-2 gap-4">
+            <button
+              class="py-3 px-6 glass-panel text-on-surface-variant hover:text-secondary hover:border-secondary transition-all font-label-sm uppercase tracking-widest text-sm rounded"
+              type="button"
+              onclick="resetCalculator()"
+            >
+              重置
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section
+      class="lg:hidden fixed bottom-0 left-0 w-full z-50 glass-panel border-t border-outline-variant/20 px-margin-mobile py-4 flex flex-col gap-4"
+    >
+      <div class="flex justify-between items-baseline">
+        <span
+          class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest"
+          >總金額</span
+        >
+        <div class="flex items-baseline gap-2">
+          <span class="font-body-md text-body-md text-secondary">NT$</span>
+          <span
+            class="font-display-lg text-headline-lg text-secondary tabular-nums total-amount"
+            >0</span
+          >
+        </div>
+      </div>
+      <div class="grid grid-cols-[1fr_2fr] gap-3 h-14">
+        <button
+          class="font-label-sm text-label-sm uppercase tracking-widest border border-outline-variant text-on-surface-variant rounded-full active:bg-surface-variant transition-colors"
+          type="button"
+          onclick="resetCalculator()"
+        >
+          重置
+        </button>
+      </div>
+    </section>
+
+    <script src="js/goods-calculator.js?v=20260528-14"></script>
+  </body>
+</html>

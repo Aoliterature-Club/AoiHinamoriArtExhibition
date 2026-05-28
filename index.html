@@ -1,0 +1,1024 @@
+﻿<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>蝕 / 光 Aoi Hinamori Art Exhibition</title>
+    <link rel="icon" type="image/x-icon" href="logo.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/tailwind.css?v=20260528-9" />
+    <link rel="stylesheet" href="css/theme.css?v=20260528-9" />
+    <link rel="stylesheet" href="css/site.css?v=20260528-9" />
+  </head>
+  <body class="overflow-x-hidden">
+    <div
+      class="pv-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop"
+      id="pv-modal"
+      aria-hidden="true"
+    >
+      <button
+        class="absolute top-6 right-6 md:top-8 md:right-8 text-secondary hover:text-primary transition-colors z-10"
+        id="pv-modal-close"
+        type="button"
+        aria-label="Close PV"
+      >
+        <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+      <div class="w-full max-w-5xl">
+        <div
+          class="relative aspect-video rounded-xl overflow-hidden border border-secondary/30 crimson-glow bg-black"
+          id="pv-frame-wrap"
+        >
+          <iframe
+            class="w-full h-full"
+            id="pv-player"
+            title="蝕 / 光 Aoi Hinamori Art Exhibition PV"
+            src=""
+            data-src="https://www.youtube-nocookie.com/embed/euczkAPlXyM?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&enablejsapi=1"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="mt-5 text-center">
+          <a
+            class="inline-flex items-center gap-2 text-label-sm font-label-sm text-secondary hover:text-primary tracking-[0.18em] uppercase"
+            href="https://youtu.be/euczkAPlXyM"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="material-symbols-outlined text-[18px]"
+              >open_in_new</span
+            >
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="transport-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop"
+      id="transport-modal"
+      aria-hidden="true"
+    >
+      <a
+        href="#info"
+        class="absolute top-6 right-6 md:top-8 md:right-8 text-secondary hover:text-primary transition-colors z-10"
+        id="transport-modal-close"
+        aria-label="Close transportation information"
+      >
+        <span class="material-symbols-outlined text-4xl">close</span>
+      </a>
+      <div
+        class="glass-card w-full max-w-4xl max-h-[82vh] overflow-y-auto rounded-xl border border-secondary/30 crimson-glow p-6 md:p-10"
+      >
+        <div class="border-l-4 border-primary-container pl-5 mb-8">
+          <p class="font-label-sm text-secondary tracking-[0.24em] mb-2">
+            ACCESS
+          </p>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">
+            交通方式
+          </h2>
+        </div>
+        <div class="space-y-6 text-on-surface-variant">
+          <p>（以下為 Google Gemini 統整資訊）</p>
+          <section>
+            <h3
+              class="flex items-center gap-2 font-title-md text-title-md text-secondary mb-3"
+            >
+              <span class="material-symbols-outlined text-[20px]">subway</span>
+              1. 搭乘捷運（最推薦）
+            </h3>
+            <p class="font-body-md leading-relaxed">
+              車站：搭乘捷運板南線（藍線）或松山新店線（綠線）至「西門站」。 從
+              1
+              號出口出站後，左轉沿著漢中街往南直行，中途會經過西門紅樓，步行大約
+              3 到 5 分鐘即可抵達。
+            </p>
+          </section>
+          <section>
+            <h3
+              class="flex items-center gap-2 font-title-md text-title-md text-secondary mb-3"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >two_wheeler</span
+              >
+              2. 共享機車或叫車
+            </h3>
+            <p class="font-body-md leading-relaxed">
+              趕時間時可使用 GoShare 或 iRent
+              騎乘機車前往，西門町周邊有許多機車停車格可供借還。 若搭乘 Uber
+              或計程車，可將下車點設在「漢中街與內江街交叉口」附近；從中正區一帶出發約
+              10 到 15 分鐘。
+            </p>
+          </section>
+          <section>
+            <h3
+              class="flex items-center gap-2 font-title-md text-title-md text-secondary mb-3"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >directions_bus</span
+              >
+              3. 搭乘公車
+            </h3>
+            <p class="font-body-md leading-relaxed">
+              可搭乘多路公車，如 12、202、212、218、223、260
+              等，至「捷運西門站」或「西門市場（成都）」站下車，
+              再朝漢中街方向步行約 5 分鐘內即可到達。
+            </p>
+          </section>
+          <section>
+            <h3
+              class="flex items-center gap-2 font-title-md text-title-md text-secondary mb-3"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >local_parking</span
+              >
+              4. 自行開車
+            </h3>
+            <p class="font-body-md leading-relaxed">
+              西門町周邊假日或尖峰時段車流量較大，且巷弄狹窄、路邊停車格較難尋找。
+              建議停放在峨眉立體停車場、台灣聯通停車場（大世界場）或中山堂地下停車場，再步行約
+              5 到 10 分鐘前往。
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div
+      class="calculator-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop"
+      id="calculator-modal"
+      aria-hidden="true"
+    >
+      <button
+        class="absolute top-6 right-6 md:top-8 md:right-8 text-secondary hover:text-primary transition-colors z-10"
+        id="calculator-modal-close"
+        type="button"
+        aria-label="Close goods calculator"
+      >
+        <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+      <div
+        class="w-full max-w-6xl overflow-hidden rounded-xl border border-secondary/30 crimson-glow bg-background"
+      >
+        <iframe
+          class="calculator-frame"
+          id="calculator-frame"
+          title="周邊商品金額試算"
+          src="goods-calculator.html?v=20260528-14"
+          data-src="goods-calculator.html?v=20260528-14"
+        ></iframe>
+      </div>
+    </div>
+    <!-- Top Navigation Anchor (Desktop Navigation Drawer logic applied as TopAppBar) -->
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 px-margin-desktop h-16 flex justify-between items-center"
+    >
+      <div
+        class="text-headline-lg font-headline-lg tracking-widest text-on-surface"
+      >
+        <image
+          src="images/logo.png"
+          alt="Exhibition Logo"
+          class="h-10 w-auto"
+        />
+      </div>
+      <nav class="hidden md:flex gap-8">
+        <a
+          class="text-label-sm font-label-sm text-secondary hover:text-primary transition-colors tracking-[0.2em]"
+          href="#info"
+          >展覽資訊</a
+        >
+        <a
+          class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors tracking-[0.2em]"
+          href="#goods"
+          >周邊資訊</a
+        >
+        <a
+          class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors tracking-[0.2em]"
+          href="#faq"
+          >FAQ</a
+        >
+      </nav>
+      <div class="flex items-center gap-4">
+        <button
+          class="md:hidden material-symbols-outlined text-on-surface"
+          data-icon="menu"
+        >
+          menu
+        </button>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section
+      class="relative h-screen flex items-center justify-center overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          alt="蝕 / 光 Aoi Hinamori Art Exhibition Main Visual"
+          class="w-full h-full object-cover scale-110 motion-safe:animate-[pulse_10s_infinite_alternate]"
+          src="images/pv-clip.gif"
+          style="filter: brightness(0.6)"
+        />
+        <div class="absolute inset-0 hero-vignette"></div>
+      </div>
+      <div class="relative z-10 text-center fade-in max-w-3xl px-margin-mobile">
+        <image
+          src="images/logo2.png"
+          alt="Exhibition Logo"
+          class="mx-auto mb-6 w-48 h-auto"
+        />
+        <p
+          class="font-title-md text-title-md text-secondary tracking-[0.3em] mb-8"
+        >
+          Aoi Hinamori Art Exhibition
+        </p>
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-6"
+        >
+          <div class="flex flex-col items-center">
+            <span
+              class="text-label-sm font-label-sm text-outline tracking-widest"
+              >時間</span
+            >
+            <span class="font-title-md text-title-md">2026/06/05 ~ 06/14</span>
+          </div>
+          <div class="h-px w-12 bg-secondary/50 hidden md:block"></div>
+          <div class="flex flex-col items-center">
+            <span
+              class="text-label-sm font-label-sm text-outline tracking-widest"
+              >地點</span
+            >
+            <span class="font-title-md text-title-md"
+              ><a
+                href="https://maps.app.goo.gl/4FLBcY52J43QyqLL8"
+                target="_blank"
+                >築步苑（台北市萬華區漢中街160號）</a
+              ></span
+            >
+          </div>
+        </div>
+        <div class="mt-12">
+          <button
+            class="bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
+            id="pv-open"
+            type="button"
+          >
+            觀看PV
+          </button>
+        </div>
+      </div>
+      <div
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce"
+      >
+        <span class="text-label-sm font-label-sm text-outline mb-2"
+          >SCROLL</span
+        >
+        <span class="material-symbols-outlined text-secondary"
+          >keyboard_double_arrow_down</span
+        >
+      </div>
+    </section>
+    <!-- Exhibition Info Section -->
+    <section class="py-32 px-margin-desktop bg-surface" id="info">
+      <div
+        class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 items-start"
+      >
+        <div class="order-2 md:order-1">
+          <h2
+            class="font-headline-lg text-headline-lg text-secondary mb-8 border-l-4 border-primary-container pl-6"
+          >
+            Aoi Hinamori 初✦個展《蝕 / 光》
+          </h2>
+          <div
+            class="space-y-6 font-body-lg text-body-lg text-on-surface-variant leading-relaxed info-copy"
+          >
+            <p class="text-justify">
+              《蝕 / 光》<br />
+              代表著「光曾被吞沒，但從未真正消失」<br />
+              <br />
+              這不只是一場畫展<br />
+              更是我一路走來的故事！<br />
+              <br />
+              也許你會看見曾經閃閃發亮的我、<br />
+              看見被黑暗吞沒的我、<br />
+              也看見最後那個重新學會與自己和解的我。<br />
+              <br />
+              謝謝一路陪伴著我的你們<br />
+              因為有你們，<br />
+              我才能一步一步走到現在！<br />
+              <br />
+              這一次，<br />
+              我想親自帶你們走進《蝕 / 光》的世界。<br /><br />
+              <a
+                class="source-link"
+                href="https://x.com/AoiHinamori/status/2058909320495128866"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Read source post from Aoi Hinamori on Twitter/X"
+              >
+                <span>from Aoi Hinamori on Twitter/X</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                  />
+                </svg>
+                <span class="source-link-arrow">→</span>
+              </a>
+              <br />
+            </p>
+          </div>
+        </div>
+        <div class="order-1 md:order-2 relative">
+          <div
+            class="absolute -inset-4 bg-primary-container/10 blur-3xl rounded-full"
+          ></div>
+          <div
+            class="relative z-10 glass-card rounded-xl overflow-hidden border border-secondary/30 crimson-glow"
+          >
+            <div class="grid grid-cols-1 sm:grid-cols-[190px_1fr]">
+              <div class="p-4 sm:p-0">
+                <div
+                  class="relative aspect-square sm:aspect-[4/5] bg-black overflow-hidden"
+                >
+                  <img
+                    class="absolute inset-0 w-full h-full object-cover opacity-90"
+                    src="https://yt3.googleusercontent.com/6Iolft6K5hFv-0U3q_D7CHOONuM9prt-CoeVDJ8m2I8AfGuoWM8G7EfmUewwlLbSo9Hl6IBfOg=s160-c-k-c0x00ffffff-no-rj"
+                    alt="profile"
+                  />
+                  <span
+                    class="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent"
+                  ></span>
+                </div>
+              </div>
+              <div class="p-6 md:p-8">
+                <p class="font-label-sm text-secondary tracking-[0.24em] mb-3">
+                  PROFILE
+                </p>
+                <h3
+                  class="font-headline-lg text-headline-lg text-on-surface mb-6"
+                >
+                  Aoi Hinamori
+                </h3>
+                <dl class="space-y-4 mb-6">
+                  <div
+                    class="grid grid-cols-[72px_1fr] gap-4 border-b border-outline-variant/20 pb-3"
+                  >
+                    <dt class="font-label-sm text-secondary">生日</dt>
+                    <dd class="font-body-md text-on-surface-variant">
+                      10 / 24
+                    </dd>
+                    <dt class="font-label-sm text-secondary">種族</dt>
+                    <dd class="font-body-md text-on-surface-variant">吸血鬼</dd>
+                    <dt class="font-label-sm text-secondary">職業</dt>
+                    <dd class="font-body-md text-on-surface-variant">護士</dd>
+                  </div>
+                </dl>
+              </div>
+              <div
+                class="p-6 pt-0 sm:col-span-2 sm:px-6 sm:pt-2 md:px-8 md:pt-3 md:pb-7"
+              >
+                <p
+                  class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6"
+                >
+                  出生於魔界的吸血鬼護士，台灣個人勢Vtuber，於2021年2月6日正式出道。
+                  主要於YT上進行直播，偶然會在圖奇上開台，直播內容以雜談為主，
+                  偶爾會有遊戲台、企劃台、歌枠及ASMR。
+                </p>
+              </div>
+              <div class="p-6 pt-0 sm:col-span-2 sm:px-6 sm:pb-8 md:px-8">
+                <p class="font-label-sm text-secondary mb-3">社群平台</p>
+                <div class="flex flex-wrap gap-3">
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://lit.link/en/aoihinamori"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a3 3 0 0 1 4.2 4.2l-2.1 2.1a1 1 0 1 0 1.4 1.4l2.1-2.1a5 5 0 0 0-7.1-7.1L9.2 10.6a1 1 0 0 0 1.4 1.4Zm2.8-2.8a1 1 0 0 1 0 1.4l-3.5 3.5a3 3 0 0 1-4.2-4.2l2.1-2.1a1 1 0 1 0-1.4-1.4l-2.1 2.1a5 5 0 0 0 7.1 7.1l3.5-3.5a1 1 0 0 0-1.5-1.3Z"
+                      />
+                    </svg>
+                    lit.link
+                  </a>
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://www.youtube.com/@AoiHinamoriCh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"
+                      />
+                    </svg>
+                    YouTube
+                  </a>
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://x.com/AoiHinamori"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      fill="#1DA1F2"
+                    >
+                      <path
+                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                      />
+                    </svg>
+                    Twitter/X
+                  </a>
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://www.facebook.com/AoiHinamori1024"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1C0 18.1 4.4 23 10.1 24v-8.4h-3v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.4l-.5 3.5h-2.9V24C19.6 23 24 18.1 24 12.1Z"
+                      />
+                    </svg>
+                    Facebook
+                  </a>
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://www.instagram.com/aoihinamori_vtuber/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.8A4.2 4.2 0 1 1 12 16.2 4.2 4.2 0 0 1 12 7.8Zm0 2A2.2 2.2 0 1 0 12 14.2 2.2 2.2 0 0 0 12 9.8Zm4.6-3.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
+                      />
+                    </svg>
+                    Instagram
+                  </a>
+                  <a
+                    class="inline-flex items-center gap-2 rounded border border-secondary/30 px-4 py-3 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+                    href="https://www.twitch.tv/aoihinamori"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      class="social-icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 2h18v12.5L16.8 20h-4.1L9.4 23H6v-3H2V6l2-4Zm2 2-1 2v11h4v3.1l2.9-3.1h4l4.1-4.3V4H6Zm5 4h2v6h-2V8Zm5 0h2v6h-2V8Z"
+                      />
+                    </svg>
+                    Twitch
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="order-3 md:col-span-2 glass-card p-6 md:p-8 rounded-xl border border-secondary"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="flex items-start gap-4">
+              <span class="material-symbols-outlined text-secondary text-[22px]"
+                >schedule</span
+              >
+              <div>
+                <p class="font-label-sm text-secondary mb-2">時間</p>
+                <p class="font-title-md text-title-md">
+                  2026/06/05 (五) ~ 06/14 (日)<br />11:00 – 18:00
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="material-symbols-outlined text-secondary text-[22px]"
+                >location_on</span
+              >
+              <div>
+                <p class="font-label-sm text-secondary mb-2">地點</p>
+                <p class="font-title-md text-title-md">
+                  <a
+                    href="https://maps.app.goo.gl/4FLBcY52J43QyqLL8"
+                    target="_blank"
+                    >築步苑（台北市萬華區漢中街160號）</a
+                  >
+                </p>
+                <a
+                  href="https://maps.app.goo.gl/4FLBcY52J43QyqLL8"
+                  target="_blank"
+                  class="mt-2 inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >open_in_new</span
+                  >
+                  點我打開 Google Maps
+                </a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="material-symbols-outlined text-secondary text-[22px]"
+                >confirmation_number</span
+              >
+              <div>
+                <p class="font-label-sm text-secondary mb-2">費用</p>
+                <p class="font-title-md text-title-md">全程免費參觀</p>
+              </div>
+            </div>
+            <a
+              href="#transport-modal"
+              class="transport-trigger flex items-start gap-4 text-left"
+              id="transport-open"
+              aria-label="查看交通方式"
+            >
+              <span class="material-symbols-outlined text-secondary text-[22px]"
+                >directions_transit</span
+              >
+              <div>
+                <p class="font-label-sm text-secondary mb-2">交通方式</p>
+                <p class="font-title-md text-title-md">
+                  <span class="material-symbols-outlined text-[14px]"
+                    >open_in_new</span
+                  >
+                  點我查看建議的交通方式
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- goods Gallery (Bento Style) -->
+    <section
+      class="py-32 px-margin-desktop bg-surface-container-lowest"
+      id="goods"
+    >
+      <div class="max-w-container-max mx-auto">
+        <div class="flex justify-between items-end mb-16">
+          <div>
+            <h2
+              class="font-headline-lg text-headline-lg text-secondary mb-8 border-l-4 border-primary-container pl-6"
+            >
+              展覽限定周邊商品
+            </h2>
+          </div>
+          <a
+            href="goods-calculator.html"
+            class="calculator-trigger inline-flex flex-col items-start gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline"
+            id="calculator-open"
+          >
+            <span>不知道要花多少？</span>
+            <span class="inline-flex items-center gap-2">
+              <span>來試算你要買的周邊總金額吧</span>
+              <span aria-hidden="true">→</span>
+              <span
+                class="material-symbols-outlined text-[18px] leading-none group-hover:translate-x-1 transition-transform"
+                >payments</span
+              >
+            </span>
+          </a>
+        </div>
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Item 1 Vertical -->
+          <div
+            class="group relative aspect-[3/5] overflow-hidden rounded-xl border border-outline-variant/20"
+          >
+            <img
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              alt="Exhibition goods preview"
+              src="images/goods1.jfif"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-8">
+              <span
+                class="bg-primary-container text-white text-[10px] px-2 py-1 tracking-widest rounded-sm mb-4 inline-block"
+                >LIMITED EDITION</span
+              >
+              <h3
+                class="font-headline-lg text-headline-lg text-on-surface mb-2"
+              >
+                Exhibition Goods Preview
+              </h3>
+              <p class="text-secondary font-title-md">Coming Soon</p>
+            </div>
+          </div>
+          <!-- Item 2 Vertical -->
+          <div
+            class="group relative aspect-[3/5] overflow-hidden rounded-xl border border-outline-variant/20"
+          >
+            <img
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              alt="Exhibition goods preview"
+              src="images/goods2.jfif"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6">
+              <h3 class="font-title-md text-title-md text-on-surface">
+                Limited Goods Preview
+              </h3>
+              <p class="text-secondary font-label-sm">Coming Soon</p>
+            </div>
+          </div>
+          </div>
+          <!-- Item 3 Horizontal -->
+          <div
+            class="group relative aspect-[16/7] overflow-hidden rounded-xl border border-outline-variant/20"
+          >
+            <img
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              alt="LAHEE goods preview"
+              src="images/LAHEE.jfif"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-4 w-full glass-card translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+            >
+              <p class="font-label-sm text-secondary">LAHEE Preview</p>
+              <p class="text-on-surface text-xs">Coming Soon</p>
+            </div>
+          </div>
+          <!-- Item 4 Horizontal -->
+          <div
+            class="group relative aspect-[16/7] overflow-hidden rounded-xl border border-outline-variant/20"
+          >
+            <img
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              alt="Card goods preview"
+              src="images/50cards.jpg"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-4 w-full glass-card translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+            >
+              <p class="font-label-sm text-secondary">Card Goods Preview</p>
+              <p class="text-on-surface text-xs">Coming Soon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="py-32 px-margin-desktop bg-surface" id="faq">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-display-lg text-display-lg mt-4">常見問題</h2>
+        </div>
+        <div class="space-y-4">
+          <!-- Accordion 1 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >展覽成功的話，未來有機會加開中部或南部場次嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              目前本次展覽僅規劃單一場次，暫無加辦中南部場的計畫，敬請大家把握本次的觀展機會！
+            </div>
+          </div>
+
+          <!-- Accordion 2 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >預購商品會如何配送？需要到指定地點領取嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              預購商品將會採用宅配寄送，直接為您配送至指定的收件地址，無需自行前往實體地點領取。
+            </div>
+          </div>
+
+          <!-- Accordion 3 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >現場畫作若有多人想購買，會採用競標方式嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              本展覽的畫作販售不開放任何形式的競標，將採「先到先得」的方式進行。詳細的購買與排隊規則，Aoi
+              會在近期的直播中為大家完整說明。
+            </div>
+          </div>
+
+          <!-- Accordion 4 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >展出的畫作若已被訂購，卻在展覽期間遭到意外損壞，後續的賠償責任會如何釐清？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              展覽現場全程皆設有監視器錄影。若展品遭到人為破壞，肇事者須負起全額賠償責任，包含畫作原價及重新製作的相關費用。若無法配合，主辦單位將直接報警處理以維護買賣雙方權益。請觀展者務必小心愛護展品。
+            </div>
+          </div>
+
+          <!-- Accordion 5 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >若現場實施人流管制需要排隊，會有遮陽或避雨的設施嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              展場外的排隊等候區位於騎樓下方，具有基本的遮風避雨與遮陽效果，請各位放心。
+            </div>
+          </div>
+
+          <!-- Accordion 6 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >現場會設置 Aoi 的個人贊助箱（奉納箱）或提供個人 LINE PAY
+                QR-Code 嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              由於本次展覽由協辦單位共同處理，為確保稅務與帳務作業嚴謹，現場將不會設置個人奉納箱或個人贊助條碼。<br />
+              （但你可以點擊<a
+                href="https://deerdonate.herokuapp.com/donation/AoiHinamori"
+                target="_blank"
+                class="text-primary hover:underline"
+                >這裡</a
+              >來斗內Aoi）
+            </div>
+          </div>
+
+          <!-- Accordion 7 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >展覽現場可以拍照嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              歡迎拍照！展場內開放來賓自由拍攝記錄。
+            </div>
+          </div>
+
+          <!-- Accordion 8 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >現場支援哪些付款方式？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              現場提供多元支付服務，包含：現金、信用卡、LINE PAY 以及銀行轉帳。
+            </div>
+          </div>
+
+          <!-- Accordion 9 -->
+          <div
+            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
+          >
+            <button
+              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
+              onclick="
+                this.nextElementSibling.classList.toggle('hidden');
+                this.querySelector('.arrow').classList.toggle('rotate-180');
+              "
+            >
+              <span
+                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
+                >如果在現場搗亂或搞事，會被處罰嗎？</span
+              >
+              <span
+                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
+                >expand_more</span
+              >
+            </button>
+            <div
+              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
+            >
+              為了維護所有觀展者的體驗與現場秩序，任何惡意搗亂或破壞行為，主辦單位將會直接報警處理，絕不寬貸。請大家共同營造良好的觀展環境喔！
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer
+      class="bg-surface-container-low py-16 px-margin-desktop border-t border-outline-variant/20"
+    >
+      <div
+        class="max-w-container-max mx-auto flex flex-col items-center justify-center gap-12 text-center"
+      >
+        <div class="flex flex-col items-center gap-6">
+          <p class="text-label-sm font-label-sm text-outline">
+            2026 ©
+            <a
+              href="https://lit.link/en/aoihinamori"
+              class="hover:text-secondary transition-colors"
+              >Aoi Hinamori Art Exhibition</a
+            ><br />
+            Website made by
+            <a
+              href="https://portaly.cc/KalinLai-void"
+              class="hover:text-secondary transition-colors"
+              >Kalin風凜魂太</a
+            >
+            (Special thanks for
+            <a
+              href="https://x.com/weloveaoi"
+              class="hover:text-secondary transition-colors"
+              >患燃依心</a
+            >
+            &
+            <a
+              href="https://x.com/AIC0305"
+              class="hover:text-secondary transition-colors"
+              >文依部</a
+            >)
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- Mobile Bottom Navigation (Visible only on mobile) -->
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-2 bg-surface-container-highest/90 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-4px_20px_rgba(180,0,28,0.15)] rounded-t-xl"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-primary scale-110"
+        href="#info"
+      >
+        <span class="material-symbols-outlined" data-icon="info">info</span>
+        <span class="text-label-sm font-label-sm">Info</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-60"
+        href="#goods"
+      >
+        <span class="material-symbols-outlined" data-icon="payments"
+          >payments</span
+        >
+        <span class="text-label-sm font-label-sm">goods</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-60"
+        href="#faq"
+      >
+        <span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+        <span class="text-label-sm font-label-sm">FAQ</span>
+      </a>
+    </nav>
+
+    <script src="js/index.js?v=20260528-6"></script>
+  </body>
+</html>
