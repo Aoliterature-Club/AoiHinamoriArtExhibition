@@ -1,7 +1,7 @@
 // Simple parallax effect for hero
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    const heroImg = document.querySelector('section img');
+    const heroImg = document.querySelector('.hero-backdrop-image');
     if (heroImg) {
         heroImg.style.transform = `translateY(${scrolled * 0.3}px) scale(1.1)`;
     }
@@ -139,6 +139,12 @@ transportCloseButton?.addEventListener('click', closeTransportModal);
 transportOpenButton?.addEventListener('click', openTransportModal);
 calculatorOpenButton?.addEventListener('click', openCalculatorModal);
 calculatorCloseButton?.addEventListener('click', closeCalculatorModal);
+document.querySelectorAll('#faq button').forEach((button) => {
+    button.addEventListener('click', () => {
+        button.nextElementSibling?.classList.toggle('hidden');
+        button.querySelector('.arrow')?.classList.toggle('rotate-180');
+    });
+});
 transportModal?.addEventListener('click', (event) => {
     if (event.target === transportModal) {
         closeTransportModal();

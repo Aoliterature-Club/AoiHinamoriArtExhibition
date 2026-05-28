@@ -259,5 +259,8 @@ function resetCalculator() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderGoodsList();
+  document.querySelectorAll(".calculator-reset").forEach((button) => {
+    button.addEventListener("click", resetCalculator);
+  });
   calculateTotal();
 });

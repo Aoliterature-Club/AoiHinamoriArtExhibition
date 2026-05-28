@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 
 <html class="dark" lang="en">
   <head>
@@ -19,9 +19,9 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/tailwind.css?v=20260528-15" />
-    <link rel="stylesheet" href="css/theme.css?v=20260528-15" />
-    <link rel="stylesheet" href="css/site.css?v=20260528-15" />
+    <link rel="stylesheet" href="css/tailwind.css?v=20260528-17" />
+    <link rel="stylesheet" href="css/theme.css?v=20260528-17" />
+    <link rel="stylesheet" href="css/site.css?v=20260528-21" />
   </head>
   <body class="overflow-x-hidden">
     <div
@@ -187,7 +187,7 @@
       class="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 px-margin-desktop h-16 flex justify-between items-center"
     >
       <div
-        class="text-headline-lg font-headline-lg tracking-widest text-on-surface"
+        class="text-headline-lg font-headline-lg tracking-widest text-on-surface header-left"
       >
         <image
           src="images/logo.png"
@@ -195,7 +195,7 @@
           class="h-10 w-auto"
         />
       </div>
-      <nav class="hidden md:flex gap-8">
+      <nav class="hidden md:flex gap-8 header-nav">
         <a
           class="text-label-sm font-label-sm text-secondary hover:text-primary transition-colors tracking-[0.2em]"
           href="#info"
@@ -212,7 +212,7 @@
           >FAQ</a
         >
       </nav>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 header-right">
         <button
           class="md:hidden material-symbols-outlined text-on-surface"
           data-icon="menu"
@@ -226,15 +226,18 @@
       class="relative h-screen flex items-center justify-center overflow-hidden"
     >
       <div class="absolute inset-0 z-0">
-        <img
-          alt="蝕 / 光 Aoi Hinamori Art Exhibition Main Visual"
-          class="w-full h-full object-cover scale-110 motion-safe:animate-[pulse_10s_infinite_alternate]"
-          src="images/pv-clip.gif"
-          style="filter: brightness(0.6)"
-        />
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="hero-backdrop-image w-full h-full object-cover scale-110"
+        >
+          <source src="images/pv-clip.mp4" type="video/mp4" />
+        </video>
         <div class="absolute inset-0 hero-vignette"></div>
       </div>
-      <div class="relative z-10 text-center fade-in max-w-3xl px-margin-mobile">
+      <div class="relative z-10 text-center fade-in max-w-4xl px-margin-mobile">
         <image
           src="images/logo2.png"
           alt="Exhibition Logo"
@@ -245,23 +248,23 @@
         >
           Aoi Hinamori Art Exhibition
         </p>
-        <div
-          class="flex flex-col md:flex-row items-center justify-center gap-6"
-        >
-          <div class="flex flex-col items-center">
+        <div class="hero-details-row max-w-4xl mx-auto">
+          <div class="hero-details-col left-col">
             <span
               class="text-label-sm font-label-sm text-outline tracking-widest"
               >時間</span
             >
-            <span class="font-title-md text-title-md">2026/06/05 ~ 06/14</span>
+            <span class="font-title-md text-title-md whitespace-nowrap"
+              >2026/06/05 ~ 06/14</span
+            >
           </div>
-          <div class="h-px w-12 bg-secondary/50 hidden md:block"></div>
-          <div class="flex flex-col items-center">
+          <div class="flex-shrink-0 hero-details-divider"></div>
+          <div class="hero-details-col right-col">
             <span
               class="text-label-sm font-label-sm text-outline tracking-widest"
               >地點</span
             >
-            <span class="font-title-md text-title-md"
+            <span class="font-title-md text-title-md whitespace-nowrap"
               ><a
                 href="https://maps.app.goo.gl/4FLBcY52J43QyqLL8"
                 target="_blank"
@@ -276,19 +279,19 @@
             id="pv-open"
             type="button"
           >
-            觀看PV
+            Watch PV
           </button>
         </div>
       </div>
-      <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce"
-      >
-        <span class="text-label-sm font-label-sm text-outline mb-2"
-          >SCROLL</span
-        >
-        <span class="material-symbols-outlined text-secondary"
-          >keyboard_double_arrow_down</span
-        >
+      <div class="absolute bottom-10 absolute-center">
+        <div class="flex flex-col items-center animate-bounce">
+          <span class="text-label-sm font-label-sm text-outline mb-2"
+            >SCROLL</span
+          >
+          <span class="material-symbols-outlined text-secondary"
+            >keyboard_double_arrow_down</span
+          >
+        </div>
       </div>
     </section>
     <!-- Exhibition Info Section -->
@@ -555,7 +558,7 @@
               >
               <div>
                 <p class="font-label-sm text-secondary mb-2">費用</p>
-                <p class="font-title-md text-title-md">全程免費參觀</p>
+                <p class="font-title-md text-title-md">免費</p>
               </div>
             </div>
             <a
@@ -676,10 +679,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -703,10 +702,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -730,10 +725,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -758,10 +749,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -785,10 +772,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -812,10 +795,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -846,10 +825,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -873,10 +848,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -900,10 +871,6 @@
           >
             <button
               class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-              onclick="
-                this.nextElementSibling.classList.toggle('hidden');
-                this.querySelector('.arrow').classList.toggle('rotate-180');
-              "
             >
               <span
                 class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
@@ -917,9 +884,23 @@
             <div
               class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
             >
-              為了維護所有觀展者的體驗與現場秩序，任何惡意搗亂或破壞行為，主辦單位將會直接報警處理，絕不寬貸。請大家共同營造良好的觀展環境喔！
+              為了維護所有觀展者的體驗與現場秩序，任何惡意搗亂或破壞行為，主辦單位將會直接報警處理，絕不寬待。請大家共同營造良好的觀展環境喔！
             </div>
           </div>
+        </div>
+        <!-- Disclaimer Banner -->
+        <div
+          class="glass-card rounded-xl border border-secondary/20 crimson-glow p-6 flex items-start gap-4 mt-12"
+        >
+          <span
+            class="material-symbols-outlined text-secondary text-3xl shrink-0 mt-0.5"
+            >info</span
+          >
+          <p class="font-body-md text-on-surface-variant leading-relaxed">
+            本網站之資訊不會永遠是最新消息，建議詳細資訊還是以
+            <span class="text-secondary font-semibold">Aoi Hinamori</span>
+            的直播說明及官方公告為準！
+          </p>
         </div>
       </div>
     </section>
@@ -989,6 +970,6 @@
       </a>
     </nav>
 
-    <script src="js/index.js?v=20260528-6"></script>
+    <script src="js/index.js?v=20260528-19"></script>
   </body>
 </html>
