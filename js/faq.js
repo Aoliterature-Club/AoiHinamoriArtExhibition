@@ -42,7 +42,7 @@ function getFaqText(key) {
   return messages[getFaqLanguage()]?.[key] || messages["zh-Hant"][key];
 }
 
-const allCategory = getFaqText("all");
+let allCategory = getFaqText("all");
 
 let faqItems = [];
 let activeCategory = allCategory;
@@ -284,6 +284,20 @@ faqModal?.addEventListener("click", (event) => {
   }
 });
 faqSearch?.addEventListener("input", renderFaqResults);
+window.addEventListener("aoi-language-change", async () => {
+  allCategory = getFaqText("all");
+  activeCategory = allCategory;
+  faqItems = [];
+  if (faqSearch) {
+    faqSearch.value = "";
+  }
+  if (faqModal?.classList.contains("is-open")) {
+    await loadFaqItems();
+  } else {
+    renderFaqCategories();
+    renderFaqResults();
+  }
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeFaqModal();

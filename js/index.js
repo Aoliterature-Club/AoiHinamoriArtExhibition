@@ -197,17 +197,23 @@ function closeTransportModal() {
     transportModal.setAttribute('aria-hidden', 'true');
 }
 
+function syncCalculatorLanguage() {
+    const lang = window.AoiI18n?.currentLanguage;
+    const calculatorI18n = calculatorFrame?.contentWindow?.AoiI18n;
+
+    if (!lang || !calculatorI18n?.changeLanguage) return;
+    calculatorI18n.changeLanguage(lang);
+}
+
 function openCalculatorModal(event) {
     event?.preventDefault();
     if (!calculatorModal || !calculatorFrame) return;
 
-    const targetUrl = new URL(calculatorFrame.dataset.src || 'goods-calculator.html', window.location.href);
-    if (window.AoiI18n?.currentLanguage) {
-        targetUrl.searchParams.set('lang', window.AoiI18n.currentLanguage);
-    }
-    const targetSrc = `${targetUrl.pathname.split('/').pop()}${targetUrl.search}`;
+    const targetSrc = calculatorFrame.dataset.src || 'goods-calculator.html';
     if (calculatorFrame.getAttribute('src') !== targetSrc) {
         calculatorFrame.setAttribute('src', targetSrc);
+    } else {
+        syncCalculatorLanguage();
     }
     calculatorModal.classList.add('is-open');
     calculatorModal.setAttribute('aria-hidden', 'false');
@@ -323,6 +329,12 @@ transportCloseButton?.addEventListener('click', closeTransportModal);
 transportOpenButton?.addEventListener('click', openTransportModal);
 calculatorTriggers.forEach(btn => btn.addEventListener('click', openCalculatorModal));
 calculatorCloseButton?.addEventListener('click', closeCalculatorModal);
+calculatorFrame?.addEventListener('load', syncCalculatorLanguage);
+window.addEventListener('aoi-language-change', () => {
+    if (calculatorModal?.classList.contains('is-open')) {
+        syncCalculatorLanguage();
+    }
+});
 transportModal?.addEventListener('click', (event) => {
     if (event.target === transportModal) {
         closeTransportModal();

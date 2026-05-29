@@ -127,6 +127,16 @@ const inventory = {
   },
 };
 
+const baseInventoryText = Object.fromEntries(
+  Object.entries(inventory).map(([id, item]) => [
+    id,
+    {
+      name: item.name,
+      detail: item.detail,
+    },
+  ]),
+);
+
 const inventoryTranslations = {
   en: {
     auroraStand: { name: "Aurora Color Acrylic Stand" },
@@ -233,6 +243,12 @@ function t(key) {
 }
 
 function applyInventoryTranslations() {
+  Object.entries(baseInventoryText).forEach(([id, values]) => {
+    if (!inventory[id]) return;
+    inventory[id].name = values.name;
+    inventory[id].detail = values.detail;
+  });
+
   const translations = inventoryTranslations[getCurrentLanguage()];
   if (!translations) return;
 
@@ -664,5 +680,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.querySelectorAll(".calculator-export").forEach((button) => {
     button.addEventListener("click", exportSummaryImage);
   });
+  calculateTotal();
+});
+
+window.addEventListener("aoi-language-change", () => {
+  if (!document.getElementById("goods-list")) return;
+  applyInventoryTranslations();
+  renderGoodsList();
   calculateTotal();
 });

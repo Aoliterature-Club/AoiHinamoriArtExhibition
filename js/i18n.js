@@ -6,24 +6,41 @@
     en: "English",
   };
 
-  function getLanguageFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    const lang = params.get("lang");
-    return supportedLanguages.includes(lang) ? lang : "";
-  }
-
   function getCurrentLanguage() {
     const savedLanguage = localStorage.getItem("aoi-lang");
-    return (
-      getLanguageFromUrl() ||
-      (supportedLanguages.includes(savedLanguage) ? savedLanguage : "zh-Hant")
-    );
+    if (supportedLanguages.includes(savedLanguage)) return savedLanguage;
+
+    const browserLanguages = navigator.languages?.length
+      ? navigator.languages
+      : [navigator.language || ""];
+    const normalizedLanguages = browserLanguages.map((lang) => lang.toLowerCase());
+
+    if (normalizedLanguages.some((lang) => lang.startsWith("ja"))) return "ja";
+    if (
+      normalizedLanguages.some(
+        (lang) =>
+          lang === "zh" ||
+          lang.startsWith("zh-hant") ||
+          lang.startsWith("zh-tw") ||
+          lang.startsWith("zh-hk") ||
+          lang.startsWith("zh-mo"),
+      )
+    ) {
+      return "zh-Hant";
+    }
+    if (normalizedLanguages.some((lang) => lang.startsWith("zh"))) return "zh-Hant";
+
+    return "en";
   }
 
-  const currentLanguage = getCurrentLanguage();
+  let currentLanguage = getCurrentLanguage();
   let currentDictionary = {};
   let fallbackDictionary = {};
   let languageSwitcherBuilt = false;
+  let readyResolve;
+  const ready = new Promise((resolve) => {
+    readyResolve = resolve;
+  });
 
   async function loadDictionary(lang) {
     const response = await fetch(`locales/${lang}.json`, { cache: "no-store" });
@@ -33,19 +50,13 @@
     return response.json();
   }
 
-  const ready = Promise.all([
-    loadDictionary("zh-Hant"),
-    currentLanguage === "zh-Hant" ? Promise.resolve(null) : loadDictionary(currentLanguage),
-  ])
-    .then(([fallback, current]) => {
-      fallbackDictionary = fallback || {};
-      currentDictionary = current || fallbackDictionary;
-    })
-    .catch((error) => {
-      console.warn(error);
-      fallbackDictionary = {};
-      currentDictionary = {};
-    });
+  async function setCurrentDictionary(lang) {
+    if (!Object.keys(fallbackDictionary).length) {
+      fallbackDictionary = await loadDictionary("zh-Hant");
+    }
+    currentDictionary =
+      lang === "zh-Hant" ? fallbackDictionary : await loadDictionary(lang);
+  }
 
   function t(key) {
     return currentDictionary[key] || fallbackDictionary[key] || key;
@@ -53,20 +64,66 @@
 
   function setText(selector, key) {
     document.querySelectorAll(selector).forEach((element) => {
+      if (!element.dataset.i18nOriginalText) {
+        element.dataset.i18nOriginalText = element.textContent;
+      }
       element.textContent = t(key);
     });
   }
 
   function setHtml(selector, key) {
     document.querySelectorAll(selector).forEach((element) => {
+      if (!element.dataset.i18nOriginalHtml) {
+        element.dataset.i18nOriginalHtml = element.innerHTML;
+      }
       element.innerHTML = t(key);
     });
   }
 
   function setAttr(selector, attr, key) {
     document.querySelectorAll(selector).forEach((element) => {
+      const originalKey = `i18nOriginal${attr
+        .replace(/(^|-)([a-z])/g, (_, __, char) => char.toUpperCase())}`;
+      if (!element.dataset[originalKey]) {
+        element.dataset[originalKey] = element.getAttribute(attr) || "";
+      }
       element.setAttribute(attr, t(key));
     });
+  }
+
+  function restoreOriginals() {
+    document.querySelectorAll("[data-i18n-original-html]").forEach((element) => {
+      element.innerHTML = element.dataset.i18nOriginalHtml;
+    });
+    document.querySelectorAll("[data-i18n-original-text]").forEach((element) => {
+      element.textContent = element.dataset.i18nOriginalText;
+    });
+
+    document.querySelectorAll("*").forEach((element) => {
+      Object.entries(element.dataset).forEach(([key, value]) => {
+        if (
+          !key.startsWith("i18nOriginal") ||
+          key === "i18nOriginalHtml" ||
+          key === "i18nOriginalText" ||
+          key === "i18nOriginalDiscordText"
+        ) {
+          return;
+        }
+        const attr = key
+          .replace(/^i18nOriginal/, "")
+          .replace(/[A-Z]/g, (char, index) => `${index ? "-" : ""}${char.toLowerCase()}`);
+        element.setAttribute(attr, value);
+      });
+    });
+
+    document.querySelectorAll("[data-i18n-original-discord-text]").forEach((element) => {
+      if (element.lastChild) {
+        element.lastChild.textContent = element.dataset.i18nOriginalDiscordText;
+      }
+    });
+
+    document.querySelector(".translation-notice")?.remove();
+    document.title = document.documentElement.dataset.i18nOriginalTitle || document.title;
   }
 
   function createLanguageSwitcher() {
@@ -91,13 +148,9 @@
       button.className = "language-menu-item";
       button.setAttribute("role", "menuitemradio");
       button.textContent = languageLabels[lang];
-      button.setAttribute("aria-pressed", String(lang === currentLanguage));
-      button.setAttribute("aria-checked", String(lang === currentLanguage));
-      button.addEventListener("click", () => {
-        localStorage.setItem("aoi-lang", lang);
-        const url = new URL(window.location.href);
-        url.searchParams.set("lang", lang);
-        window.location.href = url.toString();
+      button.dataset.lang = lang;
+      button.addEventListener("click", async () => {
+        await changeLanguage(lang);
       });
       menu.appendChild(button);
     });
@@ -137,7 +190,16 @@
     });
   }
 
+  function updateLanguageButtons() {
+    document.querySelectorAll(".language-menu-item").forEach((button) => {
+      const isActive = button.dataset.lang === currentLanguage;
+      button.setAttribute("aria-pressed", String(isActive));
+      button.setAttribute("aria-checked", String(isActive));
+    });
+  }
+
   function showTranslationNotice() {
+    document.querySelector(".translation-notice")?.remove();
     if (currentLanguage === "zh-Hant") return;
     const notice = document.createElement("div");
     notice.className = "translation-notice";
@@ -171,6 +233,9 @@
   }
 
   function localizeIndexPage() {
+    if (!document.documentElement.dataset.i18nOriginalTitle) {
+      document.documentElement.dataset.i18nOriginalTitle = document.title;
+    }
     document.title = t("page.title");
     setText(".desktop-nav-link[href='#info'], .mobile-nav-link[href='#info']", "nav.info");
     setText(".desktop-nav-link[href='#goods'], .mobile-nav-link[href='#goods']", "nav.goods");
@@ -193,7 +258,12 @@
     setText(".profile-label-row p", "profile.heading");
     setText(".profile-links > .flex > p", "profile.links");
     document.querySelectorAll(".profile-links a").forEach((link) => {
-      if (link.href.includes("discord.gg")) link.lastChild.textContent = t("profile.discord");
+      if (link.href.includes("discord.gg")) {
+        if (!link.dataset.i18nOriginalDiscordText && link.lastChild) {
+          link.dataset.i18nOriginalDiscordText = link.lastChild.textContent;
+        }
+        link.lastChild.textContent = t("profile.discord");
+      }
     });
     setText(".event-date-line", "event.date");
     setText(".event-hours-line", "event.hours");
@@ -233,6 +303,9 @@
   }
 
   function localizeCalculatorPage() {
+    if (!document.documentElement.dataset.i18nOriginalTitle) {
+      document.documentElement.dataset.i18nOriginalTitle = document.title;
+    }
     document.title = t("calculator.title");
     setText("main section > div:first-child h1", "calculator.title");
     setText("main section > div:first-child p:last-child", "calculator.description");
@@ -247,15 +320,28 @@
   function localizePage() {
     document.documentElement.lang = currentLanguage;
     document.body.dataset.lang = currentLanguage;
-    document.addEventListener("click", closeLanguageMenus);
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeLanguageMenus();
-    });
-    if (currentLanguage === "zh-Hant") return;
+    updateLanguageButtons();
+    restoreOriginals();
+    if (currentLanguage === "zh-Hant") {
+      window.dispatchEvent(new CustomEvent("aoi-language-change", { detail: { lang: currentLanguage } }));
+      return;
+    }
 
     showTranslationNotice();
     if (document.getElementById("goods-list")) localizeCalculatorPage();
     if (document.getElementById("info")) localizeIndexPage();
+    window.dispatchEvent(new CustomEvent("aoi-language-change", { detail: { lang: currentLanguage } }));
+  }
+
+  async function changeLanguage(lang) {
+    if (!supportedLanguages.includes(lang)) return;
+    currentLanguage = lang;
+    localStorage.setItem("aoi-lang", lang);
+    await setCurrentDictionary(lang);
+    window.AoiI18n.currentLanguage = currentLanguage;
+    window.AoiI18n.isTranslated = currentLanguage !== "zh-Hant";
+    localizePage();
+    closeLanguageMenus();
   }
 
   window.AoiI18n = {
@@ -263,11 +349,25 @@
     supportedLanguages,
     ready,
     t,
+    changeLanguage,
     isTranslated: currentLanguage !== "zh-Hant",
   };
 
   document.addEventListener("DOMContentLoaded", () => {
     buildLanguageSwitcher();
-    ready.then(localizePage);
+    document.addEventListener("click", closeLanguageMenus);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLanguageMenus();
+    });
+    setCurrentDictionary(currentLanguage)
+      .catch((error) => {
+        console.warn(error);
+        fallbackDictionary = {};
+        currentDictionary = {};
+      })
+      .finally(() => {
+        readyResolve();
+        localizePage();
+      });
   });
 })();
