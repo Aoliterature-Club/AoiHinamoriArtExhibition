@@ -465,6 +465,63 @@ iframe {
     border-radius: 0.5rem;
 }
 
+.event-hashtag-block {
+    display: grid;
+    gap: 10px;
+    margin: -10px 0 28px;
+}
+
+.event-hashtag-label {
+    color: var(--color-secondary);
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.event-hashtag-block-hero {
+    justify-items: center;
+    margin: 24px 0 0;
+}
+
+.event-hashtag-block-hero .event-hashtags {
+    justify-content: center;
+}
+
+.event-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.event-hashtag-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid rgba(233, 195, 73, 0.3);
+    border-radius: 0.375rem;
+    color: var(--color-secondary);
+    background: rgba(233, 195, 73, 0.08);
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.event-hashtag-link:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(233, 195, 73, 0.08);
+    transform: translateY(-1px);
+}
+
+.event-hashtag-link .material-symbols-outlined {
+    font-size: 16px;
+}
+
 .social-icon {
     width: 16px;
     height: 16px;
@@ -705,6 +762,26 @@ iframe {
 
     .faq-modal-tools {
         padding: 18px 20px;
+    }
+
+    .faq-category-tabs {
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: -20px;
+        margin-left: -20px;
+        padding: 0 20px 4px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+    }
+
+    .faq-category-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .faq-category-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
 
     .faq-results {
