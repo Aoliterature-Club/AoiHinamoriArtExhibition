@@ -133,14 +133,37 @@ iframe {
 }
 
 .image-modal-panel {
+    display: flex;
+    flex-direction: column;
     max-height: calc(100vh - 88px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .image-modal-image {
     display: block;
     width: 100%;
-    max-height: min(74vh, 780px);
+    max-height: min(58vh, 680px);
     object-fit: contain;
+}
+
+#image-modal-text {
+    max-width: 860px;
+    line-height: 1.75;
+    white-space: nowrap;
+}
+
+.event-date-line,
+.event-hours-line {
+    display: block;
+}
+
+.event-date-line {
+    white-space: nowrap;
+}
+
+.footer-credit {
+    line-height: 1.7;
 }
 
 .goods-card {
@@ -243,6 +266,25 @@ iframe {
 }
 
 @media (max-width: 767px) {
+    .image-modal-panel {
+        max-height: calc(100vh - 72px);
+    }
+
+    .image-modal-image {
+        max-height: 48vh;
+    }
+
+    #image-modal-text {
+        max-width: 100%;
+        font-size: clamp(10px, 2.85vw, 16px);
+        line-height: 1.8;
+    }
+
+    .event-time-value {
+        font-size: clamp(15px, 4.65vw, 22px);
+        line-height: 1.35;
+    }
+
     section {
         scroll-margin-top: 64px;
     }

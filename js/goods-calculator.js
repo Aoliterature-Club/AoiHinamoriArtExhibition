@@ -58,7 +58,7 @@ const inventory = {
   tcgSleeves: {
     name: "夏日風 TCG卡套（雙尺寸）",
     price: 600,
-    detail: "600 元 / 款，64 張 / 組",
+    detail: "每款 600 元，每組 64 張",
     image: "images/Goods/夏日風TCG卡套.png",
     qty: 0,
   },
@@ -86,7 +86,7 @@ const inventory = {
   randomBadge: {
     name: "隨機徽章（共6款圖案）",
     price: 150,
-    detail: "150 元 / 款，尺寸：5.7cm",
+    detail: "每款 150 元，尺寸：5.7cm",
     image: "images/Goods/隨機徽章.png",
     qty: 0,
   },
@@ -114,14 +114,14 @@ const inventory = {
   leatherTravelBag: {
     name: "（預購）手工皮革旅行袋",
     price: 35000,
-    detail: "限量 5 個，每人限購一個",
+    detail: "總量限量 5 個，每人限購一個",
     image: "images/Goods/Pre-Order/手工皮革旅行袋.png",
     qty: 0,
   },
   randomCardPack: {
     name: "（預購）AOI隨機卡片包",
     price: 150,
-    detail: "150 元 / 包，4 張 / 包，共 50 款圖案",
+    detail: "每包 150 元，每包 4 張，共 50 款圖案",
     image: "images/Goods/Pre-Order/隨機卡片包.png",
     qty: 0,
   },

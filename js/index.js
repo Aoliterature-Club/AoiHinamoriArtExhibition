@@ -147,9 +147,20 @@ function setModalText(element, value) {
     if (!element) return;
 
     if (value) {
-        element.textContent = value;
+        const normalizedText = value
+            .replace(/\\n/g, '\n')
+            .replace(/<br\s*\/?>/gi, '\n');
+
+        element.textContent = '';
+        normalizedText.split(/\r?\n/).forEach((line, index) => {
+            if (index > 0) {
+                element.appendChild(document.createElement('br'));
+            }
+            element.appendChild(document.createTextNode(line));
+        });
         element.classList.remove('hidden');
     } else {
+        element.textContent = '';
         element.classList.add('hidden');
     }
 }

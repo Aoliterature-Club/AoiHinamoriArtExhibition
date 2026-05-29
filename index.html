@@ -19,9 +19,9 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/tailwind.css?v=20260529-01" />
-    <link rel="stylesheet" href="css/theme.css?v=20260529-01" />
-    <link rel="stylesheet" href="css/site.css?v=20260529-01" />
+    <link rel="stylesheet" href="css/tailwind.css?v=20260529-08" />
+    <link rel="stylesheet" href="css/theme.css?v=20260529-08" />
+    <link rel="stylesheet" href="css/site.css?v=20260529-08" />
   </head>
   <body class="overflow-x-hidden">
     <div
@@ -38,7 +38,7 @@
         <span class="material-symbols-outlined text-4xl">close</span>
       </button>
       <div
-        class="image-modal-panel glass-card w-full max-w-5xl rounded-xl border border-secondary/30 crimson-glow overflow-hidden"
+        class="image-modal-panel glass-card w-full max-w-5xl rounded-xl border border-secondary/30 crimson-glow"
       >
         <div class="bg-black">
           <img
@@ -456,7 +456,6 @@
                   >
                     <path d="M5 0h4v5h5v4H9v5H5V9H0V5h5V0z" />
                   </svg>
-                  &nbsp;
                   <svg
                     class="profile-spark profile-spark-pink"
                     viewBox="0 0 14 14"
@@ -636,8 +635,11 @@
               >
               <div>
                 <p class="font-label-sm text-secondary mb-2">時間</p>
-                <p class="font-title-md text-title-md">
-                  2026/06/05 (五) ~ 06/14 (日)<br />11:00 – 18:00
+                <p class="event-time-value font-title-md text-title-md">
+                  <span class="event-date-line"
+                    >2026/06/05 (五) ~ 06/14 (日)</span
+                  >
+                  <span class="event-hours-line">11:00 – 18:00</span>
                 </p>
               </div>
             </div>
@@ -770,7 +772,8 @@
               class="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-110 cursor-pointer lightbox-trigger"
               alt="LAHEE goods preview"
               src="images/LAHEE.jfif"
-              data-title="LAHEE 項鍊預購商品"
+              data-title="預購商品──LAHEE 項鍊"
+              data-description="這款項鍊以十字架與向日葵為設計核心🌻\n將旅途中那些難忘的旋律、風景與情感，凝結成能收藏於胸口的光✨\n\n商品規格：\n十字架尺寸：約 50 × 40mm\n中央鑲嵌鋯石\n鍊長：16／18 吋可選\n材質：銅、鍍 K 金\n附收納袋與首飾盒"
               data-link="https://x.com/AoiHinamori/status/2059490425191428293"
             />
           </div>
@@ -782,9 +785,9 @@
               class="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-110 cursor-pointer lightbox-trigger"
               alt="Card goods preview"
               src="images/50cards.jpg"
-              data-title="隨機卡片款式總覽"
-              description="目前為直播上的截圖"
-              data-link="#"
+              data-title="預購商品──隨機卡包 卡表總覽"
+              data-description="一包 4 張，內含 1 張 R 以上稀有度。\n卡片稀有度分為：N 普卡｜R 閃卡｜SR 金鑽｜UR 破框\n參考配率：N 75%｜R 15%｜SR 9%｜UR 1%\n※ UR 僅為左下兩張「複製簽隱藏版」"
+              data-link="https://x.com/AoiHinamori/status/2060185794946777441?s=20"
             />
           </div>
         </div>
@@ -1082,7 +1085,7 @@
         class="max-w-container-max mx-auto flex flex-col items-center justify-center gap-12 text-center"
       >
         <div class="flex flex-col items-center gap-6">
-          <p class="text-label-sm font-label-sm text-outline">
+          <p class="footer-credit text-label-sm font-label-sm text-outline">
             2026 ©
             <a
               href="https://lit.link/en/aoihinamori"
@@ -1116,6 +1119,6 @@
       </div>
     </footer>
 
-    <script src="js/index.js?v=20260528-29"></script>
+    <script src="js/index.js?v=20260529-03"></script>
   </body>
 </html>
