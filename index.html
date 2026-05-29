@@ -1,13 +1,13 @@
 <!doctype html>
 
-<html class="dark" lang="en">
+<html class="dark" lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>蝕 / 光 Aoi Hinamori Art Exhibition</title>
     <link rel="icon" type="image/x-icon" href="logo.ico" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Noto+Sans+TC:wght@400;500;600;700;800&amp;family=Noto+Serif+TC:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
     <link
@@ -19,9 +19,10 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/tailwind.css?v=20260529-08" />
-    <link rel="stylesheet" href="css/theme.css?v=20260529-08" />
-    <link rel="stylesheet" href="css/site.css?v=20260529-08" />
+    <link rel="stylesheet" href="css/tailwind.css?v=20260529-17" />
+    <link rel="stylesheet" href="css/theme.css?v=20260529-17" />
+    <link rel="stylesheet" href="css/site.css?v=20260529-17" />
+    <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
     <div
@@ -230,6 +231,58 @@
           src="goods-calculator.html?v=20260529-02"
           data-src="goods-calculator.html?v=20260529-02"
         ></iframe>
+      </div>
+    </div>
+    <div
+      class="faq-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop"
+      id="faq-modal"
+      aria-hidden="true"
+    >
+      <button
+        class="absolute top-6 right-6 md:top-8 md:right-8 text-secondary hover:text-primary transition-colors z-10"
+        id="faq-modal-close"
+        type="button"
+        aria-label="Close FAQ"
+      >
+        <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+      <div
+        class="faq-modal-panel glass-card w-full rounded-xl border border-secondary/30 crimson-glow"
+      >
+        <div class="faq-modal-header">
+          <div class="border-l-4 border-primary-container pl-5">
+            <p class="font-label-sm text-secondary tracking-[0.24em] mb-2">
+              FAQ
+            </p>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">
+              常見問題
+            </h2>
+          </div>
+          <p
+            class="faq-modal-count font-label-sm text-label-sm text-on-surface-variant"
+            id="faq-count"
+          >
+            Loading...
+          </p>
+        </div>
+        <div class="faq-modal-tools">
+          <label class="faq-search-label" for="faq-search">
+            <span class="material-symbols-outlined text-[18px]">search</span>
+            <input
+              class="faq-search-input"
+              id="faq-search"
+              type="search"
+              placeholder="搜尋問題、答案或分類"
+              autocomplete="off"
+            />
+          </label>
+          <div
+            class="faq-category-tabs"
+            id="faq-category-tabs"
+            aria-label="FAQ categories"
+          ></div>
+        </div>
+        <div class="faq-results" id="faq-results"></div>
       </div>
     </div>
     <!-- Top Navigation Anchor (Desktop Navigation Drawer logic applied as TopAppBar) -->
@@ -818,262 +871,32 @@
       </div>
     </section>
     <!-- FAQ Section -->
-    <section class="py-32 px-margin-desktop bg-surface" id="faq">
-      <div class="max-w-3xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="font-display-lg text-display-lg mt-4">常見問題</h2>
-        </div>
-        <div class="space-y-4">
-          <!-- Accordion 1 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >展覽成功的話，未來有機會加開中部或南部場次嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              目前本次展覽僅規劃單一場次，暫無加辦中南部場的計畫，敬請大家把握本次的觀展機會！
-            </div>
-          </div>
-
-          <!-- Accordion 2 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >預購商品會如何配送？需要到指定地點領取嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              預購商品將會採用宅配寄送，直接為您配送至指定的收件地址，無需自行前往實體地點領取。
-            </div>
-          </div>
-
-          <!-- Accordion 3 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >現場畫作若有多人想購買，會採用競標方式嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              本展覽的畫作販售不開放任何形式的競標，將採「先到先得」的方式進行。詳細的購買與排隊規則，Aoi
-              會在近期的直播中為大家完整說明。
-            </div>
-          </div>
-
-          <!-- Accordion 4 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >展出的畫作若已被訂購，卻在展覽期間遭到意外損壞，後續的賠償責任會如何釐清？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              展覽現場全程皆設有監視器錄影。若展品遭到人為破壞，肇事者須負起全額賠償責任，包含畫作原價及重新製作的相關費用。若無法配合，主辦單位將直接報警處理以維護買賣雙方權益。請觀展者務必小心愛護展品。
-            </div>
-          </div>
-
-          <!-- Accordion 5 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >若現場實施人流管制需要排隊，會有遮陽或避雨的設施嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              展場外的排隊等候區位於騎樓下方，具有基本的遮風避雨與遮陽效果，請各位放心。
-            </div>
-          </div>
-
-          <!-- Accordion 6 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >可以提前一天到場地門口外夜排嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              為了避免影響到附近居民，請不要夜排。如有發現可能會取消購買周邊的資格。
-            </div>
-          </div>
-
-          <!-- Accordion 7 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >現場會設置 Aoi 的奉納箱或提供個人 LINE PAY QR-Code 嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              由於本次展覽由協辦單位共同處理，為確保稅務與帳務作業嚴謹，現場將不會設置個人奉納箱或個人贊助條碼。<br />
-              （但你可以點擊<a
-                href="https://deerdonate.herokuapp.com/donation/AoiHinamori"
-                target="_blank"
-                class="text-primary hover:underline"
-                >這裡</a
-              >來斗內Aoi）
-            </div>
-          </div>
-
-          <!-- Accordion 8 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >展覽現場可以拍照嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              歡迎拍照！展場內開放來賓自由拍攝記錄。
-            </div>
-          </div>
-
-          <!-- Accordion 9 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >現場支援哪些付款方式？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              現場提供多元支付服務，包含：現金、信用卡、LINE PAY 以及銀行轉帳。
-            </div>
-          </div>
-
-          <!-- Accordion 9 -->
-          <div
-            class="glass-card rounded-xl overflow-hidden border-b border-outline-variant/30"
-          >
-            <button
-              class="w-full p-6 flex justify-between items-center text-left focus:outline-none group"
-            >
-              <span
-                class="font-title-md text-on-surface group-hover:text-secondary transition-colors"
-                >如果在現場搗亂或搞事，會被處罰嗎？</span
-              >
-              <span
-                class="material-symbols-outlined text-outline arrow transition-transform duration-300"
-                >expand_more</span
-              >
-            </button>
-            <div
-              class="px-6 pb-6 text-on-surface-variant font-body-md leading-relaxed hidden"
-            >
-              為了維護所有觀展者的體驗與現場秩序，任何惡意搗亂或破壞行為，主辦單位將會直接報警處理，絕不寬待。請大家共同營造良好的觀展環境喔！
-            </div>
-          </div>
-        </div>
-        <!-- Disclaimer Banner -->
+    <section
+      class="faq-entry-section py-32 px-margin-desktop bg-surface"
+      id="faq"
+    >
+      <div class="max-w-container-max mx-auto">
         <div
-          class="glass-card rounded-xl border border-secondary/20 crimson-glow p-6 flex items-start gap-4 mt-12"
+          class="faq-entry-card glass-card rounded-xl border border-secondary/30 crimson-glow"
         >
-          <span
-            class="material-symbols-outlined text-secondary text-3xl shrink-0 mt-0.5"
-            >info</span
+          <div class="border-l-4 border-primary-container pl-6">
+            <p class="font-label-sm text-secondary tracking-[0.24em] mb-3">
+              FAQ
+            </p>
+            <h2 class="font-display-lg text-display-lg mt-4">常見問題</h2>
+          </div>
+          <p
+            class="faq-entry-copy font-body-md text-body-md text-on-surface-variant"
           >
-          <p class="font-body-md text-on-surface-variant leading-relaxed">
-            本網站之資訊不會永遠是最新消息，建議詳細資訊還是以
-            <span class="text-secondary font-semibold">Aoi Hinamori</span>
-            的直播說明及官方公告為準！
+            已整理展覽入場、排隊、周邊購買、預購商品、拍攝規範與其他觀眾提問。可以用分類或關鍵字快速查找答案。
           </p>
+          <button
+            class="faq-open inline-flex items-center gap-2 rounded border border-secondary/50 px-6 py-4 font-label-sm text-label-sm text-secondary hover:text-primary hover:border-secondary transition-colors"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-[18px]">help</span>
+            開啟完整 FAQ
+          </button>
         </div>
       </div>
     </section>
@@ -1119,6 +942,7 @@
       </div>
     </footer>
 
-    <script src="js/index.js?v=20260529-03"></script>
+    <script src="js/index.js?v=20260529-14"></script>
+    <script src="js/faq.js?v=20260529-15"></script>
   </body>
 </html>

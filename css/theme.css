@@ -106,10 +106,10 @@
 .font-display-lg,
 .font-headline-lg,
 .font-headline-lg-mobile,
-.font-title-md { font-family: "Bodoni Moda", serif; }
+.font-title-md { font-family: "Bodoni Moda", "Noto Serif TC", serif; }
 .font-body-lg,
-.font-body-md { font-family: "Hanken Grotesk", sans-serif; }
-.font-label-sm { font-family: "JetBrains Mono", monospace; }
+.font-body-md { font-family: "Hanken Grotesk", "Noto Sans TC", sans-serif; }
+.font-label-sm { font-family: "JetBrains Mono", "Noto Sans TC", monospace; }
 
 .text-display-lg { font-size: 48px; line-height: 1.1; letter-spacing: 0; font-weight: 700; }
 .text-headline-lg { font-size: 32px; line-height: 1.2; font-weight: 600; }
@@ -137,7 +137,7 @@
     .px-margin-desktop { padding-left: 80px; padding-right: 80px; }
     .md\:text-display-lg { font-size: 48px; line-height: 1.1; letter-spacing: 0; font-weight: 700; }
     .md\:text-headline-lg { font-size: 32px; line-height: 1.2; font-weight: 600; }
-    .md\:font-body-lg { font-family: "Hanken Grotesk", sans-serif; }
+    .md\:font-body-lg { font-family: "Hanken Grotesk", "Noto Sans TC", sans-serif; }
     .md\:gap-gutter { gap: 16px; }
     .md\:rounded-lg { border-radius: 0.25rem; }
 }

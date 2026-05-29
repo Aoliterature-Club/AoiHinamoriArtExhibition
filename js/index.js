@@ -205,12 +205,6 @@ transportCloseButton?.addEventListener('click', closeTransportModal);
 transportOpenButton?.addEventListener('click', openTransportModal);
 calculatorTriggers.forEach(btn => btn.addEventListener('click', openCalculatorModal));
 calculatorCloseButton?.addEventListener('click', closeCalculatorModal);
-document.querySelectorAll('#faq button').forEach((button) => {
-    button.addEventListener('click', () => {
-        button.nextElementSibling?.classList.toggle('hidden');
-        button.querySelector('.arrow')?.classList.toggle('rotate-180');
-    });
-});
 transportModal?.addEventListener('click', (event) => {
     if (event.target === transportModal) {
         closeTransportModal();
