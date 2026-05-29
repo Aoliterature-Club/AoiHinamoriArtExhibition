@@ -66,7 +66,7 @@
 .bg-secondary\/50 { background-color: rgb(233 195 73 / 0.5); }
 
 .from-background { --tw-gradient-from: var(--color-background) var(--tw-gradient-from-position); --tw-gradient-to: rgb(19 19 19 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-.from-background\/85 { --tw-gradient-from: rgb(19 19 19 / 0.85) var(--tw-gradient-from-position); --tw-gradient-to: rgb(19 19 19 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+/*.from-background\/85 { --tw-gradient-from: rgb(19 19 19 / 0.85) var(--tw-gradient-from-position); --tw-gradient-to: rgb(19 19 19 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }*/
 .via-background\/20 { --tw-gradient-to: rgb(19 19 19 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), rgb(19 19 19 / 0.2) var(--tw-gradient-via-position), var(--tw-gradient-to); }
 .to-background { --tw-gradient-to: var(--color-background) var(--tw-gradient-to-position); }
 
