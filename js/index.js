@@ -30,6 +30,8 @@ const pvOpenButton = document.getElementById('pv-open');
 const pvNavOpenButton = document.getElementById('pv-nav-open');
 const pvCloseButton = document.getElementById('pv-modal-close');
 const pvSoundToggle = document.getElementById('pv-sound-toggle');
+const bgmPlayer = document.getElementById('bgm-player');
+const bgmToggleButtons = document.querySelectorAll('.bgm-toggle');
 const transportModal = document.getElementById('transport-modal');
 const transportCloseButton = document.getElementById('transport-modal-close');
 const transportOpenButton = document.getElementById('transport-open');
@@ -55,6 +57,8 @@ let imageModalPanStartX = 0;
 let imageModalPanStartY = 0;
 let imageModalPanScrollLeft = 0;
 let imageModalPanScrollTop = 0;
+let bgmUserControlled = false;
+let shouldResumeBgmAfterPv = false;
 
 function withOrigin(src) {
     const videoUrl = new URL(src);
@@ -66,6 +70,8 @@ function withOrigin(src) {
 
 function openPvModal(isUserClick = false) {
     if (!pvModal || !pvPlayer) return;
+    shouldResumeBgmAfterPv = Boolean(bgmPlayer && !bgmPlayer.paused);
+    pauseBgm();
 
     if (window.location.protocol === 'file:') {
         pvFrameWrap?.classList.add('hidden');
@@ -94,10 +100,66 @@ function openPvModal(isUserClick = false) {
 function closePvModal() {
     if (!pvModal || !pvPlayer) return;
 
+    const wasOpen = pvModal.classList.contains('is-open');
     pvModal.classList.remove('is-open');
     pvModal.setAttribute('aria-hidden', 'true');
     pvPlayer.src = '';
     pvSoundToggle?.classList.remove('hidden');
+
+    if (wasOpen && !bgmUserControlled) {
+        playBgm();
+    } else if (wasOpen && shouldResumeBgmAfterPv) {
+        playBgm();
+    }
+    shouldResumeBgmAfterPv = false;
+}
+
+function updateBgmButtons(isPlaying) {
+    bgmToggleButtons.forEach((button) => {
+        const icon = button.querySelector('.bgm-toggle-icon');
+        const state = button.querySelector('.bgm-toggle-state');
+
+        button.classList.toggle('is-playing', isPlaying);
+        button.setAttribute('aria-pressed', String(isPlaying));
+        if (icon) {
+            icon.textContent = isPlaying ? 'music_note' : 'music_off';
+        }
+        if (state) {
+            state.textContent = isPlaying ? 'ON' : 'OFF';
+        }
+    });
+}
+
+function playBgm() {
+    if (!bgmPlayer) return;
+
+    bgmPlayer.volume = 0.5;
+    const playPromise = bgmPlayer.play();
+    if (playPromise) {
+        playPromise
+            .then(() => updateBgmButtons(true))
+            .catch(() => updateBgmButtons(false));
+    } else {
+        updateBgmButtons(true);
+    }
+}
+
+function pauseBgm() {
+    if (!bgmPlayer) return;
+
+    bgmPlayer.pause();
+    updateBgmButtons(false);
+}
+
+function toggleBgm() {
+    if (!bgmPlayer) return;
+
+    bgmUserControlled = true;
+    if (bgmPlayer.paused) {
+        playBgm();
+    } else {
+        pauseBgm();
+    }
 }
 
 function enablePvSound() {
@@ -252,6 +314,7 @@ pvNavOpenButton?.addEventListener('click', (e) => {
 });
 pvCloseButton?.addEventListener('click', closePvModal);
 pvSoundToggle?.addEventListener('click', enablePvSound);
+bgmToggleButtons.forEach((button) => button.addEventListener('click', toggleBgm));
 transportCloseButton?.addEventListener('click', closeTransportModal);
 transportOpenButton?.addEventListener('click', openTransportModal);
 calculatorTriggers.forEach(btn => btn.addEventListener('click', openCalculatorModal));

@@ -21,10 +21,11 @@
 
     <link rel="stylesheet" href="css/tailwind.css?v=20260529-18" />
     <link rel="stylesheet" href="css/theme.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/site.css?v=20260529-24" />
+    <link rel="stylesheet" href="css/site.css?v=20260529-27" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
+    <audio id="bgm-player" src="audios/EmbraceDiversity.mp3" loop preload="auto"></audio>
     <div
       class="image-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop"
       id="image-modal"
@@ -41,10 +42,7 @@
       <div
         class="image-modal-panel glass-card w-full max-w-5xl rounded-xl border border-secondary/30 crimson-glow"
       >
-        <div
-          class="image-modal-zoom-controls"
-          aria-label="Image zoom controls"
-        >
+        <div class="image-modal-zoom-controls" aria-label="Image zoom controls">
           <button
             class="image-modal-zoom-button"
             id="image-modal-zoom-out"
@@ -328,7 +326,7 @@
             src="images/logo.png"
             alt="Exhibition Logo"
             class="h-10 w-auto"
-            />
+          />
         </a>
       </div>
       <nav class="hidden md:flex gap-8 header-nav">
@@ -349,6 +347,16 @@
         >
       </nav>
       <div class="flex items-center gap-4 header-right">
+        <button
+          class="bgm-toggle text-on-surface hover:text-secondary transition-colors"
+          id="bgm-toggle"
+          type="button"
+          aria-label="Toggle background music"
+          aria-pressed="false"
+        >
+          <span class="material-symbols-outlined bgm-toggle-icon">music_note</span>
+          <span class="bgm-toggle-state">OFF</span>
+        </button>
         <button
           class="md:hidden material-symbols-outlined text-on-surface"
           data-icon="menu"
@@ -382,6 +390,16 @@
         href="#faq"
         >FAQ</a
       >
+      <button
+        class="bgm-toggle mobile-bgm-toggle text-on-surface-variant hover:text-secondary transition-colors"
+        id="mobile-bgm-toggle"
+        type="button"
+        aria-label="Toggle background music"
+        aria-pressed="false"
+      >
+        <span class="material-symbols-outlined bgm-toggle-icon">music_note</span>
+        <span class="bgm-toggle-state">OFF</span>
+      </button>
     </div>
     <!-- Hero Section -->
     <section
@@ -961,6 +979,14 @@
               target="_blank"
               class="hover:text-secondary transition-colors"
               >Aoi Hinamori Art Exhibition</a
+            ><br />BGM from
+            <a
+              href="https://youtu.be/PGXgK-qUIjk"
+              ,
+              target="_blank"
+              class="hover:text-secondary transition-colors"
+            >
+              Embrace diversity（向日葵 Instrumental ） / BEE Rryee</a
             ><br /><br />
             Website made by
             <a
@@ -988,7 +1014,7 @@
       </div>
     </footer>
 
-    <script src="js/index.js?v=20260529-24"></script>
+    <script src="js/index.js?v=20260529-27"></script>
     <script src="js/faq.js?v=20260529-15"></script>
   </body>
 </html>

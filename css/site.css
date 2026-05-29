@@ -120,6 +120,35 @@ iframe {
     text-shadow: 0 0 15px rgba(190, 0, 28, 0.3);
 }
 
+.bgm-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1;
+}
+
+.bgm-toggle.is-playing {
+    color: var(--color-secondary);
+    text-shadow: 0 0 12px rgba(233, 195, 73, 0.36);
+}
+
+.mobile-bgm-toggle {
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+}
+
+.mobile-bgm-toggle .bgm-toggle-icon {
+    font-size: 40px;
+}
+
+.bgm-toggle-state {
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
 .calculator-frame {
     display: block;
     width: 100%;
