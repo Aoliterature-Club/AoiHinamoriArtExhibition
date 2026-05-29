@@ -145,7 +145,7 @@ function renderGoodsList() {
                 </div>
                 <div class="min-w-0 flex-1">
                     <h2 class="font-title-md text-title-md text-secondary leading-snug break-words">${item.name}</h2>
-                    ${item.detail ? `<p class="hidden sm:block text-label-sm font-label-sm text-on-surface-variant mt-2 mb-2 leading-relaxed opacity-90">${item.detail}</p>` : ""}
+                    ${item.detail ? `<p class="block text-label-sm font-label-sm text-on-surface-variant mt-2 mb-2 leading-relaxed opacity-90">${item.detail}</p>` : ""}
                     <span class="text-on-surface-variant font-label-sm">NT$ ${formatPrice(item.price)}</span>
                 </div>
             </div>
@@ -445,7 +445,15 @@ function exportSummaryImage() {
 
   ctx.fillStyle = "rgba(230, 189, 185, 0.72)";
   ctx.font = "500 18px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
-  ctx.fillText("Aoi Hinamori Art Exhibition", padding, height - 82);
+  ctx.fillText(
+    "From: https://aoliterature-club.github.io/AoiHinamoriArtExhibition/",
+    padding,
+    height - 100,
+  );
+
+  ctx.fillStyle = "rgba(230, 189, 185, 0.72)";
+  ctx.font = "500 18px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+  ctx.fillText("Exporter made by KalinKonta", padding, height - 73);
 
   const link = document.createElement("a");
   link.download = `aoi-hinamori-art-exhibition-goods-${Date.now()}.png`;
