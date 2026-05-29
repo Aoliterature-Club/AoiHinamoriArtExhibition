@@ -1,4 +1,6 @@
 (function () {
+  const supportedLanguages = ["zh-Hant", "ja", "en"];
+
   const languageLabels = {
     "zh-Hant": "繁體中文",
     ja: "日本語 (AI)",
@@ -157,6 +159,7 @@
     const menu = document.createElement("div");
     menu.className = "language-menu-list";
     menu.setAttribute("role", "menu");
+    menu.hidden = true;
 
     supportedLanguages.forEach((lang) => {
       const button = document.createElement("button");
@@ -174,7 +177,12 @@
     trigger.addEventListener("click", (event) => {
       event.stopPropagation();
       const isOpen = wrapper.classList.toggle("is-open");
+      menu.hidden = !isOpen;
       trigger.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    wrapper.addEventListener("click", (event) => {
+      event.stopPropagation();
     });
 
     wrapper.append(trigger, menu);
@@ -202,6 +210,7 @@
   function closeLanguageMenus() {
     document.querySelectorAll(".language-menu.is-open").forEach((menu) => {
       menu.classList.remove("is-open");
+      menu.querySelector(".language-menu-list")?.setAttribute("hidden", "");
       menu
         .querySelector(".language-menu-trigger")
         ?.setAttribute("aria-expanded", "false");
