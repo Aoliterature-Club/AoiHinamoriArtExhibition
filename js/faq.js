@@ -227,7 +227,6 @@ async function openFaqModal(event) {
   faqModal.classList.add("is-open");
   faqModal.setAttribute("aria-hidden", "false");
   await loadFaqItems();
-  faqSearch?.focus();
 }
 
 function closeFaqModal() {
