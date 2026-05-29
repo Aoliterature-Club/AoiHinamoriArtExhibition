@@ -1,0 +1,382 @@
+{
+  "updatedAt": "2026-05-29",
+  "translationNote": "Currently translated by ChatGPT (unedited)",
+  "items": [
+    {
+      "id": "traffic-002",
+      "category": "Admission and Queueing",
+      "question": "Will there be crowd control at the exhibition?",
+      "answer": "Staff will manage crowd flow based on on-site conditions and admit visitors according to the number of people inside. Please follow staff instructions for entry and queueing.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-003",
+      "category": "Admission and Queueing",
+      "question": "About how many people can enter at one time?",
+      "answer": "The venue can hold about 15 people. The actual number admitted may be adjusted based on on-site conditions.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-004",
+      "category": "Admission and Queueing",
+      "question": "Around what time will queue organization begin?",
+      "answer": "During the event, queue organization will begin at the venue entrance at 10:30 each day. Number tickets may be distributed depending on the crowd.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-005",
+      "category": "Admission and Queueing",
+      "question": "Do I need a number ticket or queue slip to enter?",
+      "answer": "Number tickets may be distributed depending on the number of people inside and outside the venue. Please follow on-site staff instructions.",
+      "aliases": [
+        "Will number tickets or queue slips be required for entry?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "traffic-006",
+      "category": "Admission and Queueing",
+      "question": "Can I queue overnight?",
+      "answer": "Please do not queue overnight, to avoid disturbing nearby residents and venue order.",
+      "aliases": [
+        "Is overnight queueing allowed?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "traffic-007",
+      "category": "Admission and Queueing",
+      "question": "Is there a latest entry time?",
+      "answer": "There is currently no special latest entry time, but please note that daily opening hours are 11:00 - 18:00.",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "traffic-008",
+      "category": "Admission and Queueing",
+      "question": "Is there a time limit after entering?",
+      "answer": "If the venue is crowded, visit time may be limited to 30 minutes. When it is less crowded, there may be no time limit. Please follow staff instructions.",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-001",
+      "category": "Venue Rules",
+      "question": "Can I eat or bring drinks inside?",
+      "answer": "Food and non-bottled drinks are not allowed to be brought into the venue for eating or drinking.",
+      "aliases": [
+        "Is eating or drinking allowed inside?",
+        "Can I bring drinks into the venue?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "rules-002",
+      "category": "Venue Rules",
+      "question": "Can I bring pets?",
+      "answer": "Pets are not allowed unless there is a special announcement or staff permission.",
+      "aliases": [
+        "Are pets allowed in the venue?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-003",
+      "category": "Venue Rules",
+      "question": "Should I avoid bringing large bags?",
+      "answer": "Traveling light is recommended. If you plan to buy many goods, you may bring a large bag yourself.",
+      "aliases": [
+        "Is it recommended to avoid bringing large bags?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-004",
+      "category": "Venue Rules",
+      "question": "Will bags be provided on-site?",
+      "answer": "Black plastic bags will be available for purchase on-site.",
+      "aliases": [
+        "Will bags be provided for goods?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-005",
+      "category": "Venue Rules",
+      "question": "Will there be protective measures for the artworks?",
+      "answer": "Artworks will be protected with warning lines or acrylic frames. Please do not touch the works and keep the distance indicated on-site.",
+      "aliases": [
+        "Will there be measures to prevent collisions, theft, or maintain flow?",
+        "Will artworks have warning areas or safe distances?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "rules-006",
+      "category": "Venue Rules",
+      "question": "How far should I stand from the artworks?",
+      "answer": "Please keep the distance indicated by warning lines and venue signage.",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-007",
+      "category": "Venue Rules",
+      "question": "Will there be clear route guidance on-site?",
+      "answer": "Routes will be arranged according to the venue layout. Please follow staff instructions.",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-008",
+      "category": "Other",
+      "question": "Can I feed the staff?",
+      "answer": "Please do not trouble the staff or interfere with on-site operations and visitor order.",
+      "aliases": [
+        "Is feeding the staff allowed?"
+      ],
+      "priority": 4
+    },
+    {
+      "id": "photo-001",
+      "category": "Photo and Video",
+      "question": "Can I take photos on-site?",
+      "answer": "Yes. Photography is allowed on-site.",
+      "aliases": [
+        "Is photography allowed on-site?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "photo-002",
+      "category": "Photo and Video",
+      "question": "Can I record video or use a tripod?",
+      "answer": "Video recording and tripods are allowed, but please do not affect other visitors' movement or viewing experience.",
+      "aliases": [
+        "Is video recording allowed? Can I bring a tripod?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "photo-003",
+      "category": "Photo and Video",
+      "question": "Can I livestream on-site?",
+      "answer": "Livestreaming is generally not recommended, to avoid affecting other visitors' viewing experience.",
+      "aliases": [
+        "Is livestreaming allowed on-site?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "photo-004",
+      "category": "Photo and Video",
+      "question": "Can I use flash when taking photos?",
+      "answer": "Flash photography is prohibited inside the venue.",
+      "aliases": [
+        "Is flash photography allowed?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-view-001",
+      "category": "Artwork Viewing",
+      "question": "Will there be artwork description cards?",
+      "answer": "Detailed information will be provided for all exhibited works.",
+      "aliases": [
+        "Will the exhibition have artwork description cards?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-view-002",
+      "category": "Artwork Viewing",
+      "question": "Will the description cards include artist and artwork information?",
+      "answer": "The artwork descriptions will include the artist, artwork information, and related details.",
+      "aliases": [
+        "Will artwork description cards list the artist and work information?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-view-003",
+      "category": "Artwork Viewing",
+      "question": "Will the gallery area and goods purchase area be separated?",
+      "answer": "They are in the same event venue. The venue will arrange separate areas as much as possible. Please follow signage and staff instructions for standing or queueing.",
+      "aliases": [
+        "Are the gallery and goods purchase areas separate?",
+        "Will the purchase, pre-order, and viewing areas be divided?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-buy-001",
+      "category": "Artwork Purchase",
+      "question": "If I want to buy an artwork, do I need to register at the counter first?",
+      "answer": "If you wish to purchase an artwork, please register with the counter first. Artwork purchases will be handled separately from regular goods checkout.",
+      "aliases": [
+        "Do I need to go to the counter immediately to register if I want to buy an artwork?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-002",
+      "category": "Artwork Purchase",
+      "question": "What is the artwork purchase process?",
+      "answer": "Please register with staff, make payment, and complete the purchase process according to on-site instructions.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-003",
+      "category": "Artwork Purchase",
+      "question": "After buying an artwork, do I take it home on-site or pick it up after the exhibition?",
+      "answer": "Please pick it up in person at the venue by 18:00 on 6/14. If you cannot pick it up yourself, you may ask staff about shipping assistance.",
+      "aliases": [
+        "If someone buys an artwork, is it taken on-site or picked up/shipped after the exhibition?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-004",
+      "category": "Artwork Purchase",
+      "question": "If multiple people want the same artwork, will there be bidding?",
+      "answer": "Artwork sales in this exhibition will not use any form of bidding. They will be sold on a first-come, first-served basis. Aoi will explain the detailed purchase and queueing rules in an upcoming stream.",
+      "aliases": [
+        "Will there be bidding if many people want the same artwork?",
+        "Will artworks be auctioned?",
+        "Are artwork purchases first-come, first-served?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-001",
+      "category": "Goods Purchase",
+      "question": "What payment methods are accepted for on-site goods?",
+      "answer": "On-site payment supports cash, LINE Pay, Apple Pay, credit cards, and bank transfer. Whether overseas credit cards can be used depends on the card terminal and bank authorization result on-site.",
+      "aliases": [
+        "What payment methods are available for goods?",
+        "Can I use credit cards or overseas credit cards?",
+        "Can I use LINE Pay?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-002",
+      "category": "Goods Purchase",
+      "question": "Do I fill out an order form for goods or pay directly at the counter?",
+      "answer": "For on-site goods, please check out at the counter. For pre-order items, please fill out the pre-order form and complete the order according to the on-site or pre-order system process.",
+      "aliases": [
+        "Do I fill out a form or take goods directly to the counter?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-003",
+      "category": "Goods Purchase",
+      "question": "Are regular goods purchase-limited?",
+      "answer": "Regular goods are limited to 3 units per item.",
+      "aliases": [
+        "Is there a purchase limit for regular goods?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "goods-004",
+      "category": "Goods Purchase",
+      "question": "Can I proxy-buy for someone?",
+      "answer": "Proxy buying itself is not restricted. However, if you buy more than 3 of the same item, please show proof of proxy purchase and follow staff judgment on-site.",
+      "aliases": [
+        "Are visitors allowed to proxy-buy goods?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "preorder-001",
+      "category": "Pre-order Items",
+      "question": "After placing a pre-order on-site, will I receive a paper receipt or online order?",
+      "answer": "Pre-orders are made through the Ambis website system, and the order will be retained in the website system.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "preorder-002",
+      "category": "Pre-order Items",
+      "question": "Can someone else pick up my pre-order?",
+      "answer": "Pre-order items will be shipped according to the pre-order form information, so there is no need to ask someone else to pick them up.",
+      "aliases": [
+        "Can someone else pick up a pre-order for me?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-003",
+      "category": "Pre-order Items",
+      "question": "Can I cancel, return, or exchange pre-order items after payment?",
+      "answer": "All sales are final after purchase. Please confirm items, quantities, and shipping information carefully before pre-ordering and paying.",
+      "aliases": [
+        "Can pre-order items be cancelled, returned, or exchanged after payment?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-004",
+      "category": "Pre-order Items",
+      "question": "Will pre-order items be picked up on-site or shipped?",
+      "answer": "Pre-order items will be shipped according to the pre-order form information. Please make sure the recipient information on the form is correct.",
+      "aliases": [
+        "Are pre-order items picked up on-site or shipped later?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-005",
+      "category": "Pre-order Items",
+      "question": "Will production and shipping timing for pre-order items be announced separately?",
+      "answer": "Production and shipping timing for pre-order items will be announced on Aoi's X (formerly Twitter). Please watch for follow-up social media updates.",
+      "aliases": [
+        "Will production and shipment timing for pre-order items be announced later?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "onsite-001",
+      "category": "Other",
+      "question": "Will there be an offering box or personal LINE Pay on-site?",
+      "answer": "This event is handled by the co-organizer. To avoid tax and accounting responsibility issues, there will be no offering box on-site and no additional personal LINE Pay. <br>(However, you can donate to Aoi now through <a href='https://deerdonate.herokuapp.com/donation/AoiHinamori' target='_blank'>DeerDonate</a> or the LINE PAY below.)<br><img src='images/LinePayQR.jpg' alt='LINE PAY QR-Code' class='faq-linepay-qr'> (Regenerated with AI. Thanks, AI!)<br>On mobile, you can tap <a href='https://qrcodepay.line.me/qr/payment/TTfE4qcI%252FWz6%252BWHNyJBycEPZbkDZ6r1RN%252FvnUwo7G59bO4%252BcWYtwHgNRTKOOTS25' target='_blank'>here</a> to donate via LINE PAY.",
+      "aliases": [
+        "Where will the offering box and LINE PAY be placed?"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-009",
+      "source": "current-page",
+      "category": "Venue Rules",
+      "question": "Will people causing trouble on-site be penalized?",
+      "answer": "To protect all visitors' experience and maintain venue order, the organizer will call the police directly for any malicious disruption or destructive behavior. Such behavior will not be tolerated. Please help create a good viewing environment.",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-009",
+      "source": "current-page",
+      "category": "Admission and Queueing",
+      "question": "If crowd control requires queueing, will there be shade or rain cover?",
+      "answer": "The waiting area outside the venue is under the arcade, providing basic protection from wind, rain, and sun. Please do not worry.",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "other-002",
+      "source": "current-page",
+      "category": "Other",
+      "question": "If the exhibition is successful, is there a chance of additional central or southern Taiwan sessions?",
+      "answer": "This exhibition is currently planned as a single session only, with no plans for additional central or southern Taiwan sessions. Please take this opportunity to visit.",
+      "aliases": [],
+      "priority": 3
+    }
+  ]
+}

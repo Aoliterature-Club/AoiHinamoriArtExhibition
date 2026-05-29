@@ -201,7 +201,11 @@ function openCalculatorModal(event) {
     event?.preventDefault();
     if (!calculatorModal || !calculatorFrame) return;
 
-    const targetSrc = calculatorFrame.dataset.src || 'goods-calculator.html';
+    const targetUrl = new URL(calculatorFrame.dataset.src || 'goods-calculator.html', window.location.href);
+    if (window.AoiI18n?.currentLanguage) {
+        targetUrl.searchParams.set('lang', window.AoiI18n.currentLanguage);
+    }
+    const targetSrc = `${targetUrl.pathname.split('/').pop()}${targetUrl.search}`;
     if (calculatorFrame.getAttribute('src') !== targetSrc) {
         calculatorFrame.setAttribute('src', targetSrc);
     }

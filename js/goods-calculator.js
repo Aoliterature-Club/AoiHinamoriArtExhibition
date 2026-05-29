@@ -127,6 +127,122 @@ const inventory = {
   },
 };
 
+const inventoryTranslations = {
+  en: {
+    auroraStand: { name: "Aurora Color Acrylic Stand" },
+    acrylicArtBoard: { name: "Double-layer Acrylic Art Board" },
+    signedBoardSet: {
+      name: "Deluxe Set with Signed Board",
+      detail: "Limit one per person",
+    },
+    supportFan: { name: "Transparent Support Fan" },
+    acrylicKeychain: { name: "Double-layer Acrylic Keychain" },
+    postcardSet: { name: "Eclipse / Light Postcard Set + PVC Package" },
+    okraBlock: { name: "Chunky Okra" },
+    diaryComic: {
+      name: "Aoi's Diary Original Comic",
+      detail: "Includes one A3 poster",
+    },
+    tcgSleeves: {
+      name: "Summer-style TCG Sleeves (Two Sizes)",
+      detail: "NT$600 each style, 64 sleeves per set",
+    },
+    b5Binder: { name: "Cool Summer B5 Card Binder" },
+    eyeMaskSet: { name: "AOI Satin Eye Mask Set" },
+    deskMat: { name: "Passionate Summer Desk Mat", detail: "Size: 60 x 30cm" },
+    randomBadge: {
+      name: "Random Badge (6 Designs)",
+      detail: "NT$150 each, size: 5.7cm",
+    },
+    plushLedBadge: {
+      name: "Patient Plush Badge Cover + LED Light-up Badge Set",
+      detail: "Battery included",
+    },
+    aluminumPrint: {
+      name: "(On-site / Pre-order) Eclipse / Light Aluminum Print",
+      detail: "Size: A3 / Premium packaging included / Only 30 available on-site",
+    },
+    laheeNecklace: {
+      name: "(Pre-order) LAHEE Necklace",
+      detail: "Includes storage pouch and box",
+    },
+    leatherTravelBag: {
+      name: "(Pre-order) Handmade Leather Travel Bag",
+      detail: "Limited to 5 total, limit one per person",
+    },
+    randomCardPack: {
+      name: "(Pre-order) AOI Random Card Pack",
+      detail: "NT$150 per pack, 4 cards per pack, 50 designs total",
+    },
+  },
+  ja: {
+    auroraStand: { name: "オーロラカラー アクリルスタンド" },
+    acrylicArtBoard: { name: "二層アクリルアートボード" },
+    signedBoardSet: {
+      name: "豪華セット 直筆サインボード付き",
+      detail: "お一人様1点まで",
+    },
+    supportFan: { name: "透明応援うちわ" },
+    acrylicKeychain: { name: "二層アクリルキーホルダー" },
+    postcardSet: { name: "蝕 / 光 ポストカードセット + PVC包装" },
+    okraBlock: { name: "ブロック状オクラ" },
+    diaryComic: {
+      name: "Aoi's Diary オリジナル漫画",
+      detail: "A3ポスター1枚付き",
+    },
+    tcgSleeves: {
+      name: "夏風 TCGカードスリーブ（二サイズ）",
+      detail: "各種 NT$600、1セット64枚",
+    },
+    b5Binder: { name: "涼しい夏 B5カードバインダー" },
+    eyeMaskSet: { name: "AOI サテンアイマスクセット" },
+    deskMat: { name: "情熱の夏 マルチマット", detail: "サイズ：60 x 30cm" },
+    randomBadge: {
+      name: "ランダム缶バッジ（全6種）",
+      detail: "各 NT$150、サイズ：5.7cm",
+    },
+    plushLedBadge: {
+      name: "患者ぬいぐるみ缶バッジカバー + LED発光缶バッジセット",
+      detail: "電池付き",
+    },
+    aluminumPrint: {
+      name: "（会場 / 予約）蝕 / 光 アルミプレート",
+      detail: "サイズ：A3 / 豪華包装付き / 会場販売は30点のみ",
+    },
+    laheeNecklace: {
+      name: "（予約）LAHEE ネックレス",
+      detail: "収納ポーチとボックス付き",
+    },
+    leatherTravelBag: {
+      name: "（予約）手作りレザー旅行バッグ",
+      detail: "総数5点限定、お一人様1点まで",
+    },
+    randomCardPack: {
+      name: "（予約）AOI ランダムカードパック",
+      detail: "1パック NT$150、1パック4枚入り、全50種",
+    },
+  },
+};
+
+function getCurrentLanguage() {
+  return window.AoiI18n?.currentLanguage || "zh-Hant";
+}
+
+function t(key) {
+  return window.AoiI18n?.t(key) || key;
+}
+
+function applyInventoryTranslations() {
+  const translations = inventoryTranslations[getCurrentLanguage()];
+  if (!translations) return;
+
+  Object.entries(translations).forEach(([id, values]) => {
+    if (!inventory[id]) return;
+    inventory[id].name = values.name || inventory[id].name;
+    inventory[id].detail = values.detail ?? inventory[id].detail;
+  });
+}
+
 function formatPrice(value) {
   return value.toLocaleString("zh-TW");
 }
@@ -216,7 +332,7 @@ function calculateTotal() {
 
   if (breakdownEl && !hasItems) {
     breakdownEl.innerHTML =
-      '<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">選擇任一商品開始計算...</p>';
+      `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
   }
 
   document.querySelectorAll(".total-amount").forEach((totalEl) => {
@@ -340,7 +456,13 @@ function loadImage(src) {
 async function exportSummaryImage() {
   const items = getSelectedItems();
   if (!items.length) {
-    window.alert("請先選擇至少一項商品，再輸出圖片。");
+    window.alert(
+      getCurrentLanguage() === "ja"
+        ? "画像を出力する前に、商品を少なくとも1点選択してください。"
+        : getCurrentLanguage() === "en"
+          ? "Please select at least one item before exporting an image."
+          : "請先選擇至少一項商品，再輸出圖片。",
+    );
     return;
   }
 
@@ -416,7 +538,7 @@ async function exportSummaryImage() {
 
   ctx.fillStyle = "#f4eeee";
   ctx.font = "700 54px 'Bodoni Moda', 'Noto Serif TC', serif";
-  ctx.fillText("周邊商品金額試算", padding + 28, 166);
+  ctx.fillText(t("calculator.title"), padding + 28, 166);
 
   ctx.fillStyle = "#e6bdb9";
   ctx.font = "600 24px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
@@ -498,7 +620,7 @@ async function exportSummaryImage() {
   y += 88;
   ctx.fillStyle = "#e6bdb9";
   ctx.font = "700 24px 'JetBrains Mono', monospace";
-  ctx.fillText("TOTAL", padding, y);
+  ctx.fillText(t("calculator.total").toUpperCase(), padding, y);
 
   ctx.fillStyle = "#e9c349";
   ctx.font = "700 30px 'JetBrains Mono', monospace";
@@ -522,13 +644,19 @@ async function exportSummaryImage() {
   ctx.font = "500 18px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
   ctx.fillText("Exporter made by KalinKonta", padding, height - 73);
 
+  if (window.AoiI18n?.isTranslated) {
+    ctx.fillText(t("translation.notice"), padding, height - 46);
+  }
+
   const link = document.createElement("a");
   link.download = `aoi-hinamori-art-exhibition-goods-${Date.now()}.png`;
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await window.AoiI18n?.ready;
+  applyInventoryTranslations();
   renderGoodsList();
   document.querySelectorAll(".calculator-reset").forEach((button) => {
     button.addEventListener("click", resetCalculator);

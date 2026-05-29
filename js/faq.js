@@ -5,7 +5,44 @@ const faqSearch = document.getElementById("faq-search");
 const faqCategoryTabs = document.getElementById("faq-category-tabs");
 const faqCount = document.getElementById("faq-count");
 const faqOpenTargets = document.querySelectorAll(".faq-open");
-const allCategory = "全部";
+function getFaqLanguage() {
+  return window.AoiI18n?.currentLanguage || "zh-Hant";
+}
+
+function getFaqText(key) {
+  const messages = {
+    "zh-Hant": {
+      all: "全部",
+      empty: "找不到符合條件的問題。",
+      fallbackCategory: "其他",
+      loadFailedCategory: "讀取失敗",
+      loadFailedQuestion: "FAQ 資料暫時無法載入",
+      loadFailedAnswer:
+        "請確認網站是透過本機伺服器或 GitHub Pages 開啟，而不是直接用 file:// 開啟。",
+    },
+    ja: {
+      all: "すべて",
+      empty: "条件に一致する質問が見つかりません。",
+      fallbackCategory: "その他",
+      loadFailedCategory: "読み込み失敗",
+      loadFailedQuestion: "FAQ データを一時的に読み込めません",
+      loadFailedAnswer:
+        "ローカルサーバーまたは GitHub Pages 経由で開いているか確認してください。file:// で直接開くと読み込めない場合があります。",
+    },
+    en: {
+      all: "All",
+      empty: "No matching questions found.",
+      fallbackCategory: "Other",
+      loadFailedCategory: "Load Failed",
+      loadFailedQuestion: "FAQ data is temporarily unavailable",
+      loadFailedAnswer:
+        "Please make sure the site is opened through a local server or GitHub Pages, not directly through file://.",
+    },
+  };
+  return messages[getFaqLanguage()]?.[key] || messages["zh-Hant"][key];
+}
+
+const allCategory = getFaqText("all");
 
 let faqItems = [];
 let activeCategory = allCategory;
@@ -173,7 +210,7 @@ function renderFaqResults() {
     const empty = document.createElement("p");
     empty.className =
       "faq-empty font-body-md text-body-md text-on-surface-variant";
-    empty.textContent = "找不到符合條件的問題。";
+    empty.textContent = getFaqText("empty");
     faqResults.appendChild(empty);
     return;
   }
@@ -187,7 +224,8 @@ async function loadFaqItems() {
   if (faqItems.length) return;
 
   try {
-    const response = await fetch("data/faq.json", { cache: "no-store" });
+    const suffix = getFaqLanguage() === "zh-Hant" ? "" : `.${getFaqLanguage()}`;
+    const response = await fetch(`data/faq${suffix}.json`, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`FAQ data request failed: ${response.status}`);
     }
@@ -195,7 +233,7 @@ async function loadFaqItems() {
     faqItems = (payload.items || [])
       .map((item) => ({
         ...item,
-        category: normalizeFaqText(item.category) || "其他",
+        category: normalizeFaqText(item.category) || getFaqText("fallbackCategory"),
         question: normalizeFaqText(item.question),
         answer: normalizeFaqText(item.answer),
       }))
@@ -207,10 +245,9 @@ async function loadFaqItems() {
   } catch (error) {
     faqItems = [
       {
-        category: "讀取失敗",
-        question: "FAQ 資料暫時無法載入",
-        answer:
-          "請確認網站是透過本機伺服器或 GitHub Pages 開啟，而不是直接用 file:// 開啟。",
+        category: getFaqText("loadFailedCategory"),
+        question: getFaqText("loadFailedQuestion"),
+        answer: getFaqText("loadFailedAnswer"),
         priority: 1,
       },
     ];
