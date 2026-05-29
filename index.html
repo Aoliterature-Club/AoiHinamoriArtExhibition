@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="css/tailwind.css?v=20260529-18" />
     <link rel="stylesheet" href="css/theme.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/site.css?v=20260529-27" />
+    <link rel="stylesheet" href="css/site.css?v=20260529-42" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
@@ -486,7 +486,7 @@
     <!-- Exhibition Info Section -->
     <section class="py-32 px-margin-desktop bg-surface" id="info">
       <div
-        class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 items-start"
+        class="info-layout max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 items-start"
       >
         <div class="order-2 md:order-1">
           <h2
@@ -533,30 +533,16 @@
             </p>
           </div>
         </div>
-        <div class="order-1 md:order-2 relative">
+        <div class="profile-panel-wrap order-1 md:order-2 relative">
           <div
             class="absolute -inset-4 bg-primary-container/10 blur-3xl rounded-full"
           ></div>
           <div
-            class="relative z-10 glass-card rounded-xl overflow-hidden border border-secondary/30 crimson-glow"
+            class="profile-card-shell relative z-10 glass-card rounded-xl overflow-hidden border border-secondary/30 crimson-glow"
           >
-            <div class="grid grid-cols-1 sm:grid-cols-[190px_1fr]">
-              <div class="p-4 sm:p-0">
-                <div
-                  class="relative aspect-square sm:aspect-[4/5] bg-black overflow-hidden"
-                >
-                  <img
-                    class="absolute inset-0 w-full h-full object-cover opacity-90"
-                    src="images/AOI.jpg"
-                    alt="profile"
-                  />
-                  <span
-                    class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
-                  ></span>
-                </div>
-              </div>
-              <div class="p-6 md:p-8">
-                <div class="flex items-center gap-1.5 mb-3">
+            <div class="profile-card-layout grid">
+              <div class="profile-visual-column p-4 sm:p-0">
+                <div class="profile-label-row flex items-center gap-1.5">
                   <p class="font-label-sm text-secondary tracking-[0.24em]">
                     PROFILE
                   </p>
@@ -575,6 +561,20 @@
                     <path d="M5 0h4v5h5v4H9v5H5V9H0V5h5V0z" />
                   </svg>
                 </div>
+                <div
+                  class="profile-portrait relative aspect-square bg-black overflow-hidden"
+                >
+                  <img
+                    class="absolute inset-0 w-full h-full object-cover opacity-90"
+                    src="images/AOI.jpg"
+                    alt="profile"
+                  />
+                  <span
+                    class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+                  ></span>
+                </div>
+              </div>
+              <div class="profile-content p-6 md:p-8">
                 <h3
                   class="font-headline-lg text-headline-lg text-on-surface mb-6"
                 >
@@ -582,7 +582,7 @@
                 </h3>
                 <dl class="space-y-4 mb-6">
                   <div
-                    class="grid grid-cols-[72px_1fr] gap-4 border-b border-outline-variant/20 pb-3"
+                    class="profile-stats-grid grid border-b border-outline-variant/20 pb-3"
                   >
                     <dt class="font-label-sm text-secondary">生日</dt>
                     <dd class="font-body-md text-on-surface-variant">
@@ -596,7 +596,7 @@
                 </dl>
               </div>
               <div
-                class="p-6 pt-0 sm:col-span-2 sm:px-6 sm:pt-2 md:px-8 md:pt-3 md:pb-7"
+                class="profile-bio p-6 pt-0 sm:col-span-2 sm:px-6 sm:pt-2 md:px-8 md:pt-3 md:pb-7"
               >
                 <p
                   class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6"
@@ -605,7 +605,9 @@
                   主要於YT上進行直播，偶然會在圖奇上開台，直播內容主要以雜談、遊戲、ASMR、企畫為主。
                 </p>
               </div>
-              <div class="p-6 pt-0 sm:col-span-2 sm:px-6 sm:pb-8 md:px-8">
+              <div
+                class="profile-links p-6 pt-0 sm:col-span-2 sm:px-6 sm:pb-8 md:px-8"
+              >
                 <div class="flex items-center gap-2 mb-3">
                   <p class="font-label-sm text-secondary">社群平台連結</p>
                 </div>

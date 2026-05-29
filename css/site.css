@@ -522,6 +522,139 @@ iframe {
     fill: #ff91b4;
 }
 
+@media (min-width: 768px) {
+    .info-layout {
+        align-items: stretch;
+    }
+
+    .profile-panel-wrap,
+    .profile-card-shell {
+        height: 100%;
+    }
+}
+
+.profile-card-layout {
+    --profile-label-offset: 42px;
+    grid-template-columns: minmax(118px, 42%) minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 24px 24px 0;
+}
+
+.profile-visual-column {
+    display: contents;
+}
+
+.profile-label-row {
+    grid-column: 1 / -1;
+    min-height: 32px;
+    transform: translateY(-4px);
+}
+
+.profile-portrait {
+    grid-column: 1;
+    width: 100%;
+}
+
+.profile-content {
+    grid-column: 2;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.profile-content h3 {
+    margin-bottom: 0;
+    white-space: nowrap;
+    font-size: clamp(22px, 6vw, 32px);
+    line-height: 1.08;
+}
+
+.profile-content dl {
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+.profile-stats-grid {
+    grid-template-columns: max-content max-content;
+    column-gap: 14px;
+    row-gap: 7px;
+    padding-bottom: 0.25rem !important;
+}
+
+.profile-bio,
+.profile-links {
+    grid-column: 1 / -1;
+    margin-right: -24px;
+    margin-left: -24px;
+}
+
+.profile-bio {
+    padding-top: 1rem !important;
+}
+
+.profile-bio p {
+    margin-bottom: 0.5rem;
+}
+
+.profile-links {
+    padding-top: 0.25rem !important;
+}
+
+@media (min-width: 640px) {
+    .profile-card-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+        column-gap: 0;
+        padding: 0;
+    }
+
+    .profile-visual-column {
+        display: grid;
+        gap: 14px;
+        padding: 20px 0 0 30px;
+    }
+
+    .profile-label-row,
+    .profile-portrait,
+    .profile-content {
+        grid-column: auto;
+    }
+
+    .profile-portrait {
+        width: 190px;
+    }
+
+    .profile-content {
+        padding: calc(24px + var(--profile-label-offset)) 32px 0 50px;
+    }
+
+    .profile-content h3 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .profile-bio,
+    .profile-links {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .profile-bio {
+        padding-top: 1rem !important;
+    }
+
+    .profile-links {
+        padding-top: 0.25rem !important;
+    }
+
+    .profile-stats-grid {
+        column-gap: 26px;
+        row-gap: 16px;
+        padding-bottom: 0.75rem !important;
+    }
+}
+
 ::-webkit-scrollbar {
     width: 4px;
 }
