@@ -38,12 +38,22 @@ const calculatorFrame = document.getElementById('calculator-frame');
 const calculatorTriggers = document.querySelectorAll('.calculator-trigger');
 const calculatorCloseButton = document.getElementById('calculator-modal-close');
 const imageModal = document.getElementById('image-modal');
+const imageModalMedia = document.querySelector('.image-modal-media');
 const imageModalContent = document.getElementById('image-modal-content');
 const imageModalTitle = document.getElementById('image-modal-title');
 const imageModalText = document.getElementById('image-modal-text');
 const imageModalLink = document.getElementById('image-modal-link');
 const imageModalCloseButton = document.getElementById('image-modal-close');
+const imageModalZoomInButton = document.getElementById('image-modal-zoom-in');
+const imageModalZoomOutButton = document.getElementById('image-modal-zoom-out');
+const imageModalZoomResetButton = document.getElementById('image-modal-zoom-reset');
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+let imageModalZoom = 1;
+let isImageModalPanning = false;
+let imageModalPanStartX = 0;
+let imageModalPanStartY = 0;
+let imageModalPanScrollLeft = 0;
+let imageModalPanScrollTop = 0;
 
 function withOrigin(src) {
     const videoUrl = new URL(src);
@@ -168,6 +178,7 @@ function setModalText(element, value) {
 function openImageModal(src, title, description, link) {
     if (!imageModal || !imageModalContent) return;
     imageModalContent.src = src;
+    setImageModalZoom(1);
 
     setModalText(imageModalTitle, title);
     setModalText(imageModalText, description);
@@ -192,6 +203,27 @@ function closeImageModal() {
     imageModal.classList.remove('is-open');
     imageModal.setAttribute('aria-hidden', 'true');
     setTimeout(() => { imageModalContent.src = ''; }, 300); // Clear after transition
+}
+
+function setImageModalZoom(nextZoom) {
+    if (!imageModalContent) return;
+
+    imageModalZoom = Math.min(2.5, Math.max(0.75, nextZoom));
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const baseVh = isMobile ? 48 : 58;
+    const basePx = 680;
+    imageModalContent.style.height = `min(${baseVh * imageModalZoom}vh, ${basePx * imageModalZoom}px)`;
+
+    const isMinZoom = imageModalZoom <= 0.75;
+    const isMaxZoom = imageModalZoom >= 2.5;
+    imageModalZoomOutButton?.toggleAttribute('disabled', isMinZoom);
+    imageModalZoomInButton?.toggleAttribute('disabled', isMaxZoom);
+
+    requestAnimationFrame(() => {
+        if (!imageModalMedia) return;
+        imageModalMedia.scrollLeft = (imageModalMedia.scrollWidth - imageModalMedia.clientWidth) / 2;
+        imageModalMedia.scrollTop = (imageModalMedia.scrollHeight - imageModalMedia.clientHeight) / 2;
+    });
 }
 
 pvOpenButton?.addEventListener('click', () => openPvModal(true));
@@ -221,6 +253,36 @@ lightboxTriggers.forEach(img => {
     });
 });
 imageModalCloseButton?.addEventListener('click', closeImageModal);
+imageModalZoomInButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom + 0.25));
+imageModalZoomOutButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom - 0.25));
+imageModalZoomResetButton?.addEventListener('click', () => setImageModalZoom(1));
+imageModalMedia?.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0 || event.target.closest('.image-modal-zoom-button')) return;
+
+    isImageModalPanning = true;
+    imageModalPanStartX = event.clientX;
+    imageModalPanStartY = event.clientY;
+    imageModalPanScrollLeft = imageModalMedia.scrollLeft;
+    imageModalPanScrollTop = imageModalMedia.scrollTop;
+    imageModalMedia.classList.add('is-dragging');
+    imageModalMedia.setPointerCapture(event.pointerId);
+    event.preventDefault();
+});
+imageModalMedia?.addEventListener('pointermove', (event) => {
+    if (!isImageModalPanning) return;
+
+    imageModalMedia.scrollLeft = imageModalPanScrollLeft - (event.clientX - imageModalPanStartX);
+    imageModalMedia.scrollTop = imageModalPanScrollTop - (event.clientY - imageModalPanStartY);
+});
+imageModalMedia?.addEventListener('pointerup', (event) => {
+    isImageModalPanning = false;
+    imageModalMedia.classList.remove('is-dragging');
+    imageModalMedia.releasePointerCapture(event.pointerId);
+});
+imageModalMedia?.addEventListener('pointercancel', () => {
+    isImageModalPanning = false;
+    imageModalMedia.classList.remove('is-dragging');
+});
 imageModal?.addEventListener('click', (event) => {
     if (event.target === imageModal) {
         closeImageModal();

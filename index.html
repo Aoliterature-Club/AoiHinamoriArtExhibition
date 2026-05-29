@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="css/tailwind.css?v=20260529-18" />
     <link rel="stylesheet" href="css/theme.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/site.css?v=20260529-18" />
+    <link rel="stylesheet" href="css/site.css?v=20260529-21" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
@@ -41,13 +41,44 @@
       <div
         class="image-modal-panel glass-card w-full max-w-5xl rounded-xl border border-secondary/30 crimson-glow"
       >
-        <div class="bg-black">
-          <img
-            id="image-modal-content"
-            src=""
-            alt="展覽限定周邊商品大圖"
-            class="image-modal-image"
-          />
+        <div
+          class="image-modal-zoom-controls"
+          aria-label="Image zoom controls"
+        >
+          <button
+            class="image-modal-zoom-button"
+            id="image-modal-zoom-out"
+            type="button"
+            aria-label="Zoom out"
+          >
+            <span class="material-symbols-outlined">remove</span>
+          </button>
+          <button
+            class="image-modal-zoom-button"
+            id="image-modal-zoom-reset"
+            type="button"
+            aria-label="Reset zoom"
+          >
+            <span class="material-symbols-outlined">center_focus_strong</span>
+          </button>
+          <button
+            class="image-modal-zoom-button"
+            id="image-modal-zoom-in"
+            type="button"
+            aria-label="Zoom in"
+          >
+            <span class="material-symbols-outlined">add</span>
+          </button>
+        </div>
+        <div class="image-modal-media bg-black">
+          <div class="image-modal-image-stage">
+            <img
+              id="image-modal-content"
+              src=""
+              alt="展覽限定周邊商品大圖"
+              class="image-modal-image"
+            />
+          </div>
         </div>
         <div
           class="p-6 md:p-8 text-center flex flex-col items-center justify-center gap-3"
@@ -297,7 +328,7 @@
             src="images/logo.png"
             alt="Exhibition Logo"
             class="h-10 w-auto"
-          />
+            />
         </a>
       </div>
       <nav class="hidden md:flex gap-8 header-nav">
@@ -900,28 +931,28 @@
         </div>
       </div>
     </section>
+
     <!-- Footer -->
     <footer
       class="bg-surface-container-low py-16 px-margin-desktop border-t border-outline-variant/20"
     >
-      <!-- Disclaimer Banner -->
-      <div
-        class="footer-disclaimer glass-card rounded-xl border border-secondary/20 crimson-glow p-6"
-      >
-        <span
-          class="material-symbols-outlined text-secondary text-3xl shrink-0 mt-0.5"
-          >info</span
-        >
-        <p class="font-body-md text-on-surface-variant leading-relaxed">
-          本網站所提供之資訊可能未能即時更新，詳細內容請以
-          <span class="text-secondary font-semibold">Aoi Hinamori</span>
-          直播說明及官方公告為準！
-        </p>
-      </div>
-
       <div
         class="max-w-container-max mx-auto flex flex-col items-center justify-center gap-12 text-center"
       >
+        <!-- Disclaimer Banner -->
+        <div
+          class="footer-disclaimer glass-card rounded-xl border border-secondary/20 crimson-glow p-6"
+        >
+          <span
+            class="material-symbols-outlined text-secondary text-3xl shrink-0 mt-0.5"
+            >info</span
+          >
+          <p class="font-body-md text-on-surface-variant leading-relaxed">
+            本網站所提供之資訊可能未能即時更新，詳細內容請以
+            <span class="text-secondary font-semibold">Aoi Hinamori</span>
+            直播說明及官方公告為準！
+          </p>
+        </div>
         <div class="flex flex-col items-center gap-6">
           <p class="footer-credit text-label-sm font-label-sm text-outline">
             2026 ©
@@ -957,7 +988,7 @@
       </div>
     </footer>
 
-    <script src="js/index.js?v=20260529-14"></script>
+    <script src="js/index.js?v=20260529-21"></script>
     <script src="js/faq.js?v=20260529-15"></script>
   </body>
 </html>
