@@ -52,6 +52,18 @@ function setFaqAnswerContent(element, value) {
       return;
     }
 
+    if (tagName === "img") {
+      const src = node.getAttribute("src") || "";
+      if (/^\.?\/?images\/[\w./-]+\.(png|jpe?g|webp|gif)$/i.test(src)) {
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = node.getAttribute("alt") || "";
+        image.className = node.getAttribute("class") || "";
+        parent.appendChild(image);
+      }
+      return;
+    }
+
     Array.from(node.childNodes).forEach((child) => appendSafeNode(child, parent));
   }
 

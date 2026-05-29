@@ -299,7 +299,7 @@
       "id": "onsite-001",
       "category": "其他",
       "question": "現場會有奉納箱或個人 LINE Pay 嗎？",
-      "answer": "本次活動由協辦單位負責，為避免稅務與帳務責任問題，現場不設置奉納箱，也不提供額外個人 LINE Pay。<br>（但你可以點擊<a href='https://deerdonate.herokuapp.com/donation/AoiHinamori' target='_blank'>這裡</a>來斗內Aoi）",
+      "answer": "本次活動由協辦單位負責，為避免稅務與帳務責任問題，現場不設置奉納箱，也不提供額外個人 LINE Pay。<br>（但你可以現在透過<a href='https://deerdonate.herokuapp.com/donation/AoiHinamori' target='_blank'>山羌</a>或下方 LINE PAY 來斗內 Aoi）<br><img src='images/LinePayQR.jpg' alt='LINE PAY QR-Code' class='faq-linepay-qr'> （感謝AI重新生成）<br>手機可以直接點<a href='https://qrcodepay.line.me/qr/payment/TTfE4qcI%252FWz6%252BWHNyJBycEPZbkDZ6r1RN%252FvnUwo7G59bO4%252BcWYtwHgNRTKOOTS25' target='_blank'>這裡</a>來用LINE PAY斗內",
       "aliases": ["奉納箱跟LINE PAY會擺放在哪裡？"],
       "priority": 2
     },
