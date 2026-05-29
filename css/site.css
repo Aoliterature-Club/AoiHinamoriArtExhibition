@@ -880,6 +880,7 @@ iframe {
     
     .header-nav {
         flex: 0 0 auto;
+        transform: translateY(-2px);
     }
     
     .header-right {
