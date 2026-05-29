@@ -170,7 +170,8 @@ const inventoryTranslations = {
     },
     aluminumPrint: {
       name: "(On-site / Pre-order) Eclipse / Light Aluminum Print",
-      detail: "Size: A3 / Premium packaging included / Only 30 available on-site",
+      detail:
+        "Size: A3 / Premium packaging included / Only 30 available on-site",
     },
     laheeNecklace: {
       name: "(Pre-order) LAHEE Necklace",
@@ -347,8 +348,7 @@ function calculateTotal() {
   });
 
   if (breakdownEl && !hasItems) {
-    breakdownEl.innerHTML =
-      `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
+    breakdownEl.innerHTML = `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
   }
 
   document.querySelectorAll(".total-amount").forEach((totalEl) => {
@@ -498,7 +498,6 @@ async function exportSummaryImage() {
   const measureCtx = measureCanvas.getContext("2d");
   measureCtx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
 
-  // 1. 預先計算每一列的文字行數，以便後續作垂直置中對齊
   const lineCounts = items.map((item) =>
     getWrappedLineCount(measureCtx, item.name, maxTextWidth),
   );
