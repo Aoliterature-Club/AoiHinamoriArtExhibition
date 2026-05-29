@@ -351,6 +351,17 @@ iframe {
     line-height: 1.7;
 }
 
+.footer-disclaimer {
+    width: 70%;
+    max-width: var(--container-max);
+    margin: 0 auto 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
 .goods-card {
     border-radius: 0.5rem;
 }
@@ -489,6 +500,13 @@ iframe {
     .event-time-value {
         font-size: clamp(15px, 4.65vw, 22px);
         line-height: 1.35;
+    }
+
+    .footer-disclaimer {
+        width: 100%;
+        margin-bottom: 36px;
+        align-items: flex-start;
+        text-align: left;
     }
 
     section {
