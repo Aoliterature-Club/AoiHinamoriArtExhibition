@@ -326,7 +326,6 @@ iframe {
 }
 
 .image-modal-media {
-    --image-modal-zoom-height: min(58vh, 680px);
     position: relative;
     height: min(68vh, 760px);
     overflow: auto;
@@ -341,9 +340,10 @@ iframe {
 
 .image-modal-image-stage {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     width: max-content;
+    height: max-content;
     min-width: 100%;
     min-height: 100%;
 }
@@ -351,7 +351,7 @@ iframe {
 .image-modal-zoom-controls {
     position: absolute;
     top: 12px;
-    right: 12px;
+    left: 12px;
     z-index: 5;
     display: flex;
     gap: 8px;
@@ -385,7 +385,7 @@ iframe {
 .image-modal-image {
     display: block;
     width: auto;
-    height: var(--image-modal-zoom-height);
+    height: auto;
     max-width: none;
     max-height: none;
     user-select: none;
@@ -548,13 +548,12 @@ iframe {
     }
 
     .image-modal-media {
-        --image-modal-zoom-height: 48vh;
         height: 58vh;
     }
 
     .image-modal-zoom-controls {
         top: 10px;
-        right: 10px;
+        left: 10px;
         gap: 6px;
     }
 

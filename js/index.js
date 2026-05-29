@@ -40,6 +40,7 @@ const calculatorCloseButton = document.getElementById('calculator-modal-close');
 const imageModal = document.getElementById('image-modal');
 const imageModalMedia = document.querySelector('.image-modal-media');
 const imageModalContent = document.getElementById('image-modal-content');
+const imageModalImageStage = document.querySelector('.image-modal-image-stage');
 const imageModalTitle = document.getElementById('image-modal-title');
 const imageModalText = document.getElementById('image-modal-text');
 const imageModalLink = document.getElementById('image-modal-link');
@@ -177,8 +178,10 @@ function setModalText(element, value) {
 
 function openImageModal(src, title, description, link) {
     if (!imageModal || !imageModalContent) return;
-    imageModalContent.src = src;
-    setImageModalZoom(1);
+    imageModalContent.style.width = '';
+    imageModalContent.style.height = '';
+    imageModalImageStage?.style.removeProperty('width');
+    imageModalImageStage?.style.removeProperty('height');
 
     setModalText(imageModalTitle, title);
     setModalText(imageModalText, description);
@@ -196,6 +199,11 @@ function openImageModal(src, title, description, link) {
 
     imageModal.classList.add('is-open');
     imageModal.setAttribute('aria-hidden', 'false');
+    imageModalContent.onload = () => requestAnimationFrame(() => setImageModalZoom(1));
+    imageModalContent.src = src;
+    if (imageModalContent.complete) {
+        requestAnimationFrame(() => setImageModalZoom(1));
+    }
 }
 
 function closeImageModal() {
@@ -206,13 +214,25 @@ function closeImageModal() {
 }
 
 function setImageModalZoom(nextZoom) {
-    if (!imageModalContent) return;
+    if (!imageModalContent || !imageModalMedia) return;
 
     imageModalZoom = Math.min(2.5, Math.max(0.75, nextZoom));
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const baseVh = isMobile ? 48 : 58;
-    const basePx = 680;
-    imageModalContent.style.height = `min(${baseVh * imageModalZoom}vh, ${basePx * imageModalZoom}px)`;
+    const naturalWidth = imageModalContent.naturalWidth;
+    const naturalHeight = imageModalContent.naturalHeight;
+
+    if (naturalWidth && naturalHeight) {
+        const fitScale = Math.min(
+            imageModalMedia.clientWidth / naturalWidth,
+            imageModalMedia.clientHeight / naturalHeight
+        );
+        const imageWidth = Math.round(naturalWidth * fitScale * imageModalZoom);
+        const imageHeight = Math.round(naturalHeight * fitScale * imageModalZoom);
+
+        imageModalContent.style.width = `${imageWidth}px`;
+        imageModalContent.style.height = `${imageHeight}px`;
+        imageModalImageStage?.style.setProperty('width', `${Math.max(imageWidth, imageModalMedia.clientWidth)}px`);
+        imageModalImageStage?.style.setProperty('height', `${Math.max(imageHeight, imageModalMedia.clientHeight)}px`);
+    }
 
     const isMinZoom = imageModalZoom <= 0.75;
     const isMaxZoom = imageModalZoom >= 2.5;
@@ -220,7 +240,6 @@ function setImageModalZoom(nextZoom) {
     imageModalZoomInButton?.toggleAttribute('disabled', isMaxZoom);
 
     requestAnimationFrame(() => {
-        if (!imageModalMedia) return;
         imageModalMedia.scrollLeft = (imageModalMedia.scrollWidth - imageModalMedia.clientWidth) / 2;
         imageModalMedia.scrollTop = (imageModalMedia.scrollHeight - imageModalMedia.clientHeight) / 2;
     });
