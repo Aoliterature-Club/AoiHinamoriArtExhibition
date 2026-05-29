@@ -265,6 +265,7 @@ function getSelectedItems() {
       qty: item.qty,
       price: item.price,
       subtotal: item.price * item.qty,
+      image: item.image,
     }));
 }
 
@@ -324,29 +325,55 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
   ctx.closePath();
 }
 
-function exportSummaryImage() {
+function loadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => {
+      console.warn(`無法載入圖片: ${src}`);
+      resolve(null); // 載入失敗時回傳 null，避免整個輸出壞掉
+    };
+    img.src = src;
+  });
+}
+
+async function exportSummaryImage() {
   const items = getSelectedItems();
   if (!items.length) {
     window.alert("請先選擇至少一項商品，再輸出圖片。");
     return;
   }
 
+  const loadedImages = await Promise.all(
+    items.map((item) => loadImage(item.image)),
+  );
+
   const total = getSelectedTotal(items);
   const width = 1080;
   const rowHeight = 72;
+
+  const imgSize = 56;
+  const textOffset = imgSize + 20;
+  const maxTextWidth = 520 - textOffset;
+
   const measureCanvas = document.createElement("canvas");
   const measureCtx = measureCanvas.getContext("2d");
-  const rowHeights = items.map((item) => {
-    if (!measureCtx) return rowHeight;
-    measureCtx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
-    const lineCount = getWrappedLineCount(measureCtx, item.name, 520);
-    return Math.max(rowHeight, lineCount * 30 + 24);
-  });
+  measureCtx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
+
+  // 1. 預先計算每一列的文字行數，以便後續作垂直置中對齊
+  const lineCounts = items.map((item) =>
+    getWrappedLineCount(measureCtx, item.name, maxTextWidth),
+  );
+  const rowHeights = lineCounts.map((lineCount) =>
+    Math.max(rowHeight, lineCount * 30 + 24),
+  );
+
   const listHeight = rowHeights.reduce(
     (sum, heightValue) => sum + heightValue,
     0,
   );
   const height = Math.max(760, 292 + listHeight + 260);
+
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
@@ -404,19 +431,59 @@ function exportSummaryImage() {
   ctx.stroke();
 
   items.forEach((item, index) => {
+    const currentLineCount = lineCounts[index];
+    const textHeight = currentLineCount * 30;
+    const rowCenterY = y - 34 + rowHeights[index] / 2;
+
+    const imgY = rowCenterY - imgSize / 2;
+    const img = loadedImages[index];
+
+    if (img) {
+      ctx.save();
+      drawRoundedRect(ctx, padding, imgY, imgSize, imgSize, 6);
+      ctx.clip();
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(padding, imgY, imgSize, imgSize);
+
+      const scale = Math.min(imgSize / img.width, imgSize / img.height);
+      const drawWidth = img.width * scale;
+      const drawHeight = img.height * scale;
+
+      const drawX = padding + (imgSize - drawWidth) / 2;
+      const drawImgY = imgY + (imgSize - drawHeight) / 2;
+
+      ctx.drawImage(img, drawX, drawImgY, drawWidth, drawHeight);
+      ctx.restore();
+    } else {
+      ctx.strokeStyle = "rgba(233, 195, 73, 0.3)";
+      ctx.strokeRect(padding, imgY, imgSize, imgSize);
+    }
+
     ctx.fillStyle = "#e6bdb9";
     ctx.font = "700 25px 'Hanken Grotesk', 'Noto Sans TC', sans-serif";
-    drawWrappedText(ctx, item.name, padding, y, 520, 30);
+
+    const textStartY = rowCenterY - textHeight / 2 + 23;
+    drawWrappedText(
+      ctx,
+      item.name,
+      padding + textOffset,
+      textStartY,
+      maxTextWidth,
+      30,
+    );
+
+    const singleLineY = rowCenterY + 8;
 
     ctx.fillStyle = "#e9c349";
     ctx.font = "700 22px 'JetBrains Mono', monospace";
-    ctx.fillText(`x${item.qty}`, 660, y);
+    ctx.fillText(`x${item.qty}`, 660, singleLineY);
 
     ctx.fillStyle = "#f4eeee";
     ctx.textAlign = "left";
-    ctx.fillText("NT$ ", width - padding - 160, y);
+    ctx.fillText("NT$ ", width - padding - 160, singleLineY);
     ctx.textAlign = "right";
-    ctx.fillText(formatPrice(item.subtotal), width - padding, y);
+    ctx.fillText(formatPrice(item.subtotal), width - padding, singleLineY);
     ctx.textAlign = "left";
 
     y += rowHeights[index];
