@@ -7,8 +7,36 @@
     en: "English (AI)",
   };
 
+  const isCalculatorPage = Boolean(document.getElementById("goods-list"));
+  const languageCookieName = isCalculatorPage
+    ? "aoi_calculator_lang"
+    : "aoi_site_lang";
+
+  function getCookieValue(name) {
+    return document.cookie
+      .split(";")
+      .map((item) => item.trim())
+      .find((item) => item.startsWith(`${name}=`))
+      ?.slice(name.length + 1);
+  }
+
+  function setLanguageCookie(lang) {
+    document.cookie = `${languageCookieName}=${encodeURIComponent(
+      lang,
+    )}; Max-Age=31536000; Path=/; SameSite=Lax`;
+  }
+
+  function clearLegacyLanguageStorage() {
+    localStorage.removeItem("aoi-lang");
+    localStorage.removeItem("aoi-site-lang");
+    localStorage.removeItem("aoi-calculator-lang");
+  }
+
   function getCurrentLanguage() {
-    const savedLanguage = localStorage.getItem("aoi-lang");
+    clearLegacyLanguageStorage();
+    const savedLanguage = decodeURIComponent(
+      getCookieValue(languageCookieName) || "",
+    );
     if (supportedLanguages.includes(savedLanguage)) return savedLanguage;
 
     const browserLanguages = navigator.languages?.length
@@ -18,21 +46,20 @@
       lang.toLowerCase(),
     );
 
-    if (normalizedLanguages.some((lang) => lang.startsWith("ja"))) return "ja";
-    if (
-      normalizedLanguages.some(
-        (lang) =>
-          lang === "zh" ||
-          lang.startsWith("zh-hant") ||
-          lang.startsWith("zh-tw") ||
-          lang.startsWith("zh-hk") ||
-          lang.startsWith("zh-mo"),
-      )
-    ) {
-      return "zh-Hant";
+    for (const lang of normalizedLanguages) {
+      if (lang.startsWith("en")) return "en";
+      if (lang.startsWith("ja")) return "ja";
+      if (
+        lang === "zh" ||
+        lang.startsWith("zh-hant") ||
+        lang.startsWith("zh-tw") ||
+        lang.startsWith("zh-hk") ||
+        lang.startsWith("zh-mo") ||
+        lang.startsWith("zh")
+      ) {
+        return "zh-Hant";
+      }
     }
-    if (normalizedLanguages.some((lang) => lang.startsWith("zh")))
-      return "zh-Hant";
 
     return "en";
   }
@@ -432,10 +459,13 @@
     );
   }
 
-  async function changeLanguage(lang) {
+  async function changeLanguage(lang, options = {}) {
     if (!supportedLanguages.includes(lang)) return;
     currentLanguage = lang;
-    localStorage.setItem("aoi-lang", lang);
+    if (options.persist !== false) {
+      setLanguageCookie(lang);
+    }
+    clearLegacyLanguageStorage();
     await setCurrentDictionary(lang);
     window.AoiI18n.currentLanguage = currentLanguage;
     window.AoiI18n.isTranslated = currentLanguage !== "zh-Hant";

@@ -202,7 +202,7 @@ function syncCalculatorLanguage() {
     const calculatorI18n = calculatorFrame?.contentWindow?.AoiI18n;
 
     if (!lang || !calculatorI18n?.changeLanguage) return;
-    calculatorI18n.changeLanguage(lang);
+    calculatorI18n.changeLanguage(lang, { persist: false });
 }
 
 function openCalculatorModal(event) {
