@@ -341,20 +341,6 @@ iframe {
     padding: 40px 0;
 }
 
-.faq-entry-card {
-    display: grid;
-    gap: 28px;
-    padding: 40px;
-}
-
-.faq-entry-copy {
-    max-width: 100%;
-}
-
-.faq-open {
-    font-size: 13px;
-    line-height: 1.2;
-}
 
 .image-modal-panel {
     position: relative;
@@ -788,9 +774,6 @@ iframe {
         padding: 20px;
     }
 
-    .faq-entry-card {
-        padding: 28px 22px;
-    }
 
     .image-modal-panel {
         max-height: calc(100vh - 72px);
@@ -842,11 +825,6 @@ iframe {
     }
 }
 
-@media (min-width: 768px) {
-    .faq-open {
-        font-size: 14px;
-    }
-}
 
 /* Hero details symmetrical row centering */
 .hero-details-row {
