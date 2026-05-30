@@ -277,7 +277,7 @@
       "id": "goods-003",
       "category": "Goods Purchase",
       "question": "Are regular goods purchase-limited?",
-      "answer": "Purchase limits apply during the first three days of the exhibition. For regular goods, each item is limited to 3 units. The remaining days will have no limit.",
+      "answer": "Purchase limits apply during the first three days of the exhibition. For purchase-limited items, please refer to the image markings in the merchandise section. The remaining days will have no limit.",
       "aliases": [
         "Are regular goods purchase-limited?"
       ],
