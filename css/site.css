@@ -1003,21 +1003,6 @@ iframe {
     background: var(--color-primary-container);
 }
 
-.translation-notice {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 90;
-    padding: 8px 12px;
-    border: 1px solid rgba(233, 195, 73, 0.38);
-    border-radius: 999px;
-    background: rgba(8, 8, 8, 0.82);
-    color: var(--color-secondary);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0;
-    backdrop-filter: blur(12px);
-}
 
 #mobile-menu .language-menu {
     margin-top: 12px;
@@ -1025,16 +1010,18 @@ iframe {
 
 .language-switcher-standalone {
     position: fixed;
-    top: 14px;
-    right: 14px;
+    top: 32px;
+    right: 20px;
     z-index: 60;
+}
+
+@media (min-width: 768px) {
+    .language-switcher-standalone {
+        top: 40px;
+        right: 20px;
+    }
 }
 
 @media (max-width: 767px) {
 
-
-    .translation-notice {
-        right: 12px;
-        bottom: 92px;
-    }
 }

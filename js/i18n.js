@@ -196,7 +196,7 @@
         }
       });
 
-    document.querySelector(".translation-notice")?.remove();
+    document.querySelector(".translation-notice-modal")?.remove();
     document.title =
       document.documentElement.dataset.i18nOriginalTitle || document.title;
   }
@@ -281,12 +281,58 @@
   }
 
   function showTranslationNotice() {
-    document.querySelector(".translation-notice")?.remove();
+    if (window !== window.top) return; // Prevent modal from popping up inside the goods-calculator iframe
+
+    document.querySelector(".translation-notice-modal")?.remove();
     if (currentLanguage === "zh-Hant") return;
-    const notice = document.createElement("div");
-    notice.className = "translation-notice";
-    notice.textContent = t("translation.notice");
-    document.body.appendChild(notice);
+
+    const modal = document.createElement("div");
+    modal.className = "translation-notice-modal fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-md px-margin-mobile md:px-margin-desktop";
+    modal.style.opacity = "0";
+    modal.style.transition = "opacity 300ms ease";
+    modal.style.zIndex = "9999";
+
+    const panel = document.createElement("div");
+    panel.className = "glass-card w-full border border-secondary/30 rounded-xl p-6 md:p-8 crimson-glow text-center";
+    panel.style.maxWidth = "400px";
+    panel.style.transform = "scale(0.95)";
+    panel.style.transition = "transform 300ms ease";
+
+    const icon = document.createElement("span");
+    icon.className = "material-symbols-outlined text-secondary mb-4";
+    icon.style.fontSize = "48px";
+    icon.textContent = "translate";
+
+    const text = document.createElement("p");
+    text.className = "text-on-surface font-body-md md:font-body-lg mb-8 leading-relaxed";
+    text.textContent = t("translation.notice");
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "w-full py-3 bg-secondary text-on-secondary font-label-md uppercase tracking-widest rounded transition-colors";
+    let closeText = "I UNDERSTAND";
+    if (currentLanguage === "zh-Hans") closeText = "我理解了";
+    if (currentLanguage === "ja") closeText = "理解しました";
+    closeBtn.textContent = closeText;
+
+    closeBtn.onmouseover = () => (closeBtn.style.opacity = "0.8");
+    closeBtn.onmouseout = () => (closeBtn.style.opacity = "1");
+
+    closeBtn.onclick = () => {
+      modal.style.opacity = "0";
+      panel.style.transform = "scale(0.95)";
+      setTimeout(() => modal.remove(), 300);
+    };
+
+    panel.append(icon, text, closeBtn);
+    modal.appendChild(panel);
+    document.body.appendChild(modal);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        modal.style.opacity = "1";
+        panel.style.transform = "scale(1)";
+      });
+    });
   }
 
   function appendInfoSourceLink() {
@@ -482,12 +528,14 @@
     setText("#breakdown p", "calculator.empty");
   }
 
-  function localizePage() {
+  function localizePage(isInitial = false) {
     document.documentElement.lang = currentLanguage;
     document.body.dataset.lang = currentLanguage;
     updateLanguageButtons();
     restoreOriginals();
-    showTranslationNotice();
+    if (!isInitial) {
+      showTranslationNotice();
+    }
     if (document.getElementById("goods-list")) localizeCalculatorPage();
     if (document.getElementById("info")) localizeIndexPage();
     window.dispatchEvent(
@@ -518,6 +566,7 @@
     t,
     changeLanguage,
     isTranslated: currentLanguage !== "zh-Hant",
+    showTranslationNotice,
   };
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -534,7 +583,7 @@
       })
       .finally(() => {
         readyResolve();
-        localizePage();
+        localizePage(true);
       });
   });
 })();

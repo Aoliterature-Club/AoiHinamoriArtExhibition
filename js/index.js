@@ -59,6 +59,7 @@ let imageModalPanScrollLeft = 0;
 let imageModalPanScrollTop = 0;
 let bgmUserControlled = false;
 let shouldResumeBgmAfterPv = false;
+let hasShownInitialNotice = false;
 
 function withOrigin(src) {
     const videoUrl = new URL(src);
@@ -112,6 +113,13 @@ function closePvModal() {
         playBgm();
     }
     shouldResumeBgmAfterPv = false;
+
+    if (wasOpen && !hasShownInitialNotice && window.AoiI18n?.showTranslationNotice) {
+        hasShownInitialNotice = true;
+        setTimeout(() => {
+            window.AoiI18n.showTranslationNotice();
+        }, 300); // Wait for PV modal to finish closing transition
+    }
 }
 
 function updateBgmButtons(isPlaying) {
