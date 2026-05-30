@@ -514,6 +514,22 @@ const spyObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('section[id]').forEach(sec => spyObserver.observe(sec));
 
+// Easter Egg
+const easterEggTriggers = document.querySelectorAll('.easter-egg-trigger');
+const easterEggText = document.getElementById('easter-egg-text');
+
+if (easterEggTriggers.length > 0 && easterEggText) {
+    easterEggTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            if (easterEggText.style.opacity === '0' || easterEggText.style.opacity === '') {
+                easterEggText.style.opacity = '1';
+            } else {
+                easterEggText.style.opacity = '0';
+            }
+        });
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-inline-pv="true"]').forEach((player) => {
         player.src = withOrigin(player.dataset.src);

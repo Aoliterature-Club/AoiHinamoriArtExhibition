@@ -397,6 +397,7 @@
     setText(".profile-stats-grid dd:nth-of-type(3)", "profile.jobValue");
     setText(".profile-bio p", "profile.bio");
     setText(".profile-label-row p", "profile.heading");
+    setText("#easter-egg-text", "profile.easterEgg");
     setText(".profile-links > .flex > p", "profile.links");
     document.querySelectorAll(".profile-links a").forEach((link) => {
       if (link.href.includes("discord.gg")) {
