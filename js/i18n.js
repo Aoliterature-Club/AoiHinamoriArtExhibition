@@ -3,7 +3,7 @@
 
   const languageLabels = {
     "zh-Hant": "繁體中文",
-    "zh-Hans": "简体中文",
+    "zh-Hans": "简体中文 (AI)",
     ja: "日本語 (AI)",
     en: "English (AI)",
   };
