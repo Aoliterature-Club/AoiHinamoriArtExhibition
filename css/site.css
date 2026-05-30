@@ -911,7 +911,7 @@ iframe {
 
 @media (min-width: 768px) {
     .hero-details-row {
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         justify-items: stretch;
     }
     
@@ -1106,7 +1106,7 @@ iframe {
 
 @media (min-width: 768px) {
     .hero-details-row {
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         justify-items: stretch;
     }
     
