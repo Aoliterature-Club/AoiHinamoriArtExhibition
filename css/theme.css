@@ -61,7 +61,10 @@
 .bg-primary { background-color: var(--color-primary); }
 .bg-primary-container { background-color: var(--color-primary-container); }
 .bg-primary-container\/10 { background-color: rgb(190 0 28 / 0.1); }
+.bg-primary-container\/80 { background-color: rgb(190 0 28 / 0.8); }
+.bg-primary-container\/85 { background-color: rgb(190 0 28 / 0.85); }
 .bg-primary-container\/90 { background-color: rgb(190 0 28 / 0.9); }
+.hover\:bg-primary-container:hover { background-color: var(--color-primary-container); }
 .bg-secondary { background-color: var(--color-secondary); }
 .bg-secondary\/50 { background-color: rgb(233 195 73 / 0.5); }
 

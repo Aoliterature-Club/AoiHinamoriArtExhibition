@@ -368,11 +368,11 @@ function updateQty(id, delta) {
 
 function calculateTotal() {
   let total = 0;
-  const breakdownEl = document.getElementById("breakdown");
+  const breakdownEls = document.querySelectorAll(".breakdown-container");
 
-  if (breakdownEl) {
-    breakdownEl.innerHTML = "";
-  }
+  breakdownEls.forEach(el => {
+    el.innerHTML = "";
+  });
 
   let hasItems = false;
 
@@ -382,20 +382,30 @@ function calculateTotal() {
     hasItems = true;
     total += item.price * item.qty;
 
-    if (breakdownEl) {
+    breakdownEls.forEach(el => {
       const row = document.createElement("div");
       row.className =
         "flex justify-between items-center gap-4 animate-in fade-in slide-in-from-left duration-300";
       row.innerHTML = `
-                <span class="text-on-surface-variant font-body-md">${item.name} <span class="text-secondary font-label-sm ml-2">x${item.qty}</span></span>
-                <span class="text-on-surface font-label-sm whitespace-nowrap">NT$ ${formatPrice(item.price * item.qty)}</span>
+                <div class="flex items-baseline min-w-0 flex-1 mr-4">
+                    <span class="text-on-surface-variant font-body-md text-truncate min-w-0 flex-1 block">${item.name}</span>
+                </div>
+                <div class="flex items-baseline flex-shrink-0" style="gap: 1.5rem;">
+                    <span class="text-secondary font-label-sm whitespace-nowrap text-left" style="width: 32px;">x${item.qty}</span>
+                    <div class="flex items-baseline justify-between font-label-sm whitespace-nowrap text-on-surface" style="width: 96px;">
+                        <span class="text-left opacity-70">NT$</span>
+                        <span class="flex-1 text-right">${formatPrice(item.price * item.qty)}</span>
+                    </div>
+                </div>
             `;
-      breakdownEl.appendChild(row);
-    }
+      el.appendChild(row);
+    });
   });
 
-  if (breakdownEl && !hasItems) {
-    breakdownEl.innerHTML = `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
+  if (!hasItems) {
+    breakdownEls.forEach(el => {
+      el.innerHTML = `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
+    });
   }
 
   document.querySelectorAll(".total-amount").forEach((totalEl) => {
@@ -727,6 +737,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     button.addEventListener("click", exportSummaryImage);
   });
   calculateTotal();
+
+  const toggleBtn = document.getElementById("mobile-breakdown-toggle");
+  const toggleText = document.getElementById("mobile-breakdown-toggle-text");
+  const wrapper = document.getElementById("mobile-breakdown-wrapper");
+  const icon = toggleText?.querySelector(".material-symbols-outlined");
+
+  const toggleBreakdown = () => {
+    if (!wrapper) return;
+    wrapper.classList.toggle("hidden");
+    wrapper.classList.toggle("flex");
+    if (icon) {
+      icon.innerText = wrapper.classList.contains("hidden")
+        ? "expand_less"
+        : "expand_more";
+    }
+  };
+
+  if (toggleBtn) toggleBtn.addEventListener("click", toggleBreakdown);
+  if (toggleText) toggleText.addEventListener("click", toggleBreakdown);
 });
 
 window.addEventListener("aoi-language-change", () => {

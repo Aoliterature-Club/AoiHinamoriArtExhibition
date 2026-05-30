@@ -20,8 +20,8 @@
     />
 
     <link rel="stylesheet" href="css/tailwind.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/theme.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/site.css?v=20260530-10" />
+    <link rel="stylesheet" href="css/theme.css?v=20260530-1044" />
+    <link rel="stylesheet" href="css/site.css?v=20260530-1044" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
@@ -88,7 +88,7 @@
         >
           <p
             id="image-modal-title"
-            class="font-title-md text-title-md text-secondary hidden"
+            class="font-title-md modal-title-large text-secondary hidden"
           ></p>
           <p
             id="image-modal-text"
@@ -467,7 +467,7 @@
         </div>
         <div class="mt-12">
           <button
-            class="bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
+            class="bg-primary-container/80 hover:bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
             id="pv-open"
             type="button"
           >
@@ -501,15 +501,15 @@
           </div>
         </div>
       </div>
-      <div class="absolute bottom-10 absolute-center">
-        <div class="flex flex-col items-center animate-bounce">
+      <div class="absolute bottom-10 absolute-center z-20">
+        <a href="#info" class="flex flex-col items-center animate-bounce group cursor-pointer hover:opacity-80 transition-opacity">
           <span class="text-label-sm font-label-sm text-outline mb-2"
             >SCROLL</span
           >
-          <span class="material-symbols-outlined text-secondary"
+          <span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors"
             >keyboard_double_arrow_down</span
           >
-        </div>
+        </a>
       </div>
     </section>
     <!-- Exhibition Info Section -->
@@ -566,7 +566,7 @@
               href="https://youtu.be/sIbY1fcPFlw?t=1140"
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
+              class="bg-primary-container/80 hover:bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
               style="
                 display: inline-block;
                 max-width: 100%;
@@ -883,36 +883,39 @@
       id="goods"
     >
       <div class="max-w-container-max mx-auto">
-        <div class="flex justify-between items-end mb-16">
-          <div>
+        <div class="mb-12 md:mb-16 section-header-layout">
+          <div class="shrink-0 whitespace-nowrap">
             <h2
-              class="font-headline-lg text-headline-lg text-secondary mb-8 border-l-4 border-primary-container pl-6"
+              class="font-headline-lg text-headline-lg text-secondary border-l-4 border-primary-container pl-6 mb-0"
             >
               展覽限定周邊商品
             </h2>
           </div>
-          <a
-            href="goods-calculator.html"
-            class="calculator-trigger hidden md:flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group"
-          >
-            <span
-              class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-secondary transition-colors tracking-widest"
-              >不知道要花多少？</span
+          <div class="calculator-trigger-wrapper desktop-only-calc">
+            <img src="images/Assets/hibao.png" alt="" class="calculator-trigger-image" />
+            <a
+              href="goods-calculator.html"
+              class="calculator-trigger calculator-trigger-btn inline-flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group"
             >
-            <span
-              class="inline-flex items-center gap-2 text-body-md font-bold text-secondary"
-            >
-              <span>來試算你要買的周邊總金額吧</span>
               <span
-                aria-hidden="true"
-                class="group-hover:translate-x-1 transition-transform"
-                >→</span
+                class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-secondary transition-colors tracking-widest calculator-trigger-label"
+                >不知道要花多少？</span
               >
-              <span class="material-symbols-outlined text-[20px] leading-none"
-                >payments</span
+              <span
+                class="inline-flex items-center gap-2 text-body-md font-bold text-secondary calculator-trigger-title"
               >
-            </span>
-          </a>
+                <span>來試算你要買的周邊總金額吧</span>
+                <span
+                  aria-hidden="true"
+                  class="group-hover:translate-x-1 transition-transform"
+                  >→</span
+                >
+                <span class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
+                  >payments</span
+                >
+              </span>
+            </a>
+          </div>
         </div>
         <div class="space-y-6">
           <div class="goods-top-grid">
@@ -995,17 +998,18 @@
             />
           </div>
         </div>
-        <div class="mt-12 flex justify-center md:hidden">
+        <div class="mt-12 calculator-trigger-wrapper calculator-wrapper">
+          <img src="images/Assets/hibao.png" alt="" class="calculator-trigger-image" />
           <a
             href="goods-calculator.html"
-            class="calculator-trigger inline-flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group w-full"
+            class="calculator-trigger calculator-trigger-btn inline-flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group"
           >
             <span
-              class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-secondary transition-colors tracking-widest"
+              class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-secondary transition-colors tracking-widest calculator-trigger-label"
               >不知道要花多少？</span
             >
             <span
-              class="inline-flex items-center gap-2 text-body-md font-bold text-secondary"
+              class="inline-flex items-center gap-2 text-body-md font-bold text-secondary calculator-trigger-title"
             >
               <span>來試算你要買的周邊總金額吧</span>
               <span
@@ -1013,7 +1017,7 @@
                 class="group-hover:translate-x-1 transition-transform"
                 >→</span
               >
-              <span class="material-symbols-outlined text-[20px] leading-none"
+              <span class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
                 >payments</span
               >
             </span>

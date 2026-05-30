@@ -303,6 +303,7 @@ function openImageModal(src, title, description, link) {
     imageModalImageStage?.style.removeProperty('height');
 
     setModalText(imageModalTitle, title);
+
     setModalText(imageModalText, description, { allowLinks: true });
 
     if (imageModalLink) {
@@ -410,6 +411,11 @@ imageModalCloseButton?.addEventListener('click', closeImageModal);
 imageModalZoomInButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom + 0.25));
 imageModalZoomOutButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom - 0.25));
 imageModalZoomResetButton?.addEventListener('click', () => setImageModalZoom(1));
+imageModalMedia?.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    const zoomDelta = event.deltaY > 0 ? -0.15 : 0.15;
+    setImageModalZoom(imageModalZoom + zoomDelta);
+}, { passive: false });
 imageModalMedia?.addEventListener('pointerdown', (event) => {
     if (event.button !== 0 || event.target.closest('.image-modal-zoom-button')) return;
 
