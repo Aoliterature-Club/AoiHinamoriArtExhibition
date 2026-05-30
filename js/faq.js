@@ -38,6 +38,15 @@ function getFaqText(key) {
       loadFailedAnswer:
         "Please make sure the site is opened through a local server or GitHub Pages, not directly through file://.",
     },
+    "zh-Hans": {
+      all: "全部",
+      empty: "找不到符合条件的问题。",
+      fallbackCategory: "其他",
+      loadFailedCategory: "加载失败",
+      loadFailedQuestion: "FAQ 资料暂时无法使用",
+      loadFailedAnswer:
+        "请确认网站是通过本机服务器或 GitHub Pages 开启，而不是直接使用 file:// 开启。",
+    },
   };
   return messages[getFaqLanguage()]?.[key] || messages["zh-Hant"][key];
 }
@@ -224,7 +233,8 @@ async function loadFaqItems() {
   if (faqItems.length) return;
 
   try {
-    const suffix = getFaqLanguage() === "zh-Hant" ? "" : `.${getFaqLanguage()}`;
+    const faqLanguage = getFaqLanguage();
+    const suffix = faqLanguage === "zh-Hant" ? "" : `.${faqLanguage}`;
     const response = await fetch(`data/faq${suffix}.json`, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`FAQ data request failed: ${response.status}`);

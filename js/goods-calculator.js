@@ -186,6 +186,53 @@ const inventoryTranslations = {
       detail: "NT$150 per pack, 4 cards per pack, 50 designs total",
     },
   },
+  "zh-Hans": {
+    auroraStand: { name: "极光色立牌" },
+    acrylicArtBoard: { name: "双层压克力画板" },
+    signedBoardSet: {
+      name: "豪华套装附亲签名板",
+      detail: "限购一组",
+    },
+    supportFan: { name: "透明应援扇子" },
+    acrylicKeychain: { name: "双层压克力钥匙圈" },
+    postcardSet: { name: "蚀光 / 光 明信片套组 + PVC 包装" },
+    okraBlock: { name: "块状秋葵" },
+    diaryComic: {
+      name: "Aoi's Diary 原创漫画",
+      detail: "附 A3 海报一张",
+    },
+    tcgSleeves: {
+      name: "夏日风 TCG 卡套（两种尺寸）",
+      detail: "每款 NT$600，每组 64 张",
+    },
+    b5Binder: { name: "清凉一夏 B5 卡册" },
+    eyeMaskSet: { name: "AOI 缎面眼罩套组" },
+    deskMat: { name: "热情夏日 万用垫", detail: "尺寸：60 x 30cm" },
+    randomBadge: {
+      name: "随机徽章（全 6 款）",
+      detail: "每个 NT$150，尺寸：5.7cm",
+    },
+    plushLedBadge: {
+      name: "病患毛绒徽章套 + LED 发光徽章组",
+      detail: "内含电池",
+    },
+    aluminumPrint: {
+      name: "（现场 / 预购）蚀光 / 光 铝板画",
+      detail: "尺寸：A3 / 附高级包装 / 现场限量 30 个",
+    },
+    laheeNecklace: {
+      name: "（预购）LAHEE 项链",
+      detail: "附收纳袋与首饰盒",
+    },
+    leatherTravelBag: {
+      name: "（预购）手工皮革旅行袋",
+      detail: "总量限定 5 个，每人限购一组",
+    },
+    randomCardPack: {
+      name: "（预购）AOI 随机卡包",
+      detail: "每包 NT$150，每包 4 张，全 50 款",
+    },
+  },
   ja: {
     auroraStand: { name: "オーロラカラー アクリルスタンド" },
     acrylicArtBoard: { name: "二層アクリルアートボード" },

@@ -1,8 +1,9 @@
 (function () {
-  const supportedLanguages = ["zh-Hant", "ja", "en"];
+  const supportedLanguages = ["zh-Hant", "zh-Hans", "ja", "en"];
 
   const languageLabels = {
     "zh-Hant": "繁體中文",
+    "zh-Hans": "简体中文",
     ja: "日本語 (AI)",
     en: "English (AI)",
   };
@@ -49,6 +50,13 @@
     for (const lang of normalizedLanguages) {
       if (lang.startsWith("en")) return "en";
       if (lang.startsWith("ja")) return "ja";
+      if (
+        lang.startsWith("zh-hans") ||
+        lang.startsWith("zh-cn") ||
+        lang.startsWith("zh-sg")
+      ) {
+        return "zh-Hans";
+      }
       if (
         lang === "zh" ||
         lang.startsWith("zh-hant") ||
@@ -108,6 +116,29 @@
         element.dataset.i18nOriginalHtml = element.innerHTML;
       }
       element.innerHTML = t(key);
+    });
+  }
+
+  function setTextAfterIcon(selector, key) {
+    document.querySelectorAll(selector).forEach((element) => {
+      if (!element.dataset.i18nOriginalHtml) {
+        element.dataset.i18nOriginalHtml = element.innerHTML;
+      }
+
+      let icon = element.querySelector(".material-symbols-outlined");
+      if (!icon) {
+        icon = document.createElement("span");
+        icon.className = "material-symbols-outlined text-[14px]";
+        icon.textContent = "open_in_new";
+      }
+
+      Array.from(element.childNodes).forEach((node) => {
+        if (node !== icon) node.remove();
+      });
+      if (!icon.parentElement) {
+        element.appendChild(icon);
+      }
+      element.append(document.createTextNode(` ${t(key)}`));
     });
   }
 
@@ -345,7 +376,10 @@
       "#info .order-3 > .grid > div:nth-child(2) .font-title-md a",
       "hero.place",
     );
-    setText("#info .order-3 > .grid > div:nth-child(2) a.mt-2", "event.maps");
+    setTextAfterIcon(
+      "#info .order-3 > .grid > div:nth-child(2) a.mt-2",
+      "event.maps",
+    );
     setText(
       "#info .order-3 > .grid > div:nth-child(3) .font-label-sm",
       "event.priceLabel",
@@ -358,7 +392,10 @@
       "#info .order-3 #transport-open .font-label-sm",
       "event.transportLabel",
     );
-    setText("#info .order-3 #transport-open .font-title-md", "event.transport");
+    setTextAfterIcon(
+      "#info .order-3 #transport-open .font-title-md",
+      "event.transport",
+    );
     setText("#transport-modal .border-l-4 > p", "transport.heading");
     setText("#transport-modal h2", "transport.title");
     setText("#transport-modal .space-y-6 > p", "transport.source");
@@ -401,6 +438,12 @@
       "data-description",
       "goods.modal.laheeDescription",
     );
+    setAttr("img[src='images/bags.jfif']", "data-title", "goods.modal.bag");
+    setAttr(
+      "img[src='images/bags.jfif']",
+      "data-description",
+      "goods.modal.bagDescription",
+    );
     setAttr("img[src='images/50cards.jpg']", "data-title", "goods.modal.cards");
     setAttr(
       "img[src='images/50cards.jpg']",
@@ -440,15 +483,6 @@
     document.body.dataset.lang = currentLanguage;
     updateLanguageButtons();
     restoreOriginals();
-    if (currentLanguage === "zh-Hant") {
-      window.dispatchEvent(
-        new CustomEvent("aoi-language-change", {
-          detail: { lang: currentLanguage },
-        }),
-      );
-      return;
-    }
-
     showTranslationNotice();
     if (document.getElementById("goods-list")) localizeCalculatorPage();
     if (document.getElementById("info")) localizeIndexPage();

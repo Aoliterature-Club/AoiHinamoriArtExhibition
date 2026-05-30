@@ -1,0 +1,382 @@
+{
+  "updatedAt": "2026-05-29",
+  "items": [
+    {
+      "id": "traffic-002",
+      "category": "入场与排队",
+      "question": "画展是否会有人流管制？",
+      "answer": "工作人员会依现场状况管制人流，并依场内人数开放队伍入场。请依照工作人员指示入场与排队。",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-003",
+      "category": "入场与排队",
+      "question": "一次开放入场的人数大约是多少？",
+      "answer": "场内空间约可容納 15 人左右，实際入场人数仍会依现场状况调整。",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-004",
+      "category": "入场与排队",
+      "question": "大约幾点会开始整队？",
+      "answer": "活动期间每日 10:30 会于会场門口整队，并视现场人数发放号码牌。",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-005",
+      "category": "入场与排队",
+      "question": "排队进场是否需要領取号码牌或排队单？",
+      "answer": "会依场内外人数決定是否发放号码牌，请以现场工作人员指示为准。",
+      "aliases": [
+        "排队进场是否需要領取号码牌／排队单？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "traffic-006",
+      "category": "入场与排队",
+      "question": "可以夜排吗？",
+      "answer": "请勿夜排，以免影響附近居民与现场秩序。",
+      "aliases": [
+        "是否可以夜排？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "traffic-007",
+      "category": "入场与排队",
+      "question": "是否有最晚入场时间限制？",
+      "answer": "目前沒有特別的最晚入场时间限制，但仍请留意每日开放时间为 11:00 – 18:00。",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "traffic-008",
+      "category": "入场与排队",
+      "question": "入场后是否有停留时间限制？",
+      "answer": "若现场人潮較多，入场后停留时间可能限制为 30 分钟；人潮較少时则不限。请以现场工作人员指示为准。",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-001",
+      "category": "展场规範",
+      "question": "场内可以饮食或携带饮料吗？",
+      "answer": "非瓶装饮料与食物禁止带入场内饮用或食用。",
+      "aliases": [
+        "场内是否可以饮食？",
+        "是否可以携带饮料入场？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "rules-002",
+      "category": "展场规範",
+      "question": "可以携带宠物入场吗？",
+      "answer": "除特殊公告或工作人员许可外，宠物禁止入场。",
+      "aliases": [
+        "是否可以携带宠物入场？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-003",
+      "category": "展场规範",
+      "question": "建议避免携带大型包包吗？",
+      "answer": "建议盡量輕便前往。若有购买較多商品，也可以自行携带大型包包。",
+      "aliases": [
+        "是否建议避免携带大型包包？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-004",
+      "category": "展场规範",
+      "question": "现场会提供袋子吗？",
+      "answer": "现场可加购黑色塑膠袋。",
+      "aliases": [
+        "周边是否会提供袋子？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-005",
+      "category": "展场规範",
+      "question": "展场是否会有作品保護措施？",
+      "answer": "展品会设置警示线或压克力框保護，请勿触碰作品，并依现场标示保持距离。",
+      "aliases": [
+        "展场是否会有防止碰撞、偷竊或維護动线的相关措施？",
+        "画作是否有警示区或安全距离？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "rules-006",
+      "category": "展场规範",
+      "question": "观赏画作时需要保持多遠距离？",
+      "answer": "请依警示线与现场标示保持距离。",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-007",
+      "category": "展场规範",
+      "question": "现场是否会有明确的动线指示？",
+      "answer": "现场会依空间状况安排动线，请配合工作人员指示。",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "rules-008",
+      "category": "其他",
+      "question": "可以餵食工作人员吗？",
+      "answer": "请勿造成工作人员困擾，也请不要影響现场作業与观展秩序。",
+      "aliases": [
+        "是否可以餵食工作人员？"
+      ],
+      "priority": 4
+    },
+    {
+      "id": "photo-001",
+      "category": "拍照录影",
+      "question": "现场可以拍照吗？",
+      "answer": "可以，现场开放拍照。",
+      "aliases": [
+        "现场是否可以拍照？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "photo-002",
+      "category": "拍照录影",
+      "question": "现场可以录影或使用腳架吗？",
+      "answer": "可以录影，也可以使用腳架，但请勿影響其他观众动线与观展權益。",
+      "aliases": [
+        "现场是否可以录影？带腳架?"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "photo-003",
+      "category": "拍照录影",
+      "question": "现场可以直播吗？",
+      "answer": "建议盡量避免直播，以免影響其他观众的观看体验。",
+      "aliases": [
+        "现场是否可以直播？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "photo-004",
+      "category": "拍照录影",
+      "question": "拍照时可以开闪光灯吗？",
+      "answer": "场内禁止使用闪光灯。",
+      "aliases": [
+        "拍照时是否可以开闪光灯？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-view-001",
+      "category": "画作观赏与展示",
+      "question": "现场会有作品介紹牌吗？",
+      "answer": "展品皆会提供詳細资讯。",
+      "aliases": [
+        "画展现场是否会有作品介紹牌？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-view-002",
+      "category": "画作观赏与展示",
+      "question": "作品介紹牌会标注繪師与作品资讯吗？",
+      "answer": "展品介紹会标注繪師、作品资讯等相关内容。",
+      "aliases": [
+        "作品介紹牌是否会标注繪師、作品资讯等内容？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-view-003",
+      "category": "画作观赏与展示",
+      "question": "画廊区与商品购买区会分开吗？",
+      "answer": "皆在同一活动场地内，现场会盡可能分区安排。请依现场标示与工作人员指示站位或排队。",
+      "aliases": [
+        "画廊区与商品购买区是否会分开？",
+        "购买区、预购区、画作欣赏区是否会分区？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "art-buy-001",
+      "category": "画作购买",
+      "question": "如果想购买画作，需要先到柜檯登記吗？",
+      "answer": "欲购买画作可先向柜台登記，画作购买会与一般商品結帐分开处理。",
+      "aliases": [
+        "如果想购买画作，是否需要第一时间到柜檯登記？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-002",
+      "category": "画作购买",
+      "question": "画作购买流程是什麼？",
+      "answer": "请向工作人员登記、付款，并依现场指示完成购买流程。",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-003",
+      "category": "画作购买",
+      "question": "购买画作后是现场带走，还是展览結束后領取或寄送？",
+      "answer": "请于 6/14 18:00 亲至现场領取；若无法本人領取，可向工作人员詢问寄送协助。",
+      "aliases": [
+        "如果有人购买画作，是现场带走，还是展览結束后再領取／寄送？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "art-buy-004",
+      "category": "画作购买",
+      "question": "现场画作若有多人想购买，会採用競标方式吗？",
+      "answer": "本展览的画作販售不开放任何形式的競标，将採「先到先得」的方式进行。詳細的购买与排队规则，Aoi 会在近期的直播中为大家完整说明。",
+      "aliases": [
+        "如果很多人想买同一幅画会競标吗？",
+        "画作是否会競标？",
+        "画作购买是先到先得吗？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-001",
+      "category": "周边购买",
+      "question": "现场周边可以使用哪些付款方式？",
+      "answer": "现场支援现金、LINE Pay、Apple Pay、信用卡与銀行转帐。海外信用卡是否可用仍以现场刷卡设備与銀行授權結果为准。",
+      "aliases": [
+        "周边付款方式有哪些？",
+        "是否可以使用信用卡？跟海外信用卡？",
+        "是否可以使用 LINE Pay？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-002",
+      "category": "周边购买",
+      "question": "购买周边是填单购买，还是直接到柜檯結帐？",
+      "answer": "现场商品请至柜台結帐；预购商品请填写预购单，并依现场或预购系統流程完成訂购。",
+      "aliases": [
+        "购买周边是填单购买，还是直接拿取商品到柜檯結帐？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "goods-003",
+      "category": "周边购买",
+      "question": "一般商品有限购吗？",
+      "answer": "一般商品同一品项上限为 3 个。",
+      "aliases": [
+        "一般商品是否有限购？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "goods-004",
+      "category": "周边购买",
+      "question": "可以帮忙代购吗？",
+      "answer": "代购本身不限制，但若同一品项购买超過 3 个，请出示代购证明并依现场工作人员判斷办理。",
+      "aliases": [
+        "是否开放观众帮忙代购？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "preorder-001",
+      "category": "预购商品",
+      "question": "现场预购成立后，会提供纸本收據还是线上訂单？",
+      "answer": "预购方式为安比斯网站系統预购，訂单会保留于网站系統内。",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "preorder-002",
+      "category": "预购商品",
+      "question": "预购訂单可以请別人代取吗？",
+      "answer": "预购商品皆会依照预购单资讯寄出，因此不需要另外请他人代取。",
+      "aliases": [
+        "预购訂单是否可以请別人代取？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-003",
+      "category": "预购商品",
+      "question": "预购商品付款后可以取消或退换吗？",
+      "answer": "商品售出后皆无法退换或取消，预购与付款前请再次确认品项、数量与收件资讯。",
+      "aliases": [
+        "预购商品完成付款后是否可以取消、退换？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-004",
+      "category": "预购商品",
+      "question": "预购商品后續是现场取货还是寄送？",
+      "answer": "预购商品皆会依照预购单资讯寄出。请务必确认预购单上的收件资讯正确。",
+      "aliases": [
+        "预购商品后續是现场取货还是寄送？"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "preorder-005",
+      "category": "预购商品",
+      "question": "预购商品制作与出货时间会另行公告吗？",
+      "answer": "预购商品的制作与出货时间会在 Aoi 的 X（前 Twitter）上进行公告，请留意后續社群资讯。",
+      "aliases": [
+        "预购商品的制作、出货时间是否会另行公告？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "onsite-001",
+      "category": "其他",
+      "question": "现场会有奉納箱或个人 LINE Pay 吗？",
+      "answer": "本次活动由协办单位負責，为避免稅务与帐务責任问题，现场不设置奉納箱，也不提供額外个人 LINE Pay。<br>（但你可以现在透過<a href='https://deerdonate.herokuapp.com/donation/AoiHinamori' target='_blank'>山羌</a>或下方 LINE PAY 來斗内 Aoi）<br><img src='images/LinePayQR.jpg' alt='LINE PAY QR-Code' class='faq-linepay-qr'> （使用 AI 重新生成，感谢 AI！）<br>手机可以直接点<a href='https://qrcodepay.line.me/qr/payment/TTfE4qcI%252FWz6%252BWHNyJBycEPZbkDZ6r1RN%252FvnUwo7G59bO4%252BcWYtwHgNRTKOOTS25' target='_blank'>这里</a>來用LINE PAY斗内",
+      "aliases": [
+        "奉納箱跟LINE PAY会擺放在哪里？"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "rules-009",
+      "source": "current-page",
+      "category": "展场规範",
+      "question": "如果在现场搗亂或搞事，会被处罰吗？",
+      "answer": "为了維護所有观展者的体验与现场秩序，任何惡意搗亂或破坏行为，主办单位将会直接报警处理，絕不寬待。请大家共同營造良好的观展環境喔！",
+      "aliases": [],
+      "priority": 1
+    },
+    {
+      "id": "traffic-009",
+      "source": "current-page",
+      "category": "入场与排队",
+      "question": "若现场实施人流管制需要排队，会有遮陽或避雨的设施吗？",
+      "answer": "展场外的排队等候区位于騎樓下方，具有基本的遮風避雨与遮陽效果，请各位放心。",
+      "aliases": [],
+      "priority": 2
+    },
+    {
+      "id": "other-002",
+      "source": "current-page",
+      "category": "其他",
+      "question": "展览成功的話，未來有机会加开中部或南部场次吗？",
+      "answer": "目前本次展览仅规划单一场次，暂无加办中南部场的計画，敬请大家把握本次的观展机会！",
+      "aliases": [],
+      "priority": 3
+    }
+  ],
+  "translationNote": "由繁體中文 FAQ 機械轉換為簡體中文，未人工校對"
+}
