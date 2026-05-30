@@ -1205,14 +1205,14 @@ iframe {
 
 .language-switcher-standalone {
     position: fixed;
-    top: 72px;
+    top: 56px;
     right: 20px;
     z-index: 60;
 }
 
 @media (min-width: 768px) {
     .language-switcher-standalone {
-        top: 72px;
+        top: 56px;
         right: 20px;
     }
 }
