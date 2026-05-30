@@ -226,7 +226,7 @@ function closeCalculatorModal() {
     calculatorModal.setAttribute('aria-hidden', 'true');
 }
 
-function setModalText(element, value) {
+function setModalText(element, value, options = {}) {
     if (!element) return;
 
     if (value) {
@@ -235,12 +235,51 @@ function setModalText(element, value) {
             .replace(/<br\s*\/?>/gi, '\n');
 
         element.textContent = '';
-        normalizedText.split(/\r?\n/).forEach((line, index) => {
-            if (index > 0) {
-                element.appendChild(document.createElement('br'));
+        if (options.allowLinks) {
+            const template = document.createElement('template');
+            template.innerHTML = normalizedText.replace(/\r?\n/g, '<br>');
+            const fragment = document.createDocumentFragment();
+
+            function appendSafeNode(node, parent) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    parent.appendChild(document.createTextNode(node.textContent || ''));
+                    return;
+                }
+
+                if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+                const tagName = node.tagName.toLowerCase();
+                if (tagName === 'br') {
+                    parent.appendChild(document.createElement('br'));
+                    return;
+                }
+
+                if (tagName === 'a') {
+                    const link = document.createElement('a');
+                    const href = node.getAttribute('href') || '';
+                    if (/^https?:\/\//i.test(href)) {
+                        link.href = href;
+                        link.target = node.getAttribute('target') || '_blank';
+                        link.rel = 'noopener noreferrer';
+                    }
+                    Array.from(node.childNodes).forEach((child) => appendSafeNode(child, link));
+                    parent.appendChild(link);
+                    return;
+                }
+
+                Array.from(node.childNodes).forEach((child) => appendSafeNode(child, parent));
             }
-            element.appendChild(document.createTextNode(line));
-        });
+
+            Array.from(template.content.childNodes).forEach((node) => appendSafeNode(node, fragment));
+            element.appendChild(fragment);
+        } else {
+            normalizedText.split(/\r?\n/).forEach((line, index) => {
+                if (index > 0) {
+                    element.appendChild(document.createElement('br'));
+                }
+                element.appendChild(document.createTextNode(line));
+            });
+        }
         element.classList.remove('hidden');
     } else {
         element.textContent = '';
@@ -256,7 +295,7 @@ function openImageModal(src, title, description, link) {
     imageModalImageStage?.style.removeProperty('height');
 
     setModalText(imageModalTitle, title);
-    setModalText(imageModalText, description);
+    setModalText(imageModalText, description, { allowLinks: true });
 
     if (imageModalLink) {
         if (link) {
@@ -346,8 +385,17 @@ calculatorModal?.addEventListener('click', (event) => {
     }
 });
 lightboxTriggers.forEach(img => {
-    img.addEventListener('click', () => {
-        openImageModal(img.src, img.dataset.title, img.dataset.description, img.dataset.link);
+    img.addEventListener('click', async () => {
+        await window.AoiI18n?.ready;
+        const isComicsPreview = img.getAttribute('src')?.includes('images/comics.jfif');
+        const title = isComicsPreview && !img.dataset.title
+            ? window.AoiI18n?.t?.("goods.modal.comics")
+            : img.dataset.title;
+        const description = isComicsPreview && !img.dataset.description
+            ? window.AoiI18n?.t?.("goods.modal.comicsDescription")
+            : img.dataset.description;
+
+        openImageModal(img.src, title, description, img.dataset.link);
     });
 });
 imageModalCloseButton?.addEventListener('click', closeImageModal);

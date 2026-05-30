@@ -432,6 +432,12 @@
       "data-title",
       "goods.modal.preorder",
     );
+    setAttr("img[src='images/comics.jfif']", "data-title", "goods.modal.comics");
+    setAttr(
+      "img[src='images/comics.jfif']",
+      "data-description",
+      "goods.modal.comicsDescription",
+    );
     setAttr("img[src='images/LAHEE.jfif']", "data-title", "goods.modal.lahee");
     setAttr(
       "img[src='images/LAHEE.jfif']",

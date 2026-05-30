@@ -420,7 +420,13 @@ iframe {
 #image-modal-text {
     max-width: 860px;
     line-height: 1.75;
-    white-space: nowrap;
+    white-space: normal;
+}
+
+#image-modal-text a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
 }
 
 .event-date-line,
@@ -449,6 +455,31 @@ iframe {
 
 .goods-card {
     border-radius: 0.5rem;
+}
+
+.goods-top-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.goods-top-card {
+    aspect-ratio: 2 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 640px) {
+    .goods-top-grid {
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .goods-top-grid {
+        gap: 1.5rem;
+    }
 }
 
 .event-hashtag-block {

@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="css/tailwind.css?v=20260529-18" />
     <link rel="stylesheet" href="css/theme.css?v=20260529-18" />
-    <link rel="stylesheet" href="css/site.css?v=20260530-08" />
+    <link rel="stylesheet" href="css/site.css?v=20260530-09" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
   </head>
   <body class="overflow-x-hidden">
@@ -398,7 +398,7 @@
       <a
         class="mobile-nav-link text-headline-lg font-headline-lg text-on-surface-variant hover:text-secondary transition-colors tracking-[0.2em]"
         href="#faq"
-        >FAQ</a
+        >Q&A</a
       >
       <button
         class="bgm-toggle mobile-bgm-toggle text-on-surface-variant hover:text-secondary transition-colors"
@@ -897,13 +897,13 @@
           </a>
         </div>
         <div class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="goods-top-grid">
             <!-- Item 1 Vertical -->
             <div
-              class="group relative overflow-hidden rounded-xl border border-outline-variant/20 bg-black/20"
+              class="goods-top-card group relative overflow-hidden rounded-xl border border-outline-variant/20 bg-black/20"
             >
               <img
-                class="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-110 cursor-pointer lightbox-trigger"
+                class="h-full w-full object-contain transition-opacity duration-300 group-hover:opacity-90 cursor-pointer lightbox-trigger"
                 alt="Exhibition goods preview"
                 src="images/goods1.jfif"
                 data-title=""
@@ -912,10 +912,23 @@
             </div>
             <!-- Item 2 Vertical -->
             <div
-              class="group relative overflow-hidden rounded-xl border border-outline-variant/20 bg-black/20"
+              class="goods-top-card group relative overflow-hidden rounded-xl border border-outline-variant/20 bg-black/20"
             >
               <img
-                class="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-110 cursor-pointer lightbox-trigger"
+                class="h-full w-full object-contain transition-opacity duration-300 group-hover:opacity-90 cursor-pointer lightbox-trigger"
+                alt="Aoi's Diary comics preview"
+                src="images/comics.jfif"
+                data-title=""
+                data-description=""
+                data-link="https://x.com/AoiHinamori/status/2059863549464498270?s=20"
+              />
+            </div>
+            <!-- Item 3 Vertical -->
+            <div
+              class="goods-top-card group relative overflow-hidden rounded-xl border border-outline-variant/20 bg-black/20"
+            >
+              <img
+                class="h-full w-full object-contain transition-opacity duration-300 group-hover:opacity-90 cursor-pointer lightbox-trigger"
                 alt="Exhibition goods preview"
                 src="images/goods2.jfif"
                 data-title=""
@@ -1013,7 +1026,7 @@
             type="button"
           >
             <span class="material-symbols-outlined text-[20px]">help</span>
-            <span class="tracking-widest">開啟完整 FAQ</span>
+            <span class="tracking-widest">開啟完整 Q&A</span>
             <span
               aria-hidden="true"
               class="group-hover:translate-x-1 transition-transform ml-1"
@@ -1047,13 +1060,20 @@
         </div>
         <div class="flex flex-col items-center gap-6">
           <p class="footer-credit text-label-sm font-label-sm text-outline">
-            2026 ©
-            <a
+            2026 © Aoi Hinamori Art Exhibition.<br />(<a
               href="https://lit.link/en/aoihinamori"
               target="_blank"
               class="hover:text-secondary transition-colors"
-              >Aoi Hinamori Art Exhibition</a
-            ><br /><br />
+              >Aoi Hinamori</a
+            >
+            &
+            <a
+              href="https://www.abyssacg.com/"
+              target="_blank"
+              class="hover:text-secondary transition-colors"
+            >
+              ABYSS ACG</a
+            >)<br /><br />
             Website made by
             <a
               href="https://portaly.cc/KalinLai-void"
@@ -1080,8 +1100,8 @@
       </div>
     </footer>
 
-    <script src="js/i18n.js?v=20260530-15"></script>
-    <script src="js/index.js?v=20260530-04"></script>
+    <script src="js/i18n.js?v=20260530-16"></script>
+    <script src="js/index.js?v=20260530-05"></script>
     <script src="js/faq.js?v=20260530-03"></script>
   </body>
 </html>
