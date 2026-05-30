@@ -346,6 +346,7 @@
     setText("#info h2", "info.title");
     setHtml(".info-copy p", "info.copy");
     appendInfoSourceLink();
+    setText("[data-i18n='info.announcement']", "info.announcement");
     setText(".profile-stats-grid dt:nth-of-type(1)", "profile.birthday");
     setText(".profile-stats-grid dt:nth-of-type(2)", "profile.race");
     setText(".profile-stats-grid dd:nth-of-type(2)", "profile.raceValue");
