@@ -1031,19 +1031,7 @@ iframe {
 }
 
 @media (max-width: 767px) {
-    header .language-menu {
-        display: none;
-    }
 
-    #mobile-menu .language-menu-list {
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, -4px);
-    }
-
-    #mobile-menu .language-menu.is-open .language-menu-list {
-        transform: translate(-50%, 0);
-    }
 
     .translation-notice {
         right: 12px;

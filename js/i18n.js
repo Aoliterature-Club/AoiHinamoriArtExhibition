@@ -254,9 +254,6 @@
     const headerRight = document.querySelector(".header-right");
     if (headerRight) {
       headerRight.prepend(createLanguageSwitcher());
-      document
-        .getElementById("mobile-menu")
-        ?.appendChild(createLanguageSwitcher());
       return;
     }
 
