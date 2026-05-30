@@ -23,6 +23,21 @@
     <link rel="stylesheet" href="css/theme.css?v=20260530-1055" />
     <link rel="stylesheet" href="css/site.css?v=20260530-1120" />
     <script src="js/reset-scroll.js?v=20260529-14"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-34LXHMVQDZ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-34LXHMVQDZ");
+    </script>
   </head>
   <body class="overflow-x-hidden">
     <audio
@@ -446,9 +461,7 @@
               class="text-label-sm font-label-sm text-outline tracking-widest"
               >時間</span
             >
-            <span class="font-title-md text-title-md"
-              >2026/06/05 ~ 06/14</span
-            >
+            <span class="font-title-md text-title-md">2026/06/05 ~ 06/14</span>
           </div>
           <div class="flex-shrink-0 hero-details-divider"></div>
           <div class="hero-details-col right-col">
@@ -502,11 +515,15 @@
         </div>
       </div>
       <div class="absolute bottom-10 absolute-center z-20">
-        <a href="#info" class="flex flex-col items-center animate-bounce group cursor-pointer hover:opacity-80 transition-opacity">
+        <a
+          href="#info"
+          class="flex flex-col items-center animate-bounce group cursor-pointer hover:opacity-80 transition-opacity"
+        >
           <span class="text-label-sm font-label-sm text-outline mb-2"
             >SCROLL</span
           >
-          <span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors"
+          <span
+            class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors"
             >keyboard_double_arrow_down</span
           >
         </a>
@@ -625,7 +642,25 @@
                 <h3
                   class="font-headline-lg text-headline-lg text-on-surface mb-6 relative"
                 >
-                  <div id="easter-egg-text" data-i18n="profile.easterEgg" class="absolute left-0 pointer-events-none select-none tracking-widest font-bold" style="opacity: 0; transition: opacity 0.3s; line-height: 1.2; bottom: calc(100% + 4px); font-size: clamp(8px, 2.2vw, 12px); font-family: sans-serif; color: #9ca3af; max-width: 100%; white-space: normal; word-break: break-word;">食物煉金師 / 黑暗料理(?)獵人</div>
+                  <div
+                    id="easter-egg-text"
+                    data-i18n="profile.easterEgg"
+                    class="absolute left-0 pointer-events-none select-none tracking-widest font-bold"
+                    style="
+                      opacity: 0;
+                      transition: opacity 0.3s;
+                      line-height: 1.2;
+                      bottom: calc(100% + 4px);
+                      font-size: clamp(8px, 2.2vw, 12px);
+                      font-family: sans-serif;
+                      color: #9ca3af;
+                      max-width: 100%;
+                      white-space: normal;
+                      word-break: break-word;
+                    "
+                  >
+                    食物煉金師 / 黑暗料理(?)獵人
+                  </div>
                   Aoi Hinamori
                 </h3>
                 <dl class="space-y-4 mb-6">
@@ -893,7 +928,11 @@
             </h2>
           </div>
           <div class="calculator-trigger-wrapper desktop-only-calc">
-            <img src="images/Assets/hibao.png" alt="" class="calculator-trigger-image" />
+            <img
+              src="images/Assets/hibao.png"
+              alt=""
+              class="calculator-trigger-image"
+            />
             <a
               href="goods-calculator.html"
               class="calculator-trigger calculator-trigger-btn inline-flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group"
@@ -911,7 +950,8 @@
                   class="group-hover:translate-x-1 transition-transform"
                   >→</span
                 >
-                <span class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
+                <span
+                  class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
                   >payments</span
                 >
               </span>
@@ -1000,7 +1040,11 @@
           </div>
         </div>
         <div class="mt-12 calculator-trigger-wrapper calculator-wrapper">
-          <img src="images/Assets/hibao.png" alt="" class="calculator-trigger-image" />
+          <img
+            src="images/Assets/hibao.png"
+            alt=""
+            class="calculator-trigger-image"
+          />
           <a
             href="goods-calculator.html"
             class="calculator-trigger calculator-trigger-btn inline-flex flex-col items-start gap-2 px-6 py-4 rounded-xl border border-secondary/40 glass-card hover:border-secondary hover:bg-secondary/10 transition-all duration-300 group"
@@ -1018,7 +1062,8 @@
                 class="group-hover:translate-x-1 transition-transform"
                 >→</span
               >
-              <span class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
+              <span
+                class="material-symbols-outlined text-[20px] leading-none calculator-trigger-icon"
                 >payments</span
               >
             </span>
