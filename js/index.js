@@ -191,14 +191,16 @@ function enablePvSound() {
     pvSoundToggle?.classList.add('hidden');
 }
 
-function openTransportModal() {
+function openTransportModal(event) {
+    event?.preventDefault();
     if (!transportModal) return;
 
     transportModal.classList.add('is-open');
     transportModal.setAttribute('aria-hidden', 'false');
 }
 
-function closeTransportModal() {
+function closeTransportModal(event) {
+    event?.preventDefault();
     if (!transportModal) return;
 
     transportModal.classList.remove('is-open');
