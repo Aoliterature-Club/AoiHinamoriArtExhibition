@@ -29,15 +29,7 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-34LXHMVQDZ"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-34LXHMVQDZ");
-    </script>
+    <script async src="js/ga.js"></script>
   </head>
   <body class="overflow-x-hidden">
     <audio
@@ -349,10 +341,7 @@
           />
         </a>
       </div>
-      <nav
-        class="hidden md:flex items-center gap-8 header-nav"
-        style="position: relative; top: -4px"
-      >
+      <nav class="hidden md:flex items-center gap-8 header-nav header-nav-offset">
         <a
           class="desktop-nav-link text-body-md font-label-sm text-secondary hover:text-primary transition-colors tracking-[0.2em]"
           href="#info"
@@ -578,19 +567,12 @@
               <br />
             </p>
           </div>
-          <div style="margin-top: 1.5rem">
+          <div class="announcement-wrapper">
             <a
               href="https://youtu.be/sIbY1fcPFlw?t=1140"
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-primary-container/80 hover:bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase"
-              style="
-                display: inline-block;
-                max-width: 100%;
-                box-sizing: border-box;
-                text-align: center;
-                word-break: break-word;
-              "
+              class="bg-primary-container/80 hover:bg-primary-container text-on-primary-container px-10 py-4 font-label-sm tracking-[0.2em] rounded-lg crimson-glow crimson-glow-hover transition-all duration-300 border border-secondary/20 uppercase announcement-link"
               data-i18n="info.announcement"
             >
               重大告知直播連結→
@@ -632,6 +614,7 @@
                     class="absolute inset-0 w-full h-full object-cover opacity-90"
                     src="images/AOI.jpg"
                     alt="profile"
+                    loading="lazy"
                   />
                   <span
                     class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
@@ -645,19 +628,7 @@
                   <div
                     id="easter-egg-text"
                     data-i18n="profile.easterEgg"
-                    class="absolute left-0 pointer-events-none select-none tracking-widest font-bold"
-                    style="
-                      opacity: 0;
-                      transition: opacity 0.3s;
-                      line-height: 1.2;
-                      bottom: calc(100% + 4px);
-                      font-size: clamp(8px, 2.2vw, 12px);
-                      font-family: sans-serif;
-                      color: #9ca3af;
-                      max-width: 100%;
-                      white-space: normal;
-                      word-break: break-word;
-                    "
+                    class="absolute left-0 pointer-events-none select-none tracking-widest font-bold easter-egg-text"
                   >
                     食物煉金師 / 黑暗料理(?)獵人
                   </div>
@@ -932,6 +903,7 @@
               src="images/Assets/hibao.png"
               alt=""
               class="calculator-trigger-image"
+              loading="lazy"
             />
             <a
               href="goods-calculator.html"
@@ -970,6 +942,7 @@
                 src="images/goods1.jfif"
                 data-title=""
                 data-link="https://twitter.com/AoiHinamori/status/2059092306679288066"
+                loading="lazy"
               />
             </div>
             <!-- Item 2 Vertical -->
@@ -983,6 +956,7 @@
                 data-title=""
                 data-description=""
                 data-link="https://x.com/AoiHinamori/status/2059863549464498270?s=20"
+                loading="lazy"
               />
             </div>
             <!-- Item 3 Vertical -->
@@ -995,6 +969,7 @@
                 src="images/goods2.jfif"
                 data-title=""
                 data-link="https://twitter.com/AoiHinamori/status/2059092306679288066"
+                loading="lazy"
               />
             </div>
           </div>
@@ -1010,6 +985,7 @@
                 data-title=""
                 data-description=""
                 data-link="https://twitter.com/AoiHinamori/status/2059490425191428293"
+                loading="lazy"
               />
             </div>
             <div
@@ -1022,6 +998,7 @@
                 data-title=""
                 data-description=""
                 data-link="https://x.com/AoiHinamori/status/2060554796969713731"
+                loading="lazy"
               />
             </div>
           </div>
@@ -1036,6 +1013,7 @@
               data-title=""
               data-description=""
               data-link="https://twitter.com/AoiHinamori/status/2060185794946777441?s=20"
+              loading="lazy"
             />
           </div>
         </div>

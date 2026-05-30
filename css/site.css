@@ -1334,3 +1334,39 @@ iframe {
         margin-bottom: 4rem;
     }
 }
+
+/* Extracted inline styles */
+.header-nav-offset {
+    position: relative;
+    top: -4px;
+}
+
+.announcement-wrapper {
+    margin-top: 1.5rem;
+}
+
+.announcement-link {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    word-break: break-word;
+}
+
+.easter-egg-text {
+    opacity: 0;
+    transition: opacity 0.3s;
+    line-height: 1.2;
+    bottom: calc(100% + 4px);
+    font-size: clamp(8px, 2.2vw, 12px);
+    font-family: sans-serif;
+    color: #9ca3af;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.calculator-sidebar-panel {
+    max-height: calc(100vh - 4rem);
+}
+
