@@ -530,6 +530,26 @@ if (easterEggTriggers.length > 0 && easterEggText) {
     });
 }
 
+// Hibao Easter Egg
+const calculatorTriggerImages = document.querySelectorAll('.calculator-trigger-image');
+if (calculatorTriggerImages.length > 0) {
+    const hachuAudio = new Audio('audios/hachu.mp3');
+    calculatorTriggerImages.forEach(img => {
+        img.style.cursor = 'pointer';
+        let resetTimeout;
+        img.addEventListener('click', () => {
+            img.src = 'images/Assets/hachumao.png';
+            hachuAudio.currentTime = 0;
+            hachuAudio.play().catch(e => console.log('Audio play failed:', e));
+            
+            clearTimeout(resetTimeout);
+            resetTimeout = setTimeout(() => {
+                img.src = 'images/Assets/hibao.png';
+            }, 1500);
+        });
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-inline-pv="true"]').forEach((player) => {
         player.src = withOrigin(player.dataset.src);
