@@ -16,7 +16,7 @@ const inventory = {
   signedBoardSet: {
     name: "豪華套裝親簽名板",
     price: 1700,
-    detail: "每人限購一個",
+    detail: "",
     image: "images/Goods/豪華套裝親簽名板.png",
     qty: 0,
   },
@@ -97,6 +97,13 @@ const inventory = {
     image: "images/Goods/徽章套＋發光徽章組.png",
     qty: 0,
   },
+  leatherTravelBag: {
+    name: "手工皮革旅行袋",
+    price: 35000,
+    detail: "總量限量 5 個，每人限購一個，現場可直接帶回家",
+    image: "images/Goods/Pre-Order/手工皮革旅行袋.png",
+    qty: 0,
+  },
   aluminumPrint: {
     name: "（現場/預購）蝕光 鋁板畫",
     price: 3500,
@@ -109,13 +116,6 @@ const inventory = {
     price: 4000,
     detail: "項鍊附收納小袋、盒",
     image: "images/Goods/Pre-Order/LAHEE.png",
-    qty: 0,
-  },
-  leatherTravelBag: {
-    name: "（預購）手工皮革旅行袋",
-    price: 35000,
-    detail: "總量限量 5 個，每人限購一個",
-    image: "images/Goods/Pre-Order/手工皮革旅行袋.png",
     qty: 0,
   },
   randomCardPack: {
@@ -143,11 +143,11 @@ const inventoryTranslations = {
     acrylicArtBoard: { name: "Double-layer Acrylic Art Board" },
     signedBoardSet: {
       name: "Deluxe Set with Signed Board",
-      detail: "Limit one per person",
+      detail: "",
     },
     supportFan: { name: "Transparent Support Fan" },
     acrylicKeychain: { name: "Double-layer Acrylic Keychain" },
-    postcardSet: { name: "Eclipse / Light Postcard Set + PVC Package" },
+    postcardSet: { name: "Eclipsed Light Postcard Set + PVC Package" },
     okraBlock: { name: "Chunky Okra" },
     diaryComic: {
       name: "Aoi's Diary Original Comic",
@@ -168,18 +168,19 @@ const inventoryTranslations = {
       name: "Patient Plush Badge Cover + LED Light-up Badge Set",
       detail: "Battery included",
     },
+    leatherTravelBag: {
+      name: "Handmade Leather Travel Bag",
+      detail:
+        "Limited to 5 total, limit one per person, available to take home on-site",
+    },
     aluminumPrint: {
-      name: "(On-site / Pre-order) Eclipse / Light Aluminum Print",
+      name: "(On-site / Pre-order) Eclipsed Light Aluminum Print",
       detail:
         "Size: A3 / Premium packaging included / Only 30 available on-site",
     },
     laheeNecklace: {
       name: "(Pre-order) LAHEE Necklace",
       detail: "Includes storage pouch and box",
-    },
-    leatherTravelBag: {
-      name: "(Pre-order) Handmade Leather Travel Bag",
-      detail: "Limited to 5 total, limit one per person",
     },
     randomCardPack: {
       name: "(Pre-order) AOI Random Card Pack",
@@ -190,12 +191,12 @@ const inventoryTranslations = {
     auroraStand: { name: "极光色立牌" },
     acrylicArtBoard: { name: "双层压克力画板" },
     signedBoardSet: {
-      name: "豪华套装附亲签名板",
-      detail: "限购一组",
+      name: "豪华套装亲签名板",
+      detail: "",
     },
     supportFan: { name: "透明应援扇子" },
     acrylicKeychain: { name: "双层压克力钥匙圈" },
-    postcardSet: { name: "蚀光 / 光 明信片套组 + PVC 包装" },
+    postcardSet: { name: "蚀光明信片套组 + PVC 包装" },
     okraBlock: { name: "块状秋葵" },
     diaryComic: {
       name: "Aoi's Diary 原创漫画",
@@ -213,23 +214,23 @@ const inventoryTranslations = {
       detail: "每个 NT$150，尺寸：5.7cm",
     },
     plushLedBadge: {
-      name: "病患毛绒徽章套 + LED 发光徽章组",
+      name: "患者毛绒徽章套 + LED 发光徽章组",
       detail: "内含电池",
     },
+    leatherTravelBag: {
+      name: "手工皮革旅行袋",
+      detail: "总量限量 5 个，每人限购一个，现场可直接带回家",
+    },
     aluminumPrint: {
-      name: "（现场 / 预购）蚀光 / 光 铝板画",
-      detail: "尺寸：A3 / 附高级包装 / 现场限量 30 个",
+      name: "（现场 / 预购）蚀光 铝板画",
+      detail: "尺寸：A3 / 附精美包装 / 现场只有 30 个",
     },
     laheeNecklace: {
       name: "（预购）LAHEE 项链",
       detail: "附收纳袋与首饰盒",
     },
-    leatherTravelBag: {
-      name: "（预购）手工皮革旅行袋",
-      detail: "总量限定 5 个，每人限购一组",
-    },
     randomCardPack: {
-      name: "（预购）AOI 随机卡包",
+      name: "（预购）AOI 随机卡片包",
       detail: "每包 NT$150，每包 4 张，全 50 款",
     },
   },
@@ -237,12 +238,12 @@ const inventoryTranslations = {
     auroraStand: { name: "オーロラカラー アクリルスタンド" },
     acrylicArtBoard: { name: "二層アクリルアートボード" },
     signedBoardSet: {
-      name: "豪華セット 直筆サインボード付き",
-      detail: "お一人様1点まで",
+      name: "豪華セット直筆サインボード",
+      detail: "",
     },
     supportFan: { name: "透明応援うちわ" },
     acrylicKeychain: { name: "二層アクリルキーホルダー" },
-    postcardSet: { name: "蝕 / 光 ポストカードセット + PVC包装" },
+    postcardSet: { name: "蝕光ポストカードセット + PVC包装" },
     okraBlock: { name: "ブロック状オクラ" },
     diaryComic: {
       name: "Aoi's Diary オリジナル漫画",
@@ -263,17 +264,18 @@ const inventoryTranslations = {
       name: "患者ぬいぐるみ缶バッジカバー + LED発光缶バッジセット",
       detail: "電池付き",
     },
+    leatherTravelBag: {
+      name: "手作りレザー旅行バッグ",
+      detail:
+        "総数5点限定、お一人様1点まで、会場でそのままお持ち帰りいただけます",
+    },
     aluminumPrint: {
-      name: "（会場 / 予約）蝕 / 光 アルミプレート",
+      name: "（会場 / 予約）蝕光 アルミプレート",
       detail: "サイズ：A3 / 豪華包装付き / 会場販売は30点のみ",
     },
     laheeNecklace: {
       name: "（予約）LAHEE ネックレス",
       detail: "収納ポーチとボックス付き",
-    },
-    leatherTravelBag: {
-      name: "（予約）手作りレザー旅行バッグ",
-      detail: "総数5点限定、お一人様1点まで",
     },
     randomCardPack: {
       name: "（予約）AOI ランダムカードパック",
@@ -370,7 +372,7 @@ function calculateTotal() {
   let total = 0;
   const breakdownEls = document.querySelectorAll(".breakdown-container");
 
-  breakdownEls.forEach(el => {
+  breakdownEls.forEach((el) => {
     el.innerHTML = "";
   });
 
@@ -382,7 +384,7 @@ function calculateTotal() {
     hasItems = true;
     total += item.price * item.qty;
 
-    breakdownEls.forEach(el => {
+    breakdownEls.forEach((el) => {
       const row = document.createElement("div");
       row.className =
         "flex justify-between items-center gap-4 animate-in fade-in slide-in-from-left duration-300";
@@ -403,7 +405,7 @@ function calculateTotal() {
   });
 
   if (!hasItems) {
-    breakdownEls.forEach(el => {
+    breakdownEls.forEach((el) => {
       el.innerHTML = `<p class="text-on-surface-variant font-body-md text-center py-4 opacity-50 italic">${t("calculator.empty")}</p>`;
     });
   }
