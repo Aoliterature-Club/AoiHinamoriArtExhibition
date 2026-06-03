@@ -66,6 +66,7 @@ let imageModalPanScrollTop = 0;
 let bgmUserControlled = false;
 let shouldResumeBgmAfterPv = false;
 let hasShownInitialNotice = false;
+let didPlayMemeLastTime = false;
 const memePvChance = 0.3;
 
 const badgeHotspots = [
@@ -132,7 +133,10 @@ function openPvModal(isUserClick = false) {
     shouldResumeBgmAfterPv = Boolean(bgmPlayer && !bgmPlayer.paused);
     pauseBgm();
 
-    const shouldPlayMeme = isUserClick && Math.random() < memePvChance;
+    const shouldPlayMeme = isUserClick && !didPlayMemeLastTime && Math.random() < memePvChance;
+    if (isUserClick) {
+        didPlayMemeLastTime = shouldPlayMeme;
+    }
     pvPlayer.classList.toggle('hidden', shouldPlayMeme);
     pvMemePlayer?.classList.toggle('hidden', !shouldPlayMeme);
     pvYoutubeLink?.classList.toggle('hidden', shouldPlayMeme);
