@@ -24,7 +24,9 @@ document.querySelectorAll('section > div').forEach((div) => {
 
 const pvModal = document.getElementById('pv-modal');
 const pvPlayer = document.getElementById('pv-player');
+const pvMemePlayer = document.getElementById('pv-meme-player');
 const pvFrameWrap = document.getElementById('pv-frame-wrap');
+const pvYoutubeLink = document.getElementById('pv-youtube-link');
 const pvLocalWarning = document.getElementById('pv-local-warning');
 const pvOpenButton = document.getElementById('pv-open');
 const pvNavOpenButton = document.getElementById('pv-nav-open');
@@ -50,8 +52,12 @@ const imageModalCloseButton = document.getElementById('image-modal-close');
 const imageModalZoomInButton = document.getElementById('image-modal-zoom-in');
 const imageModalZoomOutButton = document.getElementById('image-modal-zoom-out');
 const imageModalZoomResetButton = document.getElementById('image-modal-zoom-reset');
+const badgeDetailModal = document.getElementById('badge-detail-modal');
+const badgeDetailImage = document.getElementById('badge-detail-image');
+const badgeDetailCloseButton = document.getElementById('badge-detail-close');
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 let imageModalZoom = 1;
+let imageModalBadgeOverlay = null;
 let isImageModalPanning = false;
 let imageModalPanStartX = 0;
 let imageModalPanStartY = 0;
@@ -60,6 +66,58 @@ let imageModalPanScrollTop = 0;
 let bgmUserControlled = false;
 let shouldResumeBgmAfterPv = false;
 let hasShownInitialNotice = false;
+const memePvChance = 0.3;
+
+const badgeHotspots = [
+    {
+        label: 'Badge design 1',
+        src: 'images/Badges/design1.jfif',
+        x: 0.255,
+        y: 0.36,
+        width: 0.175,
+        height: 0.247,
+    },
+    {
+        label: 'Badge design 2',
+        src: 'images/Badges/design2.jfif',
+        x: 0.502,
+        y: 0.355,
+        width: 0.175,
+        height: 0.247,
+    },
+    {
+        label: 'Badge design 3',
+        src: 'images/Badges/design3.jfif',
+        x: 0.762,
+        y: 0.352,
+        width: 0.175,
+        height: 0.247,
+    },
+    {
+        label: 'Badge design 4',
+        src: 'images/Badges/design4.jfif',
+        x: 0.765,
+        y: 0.696,
+        width: 0.175,
+        height: 0.247,
+    },
+    {
+        label: 'Badge design 5',
+        src: 'images/Badges/design5.jfif',
+        x: 0.515,
+        y: 0.696,
+        width: 0.175,
+        height: 0.247,
+    },
+    {
+        label: 'Badge design 6',
+        src: 'images/Badges/design6.jfif',
+        x: 0.28,
+        y: 0.695,
+        width: 0.175,
+        height: 0.247,
+    },
+];
 
 function withOrigin(src) {
     const videoUrl = new URL(src);
@@ -73,6 +131,29 @@ function openPvModal(isUserClick = false) {
     if (!pvModal || !pvPlayer) return;
     shouldResumeBgmAfterPv = Boolean(bgmPlayer && !bgmPlayer.paused);
     pauseBgm();
+
+    const shouldPlayMeme = isUserClick && Math.random() < memePvChance;
+    pvPlayer.classList.toggle('hidden', shouldPlayMeme);
+    pvMemePlayer?.classList.toggle('hidden', !shouldPlayMeme);
+    pvYoutubeLink?.classList.toggle('hidden', shouldPlayMeme);
+    pvPlayer.src = '';
+    if (pvMemePlayer) {
+        pvMemePlayer.pause();
+        pvMemePlayer.currentTime = 0;
+    }
+
+    if (shouldPlayMeme) {
+        pvFrameWrap?.classList.remove('hidden');
+        pvLocalWarning?.classList.add('hidden');
+        pvSoundToggle?.classList.add('hidden');
+        pvModal.classList.add('is-open');
+        pvModal.setAttribute('aria-hidden', 'false');
+        const memePlayPromise = pvMemePlayer?.play();
+        if (memePlayPromise) {
+            memePlayPromise.catch(() => {});
+        }
+        return;
+    }
 
     if (window.location.protocol === 'file:') {
         pvFrameWrap?.classList.add('hidden');
@@ -105,6 +186,13 @@ function closePvModal() {
     pvModal.classList.remove('is-open');
     pvModal.setAttribute('aria-hidden', 'true');
     pvPlayer.src = '';
+    pvPlayer.classList.remove('hidden');
+    pvYoutubeLink?.classList.remove('hidden');
+    if (pvMemePlayer) {
+        pvMemePlayer.pause();
+        pvMemePlayer.currentTime = 0;
+        pvMemePlayer.classList.add('hidden');
+    }
     pvSoundToggle?.classList.remove('hidden');
 
     if (wasOpen && !bgmUserControlled) {
@@ -303,6 +391,7 @@ function openImageModal(src, title, description, link) {
     imageModalContent.style.height = '';
     imageModalImageStage?.style.removeProperty('width');
     imageModalImageStage?.style.removeProperty('height');
+    updateBadgeHotspots(false);
 
     setModalText(imageModalTitle, title);
 
@@ -321,10 +410,16 @@ function openImageModal(src, title, description, link) {
 
     imageModal.classList.add('is-open');
     imageModal.setAttribute('aria-hidden', 'false');
-    imageModalContent.onload = () => requestAnimationFrame(() => setImageModalZoom(1));
+    imageModalContent.onload = () => requestAnimationFrame(() => {
+        setImageModalZoom(1);
+        updateBadgeHotspots(isBadgeOverviewImage(src));
+    });
     imageModalContent.src = src;
     if (imageModalContent.complete) {
-        requestAnimationFrame(() => setImageModalZoom(1));
+        requestAnimationFrame(() => {
+            setImageModalZoom(1);
+            updateBadgeHotspots(isBadgeOverviewImage(src));
+        });
     }
 }
 
@@ -332,7 +427,87 @@ function closeImageModal() {
     if (!imageModal) return;
     imageModal.classList.remove('is-open');
     imageModal.setAttribute('aria-hidden', 'true');
+    updateBadgeHotspots(false);
     setTimeout(() => { imageModalContent.src = ''; }, 300); // Clear after transition
+}
+
+function openBadgeDetailModal(src, label) {
+    if (!badgeDetailModal || !badgeDetailImage) return;
+    badgeDetailImage.src = src;
+    badgeDetailImage.alt = label;
+    badgeDetailModal.classList.add('is-open');
+    badgeDetailModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeBadgeDetailModal() {
+    if (!badgeDetailModal || !badgeDetailImage) return;
+    badgeDetailModal.classList.remove('is-open');
+    badgeDetailModal.setAttribute('aria-hidden', 'true');
+    setTimeout(() => {
+        if (!badgeDetailModal.classList.contains('is-open')) {
+            badgeDetailImage.src = '';
+        }
+    }, 200);
+}
+
+function isBadgeOverviewImage(src) {
+    try {
+        return new URL(src, window.location.href).pathname.endsWith('/images/Badges.jfif');
+    } catch {
+        return String(src).includes('images/Badges.jfif');
+    }
+}
+
+function ensureBadgeOverlay() {
+    if (imageModalBadgeOverlay || !imageModalImageStage) return imageModalBadgeOverlay;
+
+    imageModalBadgeOverlay = document.createElement('div');
+    imageModalBadgeOverlay.className = 'badge-hotspot-overlay hidden';
+    imageModalImageStage.appendChild(imageModalBadgeOverlay);
+
+    badgeHotspots.forEach((hotspot, index) => {
+        const button = document.createElement('button');
+        button.className = 'badge-hotspot';
+        button.type = 'button';
+        button.setAttribute('aria-label', hotspot.label);
+        button.dataset.index = String(index + 1);
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            openBadgeDetailModal(hotspot.src, hotspot.label);
+        });
+        imageModalBadgeOverlay.appendChild(button);
+    });
+
+    return imageModalBadgeOverlay;
+}
+
+function updateBadgeHotspots(shouldShow) {
+    const overlay = ensureBadgeOverlay();
+    if (!overlay || !imageModalContent || !imageModalImageStage) return;
+
+    overlay.classList.toggle('hidden', !shouldShow);
+    if (!shouldShow) return;
+
+    const imageWidth = imageModalContent.offsetWidth;
+    const imageHeight = imageModalContent.offsetHeight;
+    const stageWidth = imageModalImageStage.clientWidth;
+    const stageHeight = imageModalImageStage.clientHeight;
+    const imageLeft = Math.max(0, (stageWidth - imageWidth) / 2);
+    const imageTop = Math.max(0, (stageHeight - imageHeight) / 2);
+
+    overlay.style.left = `${imageLeft}px`;
+    overlay.style.top = `${imageTop}px`;
+    overlay.style.width = `${imageWidth}px`;
+    overlay.style.height = `${imageHeight}px`;
+
+    overlay.querySelectorAll('.badge-hotspot').forEach((button, index) => {
+        const hotspot = badgeHotspots[index];
+        button.style.left = `${(hotspot.x - hotspot.width / 2) * 100}%`;
+        button.style.top = `${(hotspot.y - hotspot.height / 2) * 100}%`;
+        button.style.width = `${hotspot.width * 100}%`;
+        button.style.height = `${hotspot.height * 100}%`;
+    });
 }
 
 function setImageModalZoom(nextZoom) {
@@ -354,6 +529,7 @@ function setImageModalZoom(nextZoom) {
         imageModalContent.style.height = `${imageHeight}px`;
         imageModalImageStage?.style.setProperty('width', `${Math.max(imageWidth, imageModalMedia.clientWidth)}px`);
         imageModalImageStage?.style.setProperty('height', `${Math.max(imageHeight, imageModalMedia.clientHeight)}px`);
+        updateBadgeHotspots(Boolean(imageModalBadgeOverlay && !imageModalBadgeOverlay.classList.contains('hidden')));
     }
 
     const isMinZoom = imageModalZoom <= 0.75;
@@ -410,6 +586,7 @@ lightboxTriggers.forEach(img => {
     });
 });
 imageModalCloseButton?.addEventListener('click', closeImageModal);
+badgeDetailCloseButton?.addEventListener('click', closeBadgeDetailModal);
 imageModalZoomInButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom + 0.25));
 imageModalZoomOutButton?.addEventListener('click', () => setImageModalZoom(imageModalZoom - 0.25));
 imageModalZoomResetButton?.addEventListener('click', () => setImageModalZoom(1));
@@ -419,7 +596,11 @@ imageModalMedia?.addEventListener('wheel', (event) => {
     setImageModalZoom(imageModalZoom + zoomDelta);
 }, { passive: false });
 imageModalMedia?.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0 || event.target.closest('.image-modal-zoom-button')) return;
+    if (
+        event.button !== 0 ||
+        event.target.closest('.image-modal-zoom-button') ||
+        event.target.closest('.badge-hotspot')
+    ) return;
 
     isImageModalPanning = true;
     imageModalPanStartX = event.clientX;
@@ -445,9 +626,17 @@ imageModalMedia?.addEventListener('pointercancel', () => {
     isImageModalPanning = false;
     imageModalMedia.classList.remove('is-dragging');
 });
+window.addEventListener('resize', () => {
+    updateBadgeHotspots(Boolean(imageModalBadgeOverlay && !imageModalBadgeOverlay.classList.contains('hidden')));
+});
 imageModal?.addEventListener('click', (event) => {
     if (event.target === imageModal) {
         closeImageModal();
+    }
+});
+badgeDetailModal?.addEventListener('click', (event) => {
+    if (event.target === badgeDetailModal) {
+        closeBadgeDetailModal();
     }
 });
 pvModal?.addEventListener('click', (event) => {
@@ -458,6 +647,10 @@ pvModal?.addEventListener('click', (event) => {
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
+        if (badgeDetailModal?.classList.contains('is-open')) {
+            closeBadgeDetailModal();
+            return;
+        }
         closePvModal();
         closeTransportModal();
         closeCalculatorModal();

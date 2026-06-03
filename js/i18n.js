@@ -473,15 +473,55 @@
       "goods.modal.onsite",
     );
     setAttr(
+      "img[src='images/goods1.jfif']",
+      "data-description",
+      "goods.modal.onsiteDescription",
+    );
+    setAttr(
       "img[src='images/goods2.jfif']",
       "data-title",
       "goods.modal.preorder",
+    );
+    setAttr(
+      "img[src='images/goods2.jfif']",
+      "data-description",
+      "goods.modal.preorderDescription",
     );
     setAttr("img[src='images/comics.jfif']", "data-title", "goods.modal.comics");
     setAttr(
       "img[src='images/comics.jfif']",
       "data-description",
       "goods.modal.comicsDescription",
+    );
+    setAttr(
+      "img[src='images/AluminumPrint.jfif']",
+      "data-title",
+      "goods.modal.aluminumPrint",
+    );
+    setAttr(
+      "img[src='images/AluminumPrint.jfif']",
+      "data-description",
+      "goods.modal.aluminumPrintDescription",
+    );
+    setAttr(
+      "img[src='images/Acrylic.jfif']",
+      "data-title",
+      "goods.modal.acrylic",
+    );
+    setAttr(
+      "img[src='images/Acrylic.jfif']",
+      "data-description",
+      "goods.modal.acrylicDescription",
+    );
+    setAttr(
+      "img[src='images/Badges.jfif']",
+      "data-title",
+      "goods.modal.badges",
+    );
+    setAttr(
+      "img[src='images/Badges.jfif']",
+      "data-description",
+      "goods.modal.badgesDescription",
     );
     setAttr("img[src='images/LAHEE.jfif']", "data-title", "goods.modal.lahee");
     setAttr(
