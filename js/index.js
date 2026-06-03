@@ -58,6 +58,7 @@ const badgeDetailCloseButton = document.getElementById('badge-detail-close');
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 let imageModalZoom = 1;
 let imageModalBadgeOverlay = null;
+let badgeHoverPreview = null;
 let isImageModalPanning = false;
 let imageModalPanStartX = 0;
 let imageModalPanStartY = 0;
@@ -454,6 +455,61 @@ function closeBadgeDetailModal() {
     }, 200);
 }
 
+function ensureBadgeHoverPreview() {
+    if (badgeHoverPreview) return badgeHoverPreview;
+
+    badgeHoverPreview = document.createElement('div');
+    badgeHoverPreview.className = 'badge-hover-preview';
+    const img = document.createElement('img');
+    img.alt = '';
+    badgeHoverPreview.appendChild(img);
+    document.body.appendChild(badgeHoverPreview);
+
+    return badgeHoverPreview;
+}
+
+function showBadgeHoverPreview(src, label, event) {
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const preview = ensureBadgeHoverPreview();
+    const img = preview.querySelector('img');
+    if (!img) return;
+
+    img.src = src;
+    img.alt = label;
+    preview.classList.add('is-visible');
+    moveBadgeHoverPreview(event);
+}
+
+function moveBadgeHoverPreview(event) {
+    if (!badgeHoverPreview?.classList.contains('is-visible')) return;
+
+    const padding = 14;
+    const offset = 18;
+    const previewRect = badgeHoverPreview.getBoundingClientRect();
+    const sourceRect = event?.target?.getBoundingClientRect?.();
+    const anchorX = event?.clientX ?? (sourceRect ? sourceRect.right : window.innerWidth / 2);
+    const anchorY = event?.clientY ?? (sourceRect ? sourceRect.top : window.innerHeight / 2);
+
+    let left = anchorX + offset;
+    let top = anchorY + offset;
+
+    if (left + previewRect.width > window.innerWidth - padding) {
+        left = anchorX - previewRect.width - offset;
+    }
+
+    if (top + previewRect.height > window.innerHeight - padding) {
+        top = window.innerHeight - previewRect.height - padding;
+    }
+
+    badgeHoverPreview.style.left = `${Math.max(padding, left)}px`;
+    badgeHoverPreview.style.top = `${Math.max(padding, top)}px`;
+}
+
+function hideBadgeHoverPreview() {
+    badgeHoverPreview?.classList.remove('is-visible');
+}
+
 function isBadgeOverviewImage(src) {
     try {
         return new URL(src, window.location.href).pathname.endsWith('/images/Badges.jfif');
@@ -475,9 +531,15 @@ function ensureBadgeOverlay() {
         button.type = 'button';
         button.setAttribute('aria-label', hotspot.label);
         button.dataset.index = String(index + 1);
+        button.addEventListener('mouseenter', (event) => showBadgeHoverPreview(hotspot.src, hotspot.label, event));
+        button.addEventListener('mousemove', moveBadgeHoverPreview);
+        button.addEventListener('mouseleave', hideBadgeHoverPreview);
+        button.addEventListener('focus', (event) => showBadgeHoverPreview(hotspot.src, hotspot.label, event));
+        button.addEventListener('blur', hideBadgeHoverPreview);
         button.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
+            hideBadgeHoverPreview();
             openBadgeDetailModal(hotspot.src, hotspot.label);
         });
         imageModalBadgeOverlay.appendChild(button);
