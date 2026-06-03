@@ -638,7 +638,7 @@ calculatorModal?.addEventListener('click', (event) => {
     }
 });
 lightboxTriggers.forEach(img => {
-    img.addEventListener('click', async () => {
+    const openLightbox = async () => {
         await window.AoiI18n?.ready;
         const isComicsPreview = img.getAttribute('src')?.includes('images/comics.jfif');
         const title = isComicsPreview && !img.dataset.title
@@ -647,8 +647,16 @@ lightboxTriggers.forEach(img => {
         const description = isComicsPreview && !img.dataset.description
             ? window.AoiI18n?.t?.("goods.modal.comicsDescription")
             : img.dataset.description;
+        const modalSrc = img.dataset.modalSrc || img.src;
 
-        openImageModal(img.src, title, description, img.dataset.link);
+        openImageModal(modalSrc, title, description, img.dataset.link);
+    };
+
+    img.addEventListener('click', openLightbox);
+    img.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openLightbox();
     });
 });
 imageModalCloseButton?.addEventListener('click', closeImageModal);

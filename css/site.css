@@ -815,6 +815,33 @@ iframe {
 .profile-portrait {
     grid-column: 1;
     width: 100%;
+    cursor: pointer;
+}
+
+.profile-portrait-image {
+    transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.profile-portrait-hover {
+    opacity: 0;
+}
+
+.profile-portrait:hover .profile-portrait-image {
+    filter: saturate(1.08) brightness(1.05);
+    transform: scale(1.03);
+}
+
+.profile-portrait:hover .profile-portrait-default {
+    opacity: 0;
+}
+
+.profile-portrait:hover .profile-portrait-hover {
+    opacity: 0.95;
+}
+
+.profile-portrait:focus-visible {
+    outline: 2px solid rgb(var(--color-secondary));
+    outline-offset: -4px;
 }
 
 .profile-content {

@@ -398,6 +398,12 @@
     setText(".profile-bio p", "profile.bio");
     setText(".profile-label-row p", "profile.heading");
     setText("#easter-egg-text", "profile.easterEgg");
+    setAttr(".profile-portrait", "data-title", "profile.modal.title");
+    setAttr(
+      ".profile-portrait",
+      "data-description",
+      "profile.modal.description",
+    );
     setText(".profile-links > .flex > p", "profile.links");
     document.querySelectorAll(".profile-links a").forEach((link) => {
       if (link.href.includes("discord.gg")) {

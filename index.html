@@ -639,16 +639,30 @@
                   </svg>
                 </div>
                 <div
-                  class="profile-portrait relative aspect-square bg-black overflow-hidden"
+                  class="profile-portrait lightbox-trigger relative aspect-square bg-black overflow-hidden"
+                  data-modal-src="images/NewAOI.jfif"
+                  data-title="Aoi Hinamori"
+                  data-description="Profile modal description placeholder."
+                  data-link="https://x.com/AoiHinamori/status/2060986129944576023"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Open Aoi Hinamori profile image"
                 >
                   <img
-                    class="absolute inset-0 w-full h-full object-cover opacity-90"
+                    class="profile-portrait-image profile-portrait-default absolute inset-0 w-full h-full object-cover opacity-90"
                     src="images/AOI.jpg"
                     alt="profile"
                     loading="lazy"
                   />
+                  <img
+                    class="profile-portrait-image profile-portrait-hover absolute inset-0 w-full h-full object-cover"
+                    src="images/NewAOI_Profile.jpg"
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                  />
                   <span
-                    class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
                   ></span>
                 </div>
               </div>
