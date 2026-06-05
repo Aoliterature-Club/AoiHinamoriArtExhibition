@@ -64,6 +64,10 @@ let imageModalPanStartX = 0;
 let imageModalPanStartY = 0;
 let imageModalPanScrollLeft = 0;
 let imageModalPanScrollTop = 0;
+let isImageModalPinching = false;
+let imageModalPinchStartDistance = 0;
+let imageModalPinchStartZoom = 1;
+const imageModalTouchPointers = new Map();
 let bgmUserControlled = false;
 let shouldResumeBgmAfterPv = false;
 let hasShownInitialNotice = false;
@@ -392,6 +396,7 @@ function setModalText(element, value, options = {}) {
 
 function openImageModal(src, title, description, link) {
     if (!imageModal || !imageModalContent) return;
+    resetImageModalGestures();
     imageModalContent.style.width = '';
     imageModalContent.style.height = '';
     imageModalImageStage?.style.removeProperty('width');
@@ -430,6 +435,7 @@ function openImageModal(src, title, description, link) {
 
 function closeImageModal() {
     if (!imageModal) return;
+    resetImageModalGestures();
     imageModal.classList.remove('is-open');
     imageModal.setAttribute('aria-hidden', 'true');
     updateBadgeHotspots(false);
@@ -576,8 +582,49 @@ function updateBadgeHotspots(shouldShow) {
     });
 }
 
-function setImageModalZoom(nextZoom) {
+function getImageModalTouchDistance() {
+    const points = Array.from(imageModalTouchPointers.values());
+    if (points.length < 2) return 0;
+
+    return Math.hypot(points[0].clientX - points[1].clientX, points[0].clientY - points[1].clientY);
+}
+
+function getImageModalTouchCenter() {
+    const points = Array.from(imageModalTouchPointers.values());
+    if (points.length < 2) return null;
+
+    return {
+        clientX: (points[0].clientX + points[1].clientX) / 2,
+        clientY: (points[0].clientY + points[1].clientY) / 2,
+    };
+}
+
+function stopImageModalPan() {
+    isImageModalPanning = false;
+    imageModalMedia?.classList.remove('is-dragging');
+}
+
+function resetImageModalGestures() {
+    stopImageModalPan();
+    isImageModalPinching = false;
+    imageModalPinchStartDistance = 0;
+    imageModalPinchStartZoom = imageModalZoom;
+    imageModalTouchPointers.clear();
+}
+
+function setImageModalZoom(nextZoom, options = {}) {
     if (!imageModalContent || !imageModalMedia) return;
+
+    const shouldPreserveFocalPoint = Boolean(options.focalPoint);
+    const mediaRect = imageModalMedia.getBoundingClientRect();
+    const focalOffsetX = shouldPreserveFocalPoint ? options.focalPoint.clientX - mediaRect.left : 0;
+    const focalOffsetY = shouldPreserveFocalPoint ? options.focalPoint.clientY - mediaRect.top : 0;
+    const focalRatioX = shouldPreserveFocalPoint && imageModalMedia.scrollWidth
+        ? (imageModalMedia.scrollLeft + focalOffsetX) / imageModalMedia.scrollWidth
+        : 0.5;
+    const focalRatioY = shouldPreserveFocalPoint && imageModalMedia.scrollHeight
+        ? (imageModalMedia.scrollTop + focalOffsetY) / imageModalMedia.scrollHeight
+        : 0.5;
 
     imageModalZoom = Math.min(2.5, Math.max(0.75, nextZoom));
     const naturalWidth = imageModalContent.naturalWidth;
@@ -604,6 +651,12 @@ function setImageModalZoom(nextZoom) {
     imageModalZoomInButton?.toggleAttribute('disabled', isMaxZoom);
 
     requestAnimationFrame(() => {
+        if (shouldPreserveFocalPoint) {
+            imageModalMedia.scrollLeft = (imageModalMedia.scrollWidth * focalRatioX) - focalOffsetX;
+            imageModalMedia.scrollTop = (imageModalMedia.scrollHeight * focalRatioY) - focalOffsetY;
+            return;
+        }
+
         imageModalMedia.scrollLeft = (imageModalMedia.scrollWidth - imageModalMedia.clientWidth) / 2;
         imageModalMedia.scrollTop = (imageModalMedia.scrollHeight - imageModalMedia.clientHeight) / 2;
     });
@@ -667,7 +720,12 @@ imageModalZoomResetButton?.addEventListener('click', () => setImageModalZoom(1))
 imageModalMedia?.addEventListener('wheel', (event) => {
     event.preventDefault();
     const zoomDelta = event.deltaY > 0 ? -0.15 : 0.15;
-    setImageModalZoom(imageModalZoom + zoomDelta);
+    setImageModalZoom(imageModalZoom + zoomDelta, {
+        focalPoint: {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        },
+    });
 }, { passive: false });
 imageModalMedia?.addEventListener('pointerdown', (event) => {
     if (
@@ -675,6 +733,23 @@ imageModalMedia?.addEventListener('pointerdown', (event) => {
         event.target.closest('.image-modal-zoom-button') ||
         event.target.closest('.badge-hotspot')
     ) return;
+
+    if (event.pointerType === 'touch') {
+        imageModalTouchPointers.set(event.pointerId, {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        });
+        imageModalMedia.setPointerCapture(event.pointerId);
+
+        if (imageModalTouchPointers.size >= 2) {
+            stopImageModalPan();
+            isImageModalPinching = true;
+            imageModalPinchStartDistance = getImageModalTouchDistance();
+            imageModalPinchStartZoom = imageModalZoom;
+            event.preventDefault();
+            return;
+        }
+    }
 
     isImageModalPanning = true;
     imageModalPanStartX = event.clientX;
@@ -686,19 +761,47 @@ imageModalMedia?.addEventListener('pointerdown', (event) => {
     event.preventDefault();
 });
 imageModalMedia?.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'touch' && imageModalTouchPointers.has(event.pointerId)) {
+        imageModalTouchPointers.set(event.pointerId, {
+            clientX: event.clientX,
+            clientY: event.clientY,
+        });
+
+        if (isImageModalPinching) {
+            const pinchDistance = getImageModalTouchDistance();
+            const pinchCenter = getImageModalTouchCenter();
+            if (imageModalPinchStartDistance && pinchCenter) {
+                setImageModalZoom(
+                    imageModalPinchStartZoom * (pinchDistance / imageModalPinchStartDistance),
+                    { focalPoint: pinchCenter }
+                );
+            }
+            event.preventDefault();
+            return;
+        }
+    }
+
     if (!isImageModalPanning) return;
 
     imageModalMedia.scrollLeft = imageModalPanScrollLeft - (event.clientX - imageModalPanStartX);
     imageModalMedia.scrollTop = imageModalPanScrollTop - (event.clientY - imageModalPanStartY);
 });
 imageModalMedia?.addEventListener('pointerup', (event) => {
-    isImageModalPanning = false;
-    imageModalMedia.classList.remove('is-dragging');
-    imageModalMedia.releasePointerCapture(event.pointerId);
+    if (event.pointerType === 'touch') {
+        imageModalTouchPointers.delete(event.pointerId);
+        isImageModalPinching = imageModalTouchPointers.size >= 2;
+    }
+    stopImageModalPan();
+    if (imageModalMedia.hasPointerCapture(event.pointerId)) {
+        imageModalMedia.releasePointerCapture(event.pointerId);
+    }
 });
-imageModalMedia?.addEventListener('pointercancel', () => {
-    isImageModalPanning = false;
-    imageModalMedia.classList.remove('is-dragging');
+imageModalMedia?.addEventListener('pointercancel', (event) => {
+    if (event.pointerType === 'touch') {
+        imageModalTouchPointers.delete(event.pointerId);
+        isImageModalPinching = imageModalTouchPointers.size >= 2;
+    }
+    stopImageModalPan();
 });
 window.addEventListener('resize', () => {
     updateBadgeHotspots(Boolean(imageModalBadgeOverlay && !imageModalBadgeOverlay.classList.contains('hidden')));

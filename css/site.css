@@ -374,7 +374,7 @@ iframe {
     height: min(68vh, 760px);
     overflow: auto;
     overscroll-behavior: contain;
-    touch-action: pan-x pan-y;
+    touch-action: none;
     cursor: grab;
 }
 
