@@ -255,7 +255,7 @@
       "id": "goods-001",
       "category": "Goods Purchase",
       "question": "What payment methods are accepted for on-site goods?",
-      "answer": "On-site payment supports cash, LINE Pay, Apple Pay, credit cards, and bank transfer. Whether overseas credit cards can be used depends on the on-site card terminal and the bank authorization result.",
+      "answer": "On-site payment supports cash, Apple Pay, credit cards, and bank transfer. Whether overseas credit cards can be used depends on the on-site card terminal and the bank authorization result.",
       "aliases": [
         "What payment methods are available for goods?",
         "Can I use a credit card? What about an overseas credit card?",
