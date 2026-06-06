@@ -385,6 +385,7 @@
     setText(".hero-details-col.right-col a", "hero.place");
     setText("#pv-open", "hero.watchPv");
     setText(".event-hashtag-label", "hero.hashtag");
+    setText(".event-hashtag-copy-label", "hero.copyHashtags");
     setText(".absolute.bottom-10 .text-label-sm", "hero.scroll");
     setText("#info h2", "info.title");
     setHtml(".info-copy p", "info.copy");

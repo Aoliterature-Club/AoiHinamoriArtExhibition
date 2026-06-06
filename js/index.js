@@ -56,6 +56,8 @@ const badgeDetailModal = document.getElementById('badge-detail-modal');
 const badgeDetailImage = document.getElementById('badge-detail-image');
 const badgeDetailCloseButton = document.getElementById('badge-detail-close');
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+const eventHashtagCopyButton = document.getElementById('event-hashtag-copy');
+const eventHashtagCopyStatus = document.getElementById('event-hashtag-copy-status');
 let imageModalZoom = 1;
 let imageModalBadgeOverlay = null;
 let badgeHoverPreview = null;
@@ -73,6 +75,54 @@ let shouldResumeBgmAfterPv = false;
 let hasShownInitialNotice = false;
 let didPlayMemeLastTime = false;
 const memePvChance = 0.3;
+
+async function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    const copied = document.execCommand('copy');
+    textarea.remove();
+
+    if (!copied) {
+        throw new Error('Copy command failed');
+    }
+}
+
+eventHashtagCopyButton?.addEventListener('click', async () => {
+    const copyTextValue = eventHashtagCopyButton.dataset.copyText || '';
+    const copyLabel = eventHashtagCopyButton.querySelector('.event-hashtag-copy-label');
+    const copyIcon = eventHashtagCopyButton.querySelector('.material-symbols-outlined');
+    const translate = (key) => window.AoiI18n?.t(key) || key;
+
+    try {
+        await copyText(copyTextValue);
+        eventHashtagCopyButton.classList.add('is-copied');
+        if (copyLabel) copyLabel.textContent = translate('hero.copyHashtagsSuccess');
+        if (copyIcon) copyIcon.textContent = 'check';
+        if (eventHashtagCopyStatus) eventHashtagCopyStatus.textContent = copyTextValue;
+
+        window.setTimeout(() => {
+            eventHashtagCopyButton.classList.remove('is-copied');
+            if (copyLabel) copyLabel.textContent = translate('hero.copyHashtags');
+            if (copyIcon) copyIcon.textContent = 'content_copy';
+            if (eventHashtagCopyStatus) eventHashtagCopyStatus.textContent = '';
+        }, 2500);
+    } catch (error) {
+        if (eventHashtagCopyStatus) {
+            eventHashtagCopyStatus.textContent = translate('hero.copyHashtagsError');
+        }
+    }
+});
 
 const badgeHotspots = [
     {

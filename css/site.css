@@ -717,6 +717,52 @@ iframe {
     font-size: 16px;
 }
 
+.event-hashtag-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 38px;
+    margin-top: 2px;
+    padding: 0 16px;
+    border: 1px solid rgba(233, 195, 73, 0.45);
+    border-radius: 0.375rem;
+    color: var(--color-on-primary-container);
+    background: rgba(233, 195, 73, 0.18);
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.event-hashtag-copy:hover,
+.event-hashtag-copy:focus-visible {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(233, 195, 73, 0.25);
+    transform: translateY(-1px);
+}
+
+.event-hashtag-copy.is-copied {
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    background: rgba(233, 195, 73, 0.28);
+}
+
+.event-hashtag-copy .material-symbols-outlined {
+    font-size: 17px;
+}
+
+.event-hashtag-copy-status {
+    min-height: 1rem;
+    color: var(--color-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
 .social-icon {
     width: 16px;
     height: 16px;
