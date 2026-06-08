@@ -382,6 +382,15 @@ iframe {
     cursor: grabbing;
 }
 
+.image-modal.is-carousel .image-modal-media {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.image-modal.is-carousel .image-modal-media::-webkit-scrollbar {
+    display: none;
+}
+
 .image-modal-image-stage {
     position: relative;
     display: flex;
@@ -400,6 +409,10 @@ iframe {
     z-index: 5;
     display: flex;
     gap: 8px;
+}
+
+.image-modal.is-carousel .image-modal-zoom-controls {
+    top: 72px;
 }
 
 .image-modal-zoom-button {
@@ -425,6 +438,163 @@ iframe {
 .image-modal-zoom-button:disabled {
     cursor: not-allowed;
     opacity: 0.42;
+}
+
+.image-carousel-button {
+    position: absolute;
+    top: 50%;
+    z-index: 6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 56px;
+    border: 1px solid rgba(233, 195, 73, 0.36);
+    border-radius: 0.5rem;
+    color: var(--color-secondary);
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    transform: translateY(-50%);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.image-carousel-button.hidden {
+    display: none;
+}
+
+.image-carousel-button:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(20, 12, 12, 0.88);
+}
+
+.image-carousel-button span {
+    font-size: 2rem;
+}
+
+.image-carousel-prev {
+    left: 12px;
+}
+
+.image-carousel-next {
+    right: 12px;
+}
+
+.image-carousel-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.42rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid rgba(233, 195, 73, 0.28);
+    border-radius: 999px;
+    color: var(--color-on-surface-variant);
+    background: rgba(0, 0, 0, 0.24);
+    letter-spacing: 0;
+}
+
+.image-carousel-count.hidden {
+    display: none;
+}
+
+.image-carousel-count-current {
+    color: var(--color-secondary);
+    font-weight: 800;
+}
+
+.image-carousel-count-divider,
+.image-carousel-count-total {
+    color: var(--color-on-surface-variant);
+    font-weight: 700;
+}
+
+.image-carousel-category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.9rem;
+    padding: 0.35rem 0.72rem;
+    border: 1px solid rgba(233, 195, 73, 0.34);
+    border-radius: 999px;
+    color: var(--color-secondary);
+    background: rgba(233, 195, 73, 0.08);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+.image-carousel-category.hidden {
+    display: none;
+}
+
+.venue-photo-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 14px 14px 12px;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(233, 195, 73, 0.16);
+    background: rgba(10, 8, 8, 0.84);
+}
+
+.venue-photo-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.venue-photo-tabs.hidden {
+    display: none;
+}
+
+.venue-photo-tab {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.48rem;
+    min-height: 38px;
+    padding: 0.5rem 0.62rem 0.5rem 0.78rem;
+    border: 1px solid rgba(233, 195, 73, 0.28);
+    border-radius: 0.5rem;
+    color: var(--color-on-surface-variant);
+    background: rgba(0, 0, 0, 0.36);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.venue-photo-tab-label {
+    white-space: nowrap;
+}
+
+.venue-photo-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    color: var(--color-secondary);
+    background: rgba(233, 195, 73, 0.12);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+.venue-photo-tab:hover,
+.venue-photo-tab:focus-visible,
+.venue-photo-tab[aria-pressed="true"] {
+    color: var(--color-secondary);
+    border-color: rgba(233, 195, 73, 0.72);
+    background: rgba(233, 195, 73, 0.1);
+    outline: none;
+}
+
+.venue-photo-tab[aria-pressed="true"] .venue-photo-tab-count {
+    color: var(--color-surface);
+    background: var(--color-secondary);
 }
 
 .image-modal-image {
@@ -1593,5 +1763,88 @@ iframe {
 
 .calculator-sidebar-panel {
     max-height: calc(100vh - 4rem);
+}
+
+.venue-photo-fab {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(233, 195, 73, 0.42);
+    border-radius: 999px;
+    color: var(--color-secondary);
+    background: rgba(12, 8, 10, 0.86);
+    box-shadow: 0 0 28px rgba(217, 0, 42, 0.24);
+    backdrop-filter: blur(14px);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.venue-photo-fab:hover,
+.venue-photo-fab:focus-visible {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(22, 12, 14, 0.94);
+    box-shadow: 0 0 36px rgba(217, 0, 42, 0.34);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.venue-photo-fab .material-symbols-outlined {
+    font-size: 1.55rem;
+}
+
+.venue-photo-fab-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .image-carousel-button {
+        width: 42px;
+        height: 48px;
+    }
+
+    .venue-photo-tabs {
+        padding: 12px 12px 10px;
+    }
+
+    .venue-photo-tab {
+        min-height: 36px;
+        padding: 0.5rem 0.72rem;
+        font-size: 0.74rem;
+    }
+
+    .image-modal.is-carousel .image-modal-zoom-controls {
+        top: 64px;
+    }
+
+    .image-carousel-prev {
+        left: 8px;
+    }
+
+    .image-carousel-next {
+        right: 8px;
+    }
+
+    .venue-photo-fab {
+        right: max(0.85rem, env(safe-area-inset-right));
+        bottom: max(0.85rem, env(safe-area-inset-bottom));
+        min-height: 3rem;
+        padding: 0.78rem 0.9rem;
+    }
+
+    .venue-photo-fab-label {
+        max-width: 4.75rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 

@@ -52,13 +52,21 @@ const imageModalCloseButton = document.getElementById('image-modal-close');
 const imageModalZoomInButton = document.getElementById('image-modal-zoom-in');
 const imageModalZoomOutButton = document.getElementById('image-modal-zoom-out');
 const imageModalZoomResetButton = document.getElementById('image-modal-zoom-reset');
+const imageCarouselPrevButton = document.getElementById('image-carousel-prev');
+const imageCarouselNextButton = document.getElementById('image-carousel-next');
+const imageCarouselCount = document.getElementById('image-carousel-count');
+const imageCarouselCategory = document.getElementById('image-carousel-category');
+const venuePhotoTabs = document.getElementById('venue-photo-tabs');
 const badgeDetailModal = document.getElementById('badge-detail-modal');
 const badgeDetailImage = document.getElementById('badge-detail-image');
 const badgeDetailCloseButton = document.getElementById('badge-detail-close');
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+const venuePhotoOpenButton = document.getElementById('venue-photo-open');
 const eventHashtagCopyButton = document.getElementById('event-hashtag-copy');
 const eventHashtagCopyStatus = document.getElementById('event-hashtag-copy-status');
 let imageModalZoom = 1;
+let activeVenuePhotoIndex = -1;
+let activeVenuePhotoCategory = 'all';
 let imageModalBadgeOverlay = null;
 let badgeHoverPreview = null;
 let isImageModalPanning = false;
@@ -75,6 +83,87 @@ let shouldResumeBgmAfterPv = false;
 let hasShownInitialNotice = false;
 let didPlayMemeLastTime = false;
 const memePvChance = 0.3;
+const venuePhotoCategories = [
+    {
+        id: 'Venue',
+        labelKey: 'venuePhotos.category.venue',
+        path: 'images/Photos/Venue',
+        files: [
+            '1.個展正門照.jpg',
+            '2.門口超漂亮老大.jpg',
+            '3.門口蝕光.jpg',
+            '4.門口個展日期標示.jpg',
+            '5.患者小雞懶骨頭.jpg',
+        ],
+    },
+    {
+        id: 'Paints',
+        labelKey: 'venuePhotos.category.paints',
+        path: 'images/Photos/Paints',
+        files: [
+            '1.蝕光.jpg',
+            '2.初配信.jpg',
+            '3.鏡。碎.jpg',
+            '4.深淵帶.jpg',
+            '5.殤之鎖.jpg',
+            '6.流光返.jpg',
+            '7.Me to we.jpg',
+            '8.比翼雙飛.jpg',
+            '9.沁涼熱浪.jpg',
+            '10.莓飛色舞.jpg',
+            '11.魔幻氣泡.jpg',
+            '12.初戀晨曦.jpg',
+            '13.視線.jpg',
+            '14.向陽花.jpg',
+            '15.患燃依心.jpg',
+            '16.All of I.jpg',
+            '17.煙花爛漫.jpg',
+        ],
+    },
+    {
+        id: 'Merchs',
+        labelKey: 'venuePhotos.category.merchs',
+        path: 'images/Photos/Merchs',
+        files: [
+            'Lahee.jpg',
+            'Re.向日葵曲繪.jpg',
+            '手作包細節.jpg',
+            '卡冊.jpg',
+            '卡包SSR.jpg',
+            '卡包UR.jpg',
+            '卡包普卡.jpg',
+            '卡套區側面拍.jpg',
+            '明信片套組.jpg',
+            '秋葵.jpg',
+            '遊戲王尺寸卡套.jpg',
+            '漫畫.jpg',
+        ],
+    },
+    {
+        id: 'DDroll',
+        labelKey: 'venuePhotos.category.ddroll',
+        path: 'images/Photos/DDroll',
+        files: [
+            '1.DD娃-全身.jpg',
+            '2.DD娃-半身.jpg',
+            '3.DD娃-底座.jpg',
+        ],
+    },
+];
+const venuePhotos = venuePhotoCategories.flatMap((category) => category.files.map((file, index) => {
+    const filenameWithoutExtension = file.replace(/\.[^.]+$/, '');
+    const title = filenameWithoutExtension.replace(/^\d+\./, '');
+    const photoKey = `venuePhotos.photo.${category.id}.${index + 1}`;
+
+    return {
+        src: `${category.path}/${file}`,
+        title,
+        titleKey: `${photoKey}.title`,
+        descriptionKey: `${photoKey}.description`,
+        category: category.id,
+        categoryLabelKey: category.labelKey,
+    };
+}));
 
 async function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -444,7 +533,101 @@ function setModalText(element, value, options = {}) {
     }
 }
 
-function openImageModal(src, title, description, link) {
+function setImageCarouselControls(isEnabled) {
+    imageCarouselPrevButton?.classList.toggle('hidden', !isEnabled);
+    imageCarouselNextButton?.classList.toggle('hidden', !isEnabled);
+    imageCarouselCount?.classList.toggle('hidden', !isEnabled);
+    imageCarouselCategory?.classList.toggle('hidden', !isEnabled);
+    venuePhotoTabs?.classList.toggle('hidden', !isEnabled);
+}
+
+function getActiveVenuePhotos() {
+    if (activeVenuePhotoCategory === 'all') return venuePhotos;
+    return venuePhotos.filter((photo) => photo.category === activeVenuePhotoCategory);
+}
+
+function getVenuePhotoText(key, fallback = key) {
+    const translated = window.AoiI18n?.t?.(key);
+    return translated && translated !== key ? translated : fallback;
+}
+
+function renderVenuePhotoTabs() {
+    if (!venuePhotoTabs) return;
+    venuePhotoTabs.innerHTML = '';
+
+    const tabs = [
+        { id: 'all', labelKey: 'venuePhotos.category.all', count: venuePhotos.length },
+        ...venuePhotoCategories.map((category) => ({
+            id: category.id,
+            labelKey: category.labelKey,
+            count: category.files.length,
+        })),
+    ];
+
+    tabs.forEach((tab) => {
+        const button = document.createElement('button');
+        button.className = 'venue-photo-tab';
+        button.type = 'button';
+        button.dataset.category = tab.id;
+        button.setAttribute('aria-pressed', String(tab.id === activeVenuePhotoCategory));
+        const label = document.createElement('span');
+        label.className = 'venue-photo-tab-label';
+        label.textContent = getVenuePhotoText(tab.labelKey);
+        const count = document.createElement('span');
+        count.className = 'venue-photo-tab-count';
+        count.textContent = String(tab.count);
+        button.append(label, count);
+        button.addEventListener('click', () => {
+            activeVenuePhotoCategory = tab.id;
+            openVenuePhoto(0);
+        });
+        venuePhotoTabs.appendChild(button);
+    });
+}
+
+function updateImageCarouselCount() {
+    if (!imageCarouselCount || activeVenuePhotoIndex < 0) return;
+    imageCarouselCount.innerHTML = '';
+    const current = document.createElement('span');
+    current.className = 'image-carousel-count-current';
+    current.textContent = String(activeVenuePhotoIndex + 1);
+    const divider = document.createElement('span');
+    divider.className = 'image-carousel-count-divider';
+    divider.textContent = '/';
+    const total = document.createElement('span');
+    total.className = 'image-carousel-count-total';
+    total.textContent = String(getActiveVenuePhotos().length);
+    imageCarouselCount.append(current, divider, total);
+}
+
+function updateImageCarouselCategory(photo) {
+    if (!imageCarouselCategory || !photo) return;
+    imageCarouselCategory.textContent = getVenuePhotoText(photo.categoryLabelKey);
+}
+
+function openVenuePhoto(index = 0) {
+    const activePhotos = getActiveVenuePhotos();
+    if (!activePhotos.length) return;
+    activeVenuePhotoIndex = (index + activePhotos.length) % activePhotos.length;
+    const photo = activePhotos[activeVenuePhotoIndex];
+    openImageModal(
+        photo.src,
+        getVenuePhotoText(photo.titleKey, photo.title),
+        getVenuePhotoText(photo.descriptionKey, getVenuePhotoText(photo.categoryLabelKey)),
+        photo.link,
+        { carousel: true },
+    );
+    renderVenuePhotoTabs();
+    updateImageCarouselCategory(photo);
+    updateImageCarouselCount();
+}
+
+function moveVenuePhoto(delta) {
+    if (activeVenuePhotoIndex < 0) return;
+    openVenuePhoto(activeVenuePhotoIndex + delta);
+}
+
+function openImageModal(src, title, description, link, options = {}) {
     if (!imageModal || !imageModalContent) return;
     resetImageModalGestures();
     imageModalContent.style.width = '';
@@ -452,6 +635,8 @@ function openImageModal(src, title, description, link) {
     imageModalImageStage?.style.removeProperty('width');
     imageModalImageStage?.style.removeProperty('height');
     updateBadgeHotspots(false);
+    imageModal.classList.toggle('is-carousel', Boolean(options.carousel));
+    setImageCarouselControls(Boolean(options.carousel));
 
     setModalText(imageModalTitle, title);
 
@@ -486,6 +671,9 @@ function openImageModal(src, title, description, link) {
 function closeImageModal() {
     if (!imageModal) return;
     resetImageModalGestures();
+    activeVenuePhotoIndex = -1;
+    imageModal.classList.remove('is-carousel');
+    setImageCarouselControls(false);
     imageModal.classList.remove('is-open');
     imageModal.setAttribute('aria-hidden', 'true');
     updateBadgeHotspots(false);
@@ -725,9 +913,18 @@ transportOpenButton?.addEventListener('click', openTransportModal);
 calculatorTriggers.forEach(btn => btn.addEventListener('click', openCalculatorModal));
 calculatorCloseButton?.addEventListener('click', closeCalculatorModal);
 calculatorFrame?.addEventListener('load', syncCalculatorLanguage);
+venuePhotoOpenButton?.addEventListener('click', () => {
+    activeVenuePhotoCategory = 'all';
+    openVenuePhoto(0);
+});
+imageCarouselPrevButton?.addEventListener('click', () => moveVenuePhoto(-1));
+imageCarouselNextButton?.addEventListener('click', () => moveVenuePhoto(1));
 window.addEventListener('aoi-language-change', () => {
     if (calculatorModal?.classList.contains('is-open')) {
         syncCalculatorLanguage();
+    }
+    if (imageModal?.classList.contains('is-open') && activeVenuePhotoIndex >= 0) {
+        openVenuePhoto(activeVenuePhotoIndex);
     }
 });
 transportModal?.addEventListener('click', (event) => {
@@ -743,6 +940,7 @@ calculatorModal?.addEventListener('click', (event) => {
 lightboxTriggers.forEach(img => {
     const openLightbox = async () => {
         await window.AoiI18n?.ready;
+        activeVenuePhotoIndex = -1;
         const isComicsPreview = img.getAttribute('src')?.includes('images/comics.jfif');
         const title = isComicsPreview && !img.dataset.title
             ? window.AoiI18n?.t?.("goods.modal.comics")
@@ -873,6 +1071,19 @@ pvModal?.addEventListener('click', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
+    if (imageModal?.classList.contains('is-open') && activeVenuePhotoIndex >= 0) {
+        if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            moveVenuePhoto(-1);
+            return;
+        }
+        if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            moveVenuePhoto(1);
+            return;
+        }
+    }
+
     if (event.key === 'Escape') {
         if (badgeDetailModal?.classList.contains('is-open')) {
             closeBadgeDetailModal();

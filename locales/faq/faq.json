@@ -220,6 +220,18 @@
       "priority": 1
     },
     {
+      "id": "art-buy-005",
+      "category": "畫作購買",
+      "question": "購買畫作有什麼特別福利嗎？",
+      "answer": "購買畫展上展示的「有框畫」可以請Aoi Hinamori簽名。無框畫以及預購商品的鋁板畫、項鍊 皆無親簽。<br>有購買到畫作的患者，如果希望/不希望 Aoi Hinamori 在畫作上親筆簽名的話，請於6/12前透過以下任一方式提出申請：(1.) Discord私訊GG子（@ggzi.） (2.) 寄信到<a href='mailto:autodolls0510@gmail.com'>autodolls0510@gmail.com</a>申請並附上你的購買證明。逾時未提出者，Aoi將會直接簽名！",
+      "aliases": [
+        "畫作可以簽名嗎？",
+        "購買畫作是否可以簽名？",
+        "買畫作可以親簽嗎？"
+      ],
+      "priority": 1
+    },
+    {
       "id": "goods-001",
       "category": "周邊購買",
       "question": "現場周邊可以使用哪些付款方式？",

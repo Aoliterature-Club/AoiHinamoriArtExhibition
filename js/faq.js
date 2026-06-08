@@ -235,7 +235,7 @@ async function loadFaqItems() {
   try {
     const faqLanguage = getFaqLanguage();
     const suffix = faqLanguage === "zh-Hant" ? "" : `.${faqLanguage}`;
-    const response = await fetch(`data/faq${suffix}.json`, { cache: "no-store" });
+    const response = await fetch(`locales/faq/faq${suffix}.json`, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`FAQ data request failed: ${response.status}`);
     }
@@ -253,6 +253,7 @@ async function loadFaqItems() {
         return a.category.localeCompare(b.category, "zh-Hant");
       });
   } catch (error) {
+    console.warn(error);
     faqItems = [
       {
         category: getFaqText("loadFailedCategory"),

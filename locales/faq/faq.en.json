@@ -252,6 +252,18 @@
       "priority": 1
     },
     {
+      "id": "art-buy-005",
+      "category": "Artwork Purchases",
+      "question": "Are there any special benefits for purchasing artwork?",
+      "answer": "Buyers of the framed artwork displayed at the exhibition may request Aoi Hinamori's signature. Unframed artwork, aluminum prints, and necklaces offered as pre-order items will not include handwritten signatures.<br>If you purchased artwork and would like or would not like Aoi Hinamori to sign it, please submit your request by June 12 through either method: (1.) Send a Discord DM to GG子 (@ggzi.) (2.) Email <a href='mailto:autodolls0510@gmail.com'>autodolls0510@gmail.com</a> with proof of purchase. If no request is submitted by the deadline, Aoi will sign the artwork directly.",
+      "aliases": [
+        "Can the artwork be signed?",
+        "Can purchased artwork receive a signature?",
+        "Can I get a handwritten signature on purchased artwork?"
+      ],
+      "priority": 1
+    },
+    {
       "id": "goods-001",
       "category": "Goods Purchase",
       "question": "What payment methods are accepted for on-site goods?",
