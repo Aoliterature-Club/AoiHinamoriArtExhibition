@@ -548,6 +548,12 @@
       "data-description",
       "goods.modal.cardsDescription",
     );
+    setText(".spotlight-heading h2", "spotlight.randomTitle");
+    setAttr("#random-photo-strip", "aria-label", "spotlight.randomAria");
+    setAttr("#featured-post-open", "aria-label", "spotlight.postAria");
+    setText(".spotlight-post-kicker", "spotlight.postKicker");
+    setText(".spotlight-post-title", "spotlight.postTitle");
+    setText(".spotlight-post-text", "spotlight.postText");
     setText("#faq h2", "faq.title");
     setText("#faq p", "faq.intro");
     setText(".faq-open .tracking-widest", "faq.open");

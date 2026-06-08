@@ -5,6 +5,27 @@ const faqSearch = document.getElementById("faq-search");
 const faqCategoryTabs = document.getElementById("faq-category-tabs");
 const faqCount = document.getElementById("faq-count");
 const faqOpenTargets = document.querySelectorAll(".faq-open");
+
+function openModalElement(modal) {
+  if (!modal) return;
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeModalElement(modal) {
+  if (!modal) return;
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+function closeModalOnBackdrop(modal, closeCallback) {
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeCallback();
+    }
+  });
+}
+
 function getFaqLanguage() {
   return window.AoiI18n?.currentLanguage || "zh-Hant";
 }
@@ -272,16 +293,14 @@ async function openFaqModal(event) {
   event?.preventDefault();
   if (!faqModal) return;
 
-  faqModal.classList.add("is-open");
-  faqModal.setAttribute("aria-hidden", "false");
+  openModalElement(faqModal);
   await loadFaqItems();
 }
 
 function closeFaqModal() {
   if (!faqModal) return;
 
-  faqModal.classList.remove("is-open");
-  faqModal.setAttribute("aria-hidden", "true");
+  closeModalElement(faqModal);
 }
 
 faqOpenTargets.forEach((target) => {
@@ -289,11 +308,7 @@ faqOpenTargets.forEach((target) => {
 });
 
 faqCloseButton?.addEventListener("click", closeFaqModal);
-faqModal?.addEventListener("click", (event) => {
-  if (event.target === faqModal) {
-    closeFaqModal();
-  }
-});
+closeModalOnBackdrop(faqModal, closeFaqModal);
 faqSearch?.addEventListener("input", renderFaqResults);
 window.addEventListener("aoi-language-change", async () => {
   allCategory = getFaqText("all");

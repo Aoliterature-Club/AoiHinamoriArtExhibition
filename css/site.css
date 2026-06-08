@@ -748,6 +748,203 @@ iframe {
     border-radius: 0.5rem;
 }
 
+#info {
+    padding-bottom: 3rem;
+}
+
+#spotlight {
+    padding-top: 2.25rem;
+}
+
+.spotlight-grid {
+    display: grid;
+    gap: 1rem;
+    align-items: stretch;
+    max-width: min(100%, 980px);
+    margin: 0 auto;
+}
+
+.spotlight-panel,
+.spotlight-post-card {
+    border: 1px solid rgba(233, 195, 73, 0.22);
+    border-radius: 0.5rem;
+    background: rgba(12, 8, 10, 0.62);
+}
+
+.spotlight-panel {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.95rem;
+    padding: 1rem;
+    aspect-ratio: 16 / 11;
+    min-height: 0;
+}
+
+.spotlight-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.spotlight-heading .material-symbols-outlined {
+    flex: 0 0 auto;
+    color: var(--color-secondary);
+    font-size: 1.35rem;
+}
+
+.spotlight-heading h2 {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.spotlight-progress {
+    position: relative;
+    flex: 1 1 7rem;
+    height: 0.22rem;
+    min-width: 4.5rem;
+    max-width: 11rem;
+    margin-left: auto;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(233, 195, 73, 0.14);
+}
+
+.spotlight-progress-bar {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, rgba(217, 0, 42, 0.78), var(--color-secondary));
+    transform-origin: right center;
+    transform: scaleX(1);
+}
+
+.spotlight-progress.is-running .spotlight-progress-bar {
+    animation: spotlightProgress 5s linear forwards;
+}
+
+@keyframes spotlightProgress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
+
+.spotlight-photo-grid {
+    display: grid;
+    min-height: 0;
+}
+
+.spotlight-photo-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
+    background: #050505;
+    cursor: pointer;
+}
+
+.spotlight-photo-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease, opacity 0.25s ease;
+}
+
+.spotlight-photo-button:hover img,
+.spotlight-photo-button:focus-visible img {
+    transform: scale(1.06);
+}
+
+.spotlight-photo-button:focus-visible,
+.spotlight-post-card:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 3px;
+}
+
+.spotlight-photo-label {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    max-width: calc(100% - 1.5rem);
+    padding: 0.32rem 0.58rem;
+    border-radius: 0.375rem;
+    color: var(--color-secondary);
+    background: rgba(0, 0, 0, 0.7);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spotlight-post-card {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: stretch;
+    aspect-ratio: 5 / 6;
+    min-height: 0;
+    overflow: hidden;
+    color: inherit;
+    text-align: left;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.spotlight-post-card:hover {
+    border-color: rgba(233, 195, 73, 0.62);
+    background: rgba(18, 10, 12, 0.82);
+    transform: translateY(-2px);
+}
+
+.spotlight-post-media {
+    min-height: 0;
+    background: #050505;
+}
+
+.spotlight-post-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.spotlight-post-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 1rem 1.1rem 1.15rem;
+}
+
+.spotlight-post-kicker {
+    color: var(--color-secondary);
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.spotlight-post-title {
+    color: var(--color-on-surface);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.spotlight-post-text {
+    color: var(--color-on-surface-variant);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
 .goods-section-heading {
     margin-bottom: 0.5rem;
 }
@@ -825,6 +1022,27 @@ iframe {
 }
 
 @media (min-width: 768px) {
+    #info {
+        padding-bottom: 4rem;
+    }
+
+    #spotlight {
+        padding-top: 2.5rem;
+    }
+
+    .spotlight-grid {
+        grid-template-columns: minmax(0, 1.85fr) minmax(300px, 1fr);
+        align-items: stretch;
+    }
+
+    .spotlight-panel {
+        aspect-ratio: 16 / 10.8;
+    }
+
+    .spotlight-post-card {
+        aspect-ratio: 5 / 6;
+    }
+
     .goods-top-grid {
         gap: 1.5rem;
     }
