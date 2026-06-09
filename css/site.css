@@ -1951,6 +1951,65 @@ section {
     top: -4px;
 }
 
+/* Announcement Ticker */
+.announcement-ticker {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    display: flex;
+    align-items: stretch;
+    height: 2.5rem;
+    background: rgba(18, 18, 18, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(233, 195, 73, 0.2);
+}
+
+.announcement-ticker-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.875rem;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(233, 195, 73, 0.15);
+}
+
+.announcement-ticker-left .material-symbols-outlined {
+    font-size: 18px;
+    color: var(--color-secondary);
+}
+
+.announcement-ticker-badge {
+    white-space: nowrap;
+    font-size: 0.7rem;
+    color: var(--color-secondary);
+    letter-spacing: 0.2em;
+}
+
+.announcement-ticker-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.announcement-ticker-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.announcement-ticker-item {
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 5rem;
+    font-size: 0.875rem;
+    color: var(--color-on-surface-variant);
+    flex-shrink: 0;
+}
+
 .announcement-wrapper {
     margin-top: 1.5rem;
 }

@@ -40,6 +40,10 @@ const bgmToggleButtons = document.querySelectorAll(".bgm-toggle");
 const transportModal = document.getElementById("transport-modal");
 const transportCloseButton = document.getElementById("transport-modal-close");
 const transportOpenButton = document.getElementById("transport-open");
+const announcementTicker = document.getElementById("announcement-ticker");
+const announcementTickerTrack = document.getElementById(
+  "announcement-ticker-track",
+);
 const calculatorModal = document.getElementById("calculator-modal");
 const calculatorFrame = document.getElementById("calculator-frame");
 const calculatorTriggers = document.querySelectorAll(".calculator-trigger");
@@ -607,6 +611,73 @@ function closeTransportModal(event) {
   if (!transportModal) return;
 
   closeModalElement(transportModal);
+}
+
+const ANNOUNCEMENT_DEFAULT =
+  "感謝各位患者參與✦ 畫作已全數賣出✦ 周邊目前可能還剩：極光色立牌、透明應援扇子、Aoi's Diary原創漫畫、夏日 TCG 卡套、沁涼一下 B5 卡冊、隨機徽章、患者絨毛徽章套+LED發光徽章，以現場剩餘商品為主✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori";
+const TICKER_SPEED = 80; // px per second
+
+let tickerOffset = 0;
+let tickerItemWidth = 0;
+let tickerLastTime = null;
+let tickerAnimId = null;
+let tickerPaused = false;
+
+function tickerTick(timestamp) {
+  if (!tickerPaused && tickerLastTime !== null) {
+    const delta = (timestamp - tickerLastTime) / 1000;
+    tickerOffset += TICKER_SPEED * delta;
+    if (tickerItemWidth > 0 && tickerOffset >= tickerItemWidth) {
+      tickerOffset -= tickerItemWidth;
+    }
+    if (announcementTickerTrack) {
+      announcementTickerTrack.style.transform = `translateX(${-tickerOffset}px)`;
+    }
+  }
+  tickerLastTime = timestamp;
+  tickerAnimId = requestAnimationFrame(tickerTick);
+}
+
+function initAnnouncementTicker() {
+  if (!announcementTicker || !announcementTickerTrack) return;
+
+  const text = ANNOUNCEMENT_DEFAULT;
+  announcementTickerTrack.innerHTML = "";
+
+  // Measure a single item width
+  const probe = document.createElement("span");
+  probe.className = "announcement-ticker-item";
+  probe.textContent = text;
+  probe.style.cssText =
+    "position:absolute;visibility:hidden;white-space:nowrap;pointer-events:none";
+  document.body.appendChild(probe);
+  tickerItemWidth = probe.offsetWidth;
+  document.body.removeChild(probe);
+
+  // Fill with enough copies to cover 3x viewport width (guarantees no gap)
+  const copies = Math.max(
+    4,
+    Math.ceil((window.innerWidth * 3) / tickerItemWidth) + 1,
+  );
+  for (let i = 0; i < copies; i++) {
+    const span = document.createElement("span");
+    span.className = "announcement-ticker-item";
+    span.textContent = text;
+    if (i > 0) span.setAttribute("aria-hidden", "true");
+    announcementTickerTrack.appendChild(span);
+  }
+
+  tickerOffset = 0;
+  tickerLastTime = null;
+  if (tickerAnimId) cancelAnimationFrame(tickerAnimId);
+  tickerAnimId = requestAnimationFrame(tickerTick);
+
+  announcementTickerTrack.addEventListener("mouseenter", () => {
+    tickerPaused = true;
+  });
+  announcementTickerTrack.addEventListener("mouseleave", () => {
+    tickerPaused = false;
+  });
 }
 
 function syncCalculatorLanguage() {
@@ -1513,5 +1584,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   startRandomPhotoStrip();
   scheduleOriginalPhotoPreload();
+  initAnnouncementTicker();
   window.setTimeout(() => openPvModal(false), 500);
 });
