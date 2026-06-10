@@ -614,7 +614,7 @@ function closeTransportModal(event) {
 }
 
 const ANNOUNCEMENT_DEFAULT =
-  "感謝各位患者參與✦ 畫作已全數賣出✦ 周邊目前可能還剩：極光色立牌、透明應援扇子、Aoi's Diary原創漫畫、夏日 TCG 卡套、沁涼一下 B5 卡冊、隨機徽章、患者絨毛徽章套+LED發光徽章，以現場剩餘商品為主✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori";
+  "感謝各位患者參與✦ 畫作已全數賣出✦（2026/06/10）周邊目前可能還剩：Aoi's Diary原創漫畫、夏日 TCG 卡套、沁涼一下 B5 卡冊、隨機徽章，以現場剩餘商品為主✦ 狂人大空掃了一堆商品，目前現場可索取透明應援扇子（現場消費送）✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori";
 const TICKER_SPEED = 80; // px per second
 
 let tickerOffset = 0;
