@@ -530,6 +530,16 @@
       "data-description",
       "goods.modal.badgesDescription",
     );
+    setAttr(
+      "img[src='images/CardHolder.jfif']",
+      "data-title",
+      "goods.modal.cardHolder",
+    );
+    setAttr(
+      "img[src='images/CardHolder.jfif']",
+      "data-description",
+      "goods.modal.cardHolderDescription",
+    );
     setAttr("img[src='images/LAHEE.jfif']", "data-title", "goods.modal.lahee");
     setAttr(
       "img[src='images/LAHEE.jfif']",
