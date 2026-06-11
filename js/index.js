@@ -1514,7 +1514,8 @@ speedDialButton?.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#speed-dial-container")) closeSpeedDial();
 });
-venuePhotoOpenButton?.addEventListener("click", () => {
+venuePhotoOpenButton?.addEventListener("click", (event) => {
+  event.stopPropagation();
   closeSpeedDial();
   activeVenuePhotoCategory = "all";
   openVenuePhoto(0);
