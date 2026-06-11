@@ -92,7 +92,7 @@ const goodsPwSubmit = document.getElementById("goods-quantity-pw-submit");
 const goodsPwCancel = document.getElementById("goods-quantity-pw-cancel");
 const goodsPwError = document.getElementById("goods-quantity-pw-error");
 /** 商品數量編輯密碼 */
-const GOODS_EDIT_PASSWORD = "aoi22";
+const GOODS_EDIT_PASSWORD = "Aoi22Goods!";
 /** 商品數量 API */
 const GOODS_API_URL =
   "https://67651da352b2a7619f5e6fe7.mockapi.io/aoi/aoi-exhibition-product-quantity";
