@@ -98,6 +98,7 @@ const GOODS_API_URL =
   "https://67651da352b2a7619f5e6fe7.mockapi.io/aoi/aoi-exhibition-product-quantity";
 let isGoodsEditMode = false;
 let isGoodsLoading = false;
+let isGoodsAuthenticated = false;
 const randomPhotoStrip = document.getElementById("random-photo-strip");
 const randomPhotoProgress = document.getElementById("random-photo-progress");
 const featuredPostOpenButton = document.getElementById("featured-post-open");
@@ -865,6 +866,7 @@ function hideGoodsPwRow() {
 
 function submitGoodsPassword() {
   if (goodsPwInput?.value === GOODS_EDIT_PASSWORD) {
+    isGoodsAuthenticated = true;
     hideGoodsPwRow();
     isGoodsEditMode = true;
     renderGoodsQuantity();
@@ -882,6 +884,10 @@ function toggleGoodsEditMode() {
   if (isGoodsEditMode) {
     saveGoodsQuantity();
     isGoodsEditMode = false;
+    renderGoodsQuantity();
+    syncGoodsEditButton();
+  } else if (isGoodsAuthenticated) {
+    isGoodsEditMode = true;
     renderGoodsQuantity();
     syncGoodsEditButton();
   } else {
