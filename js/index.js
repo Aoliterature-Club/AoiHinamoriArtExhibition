@@ -73,6 +73,32 @@ const badgeDetailImage = document.getElementById("badge-detail-image");
 const badgeDetailCloseButton = document.getElementById("badge-detail-close");
 const lightboxTriggers = document.querySelectorAll(".lightbox-trigger");
 const venuePhotoOpenButton = document.getElementById("venue-photo-open");
+const speedDialButton = document.getElementById("speed-dial");
+const speedDialProductQuantity = document.getElementById(
+  "speed-dial-product-quantity",
+);
+const speedDialProductPhoto = document.getElementById(
+  "speed-dial-product-photo",
+);
+const speedDialContainer = document.getElementById("speed-dial-container");
+const goodsQuantityModal = document.getElementById("goods-quantity-modal");
+const goodsQuantityCloseButton = document.getElementById(
+  "goods-quantity-close",
+);
+const goodsEditButton = document.getElementById("goods-quantity-edit");
+const goodsPwRow = document.getElementById("goods-quantity-pw-row");
+const goodsPwInput = document.getElementById("goods-quantity-pw-input");
+const goodsPwSubmit = document.getElementById("goods-quantity-pw-submit");
+const goodsPwCancel = document.getElementById("goods-quantity-pw-cancel");
+const goodsPwError = document.getElementById("goods-quantity-pw-error");
+/** 商品數量編輯密碼 */
+const GOODS_EDIT_PASSWORD = "aoi22";
+/** 商品數量 API */
+const GOODS_API_URL =
+  "https://67651da352b2a7619f5e6fe7.mockapi.io/aoi/aoi-exhibition-product-quantity";
+let isGoodsEditMode = false;
+let isGoodsLoading = false;
+let isGoodsAuthenticated = false;
 const randomPhotoStrip = document.getElementById("random-photo-strip");
 const randomPhotoProgress = document.getElementById("random-photo-progress");
 const featuredPostOpenButton = document.getElementById("featured-post-open");
@@ -80,6 +106,8 @@ const eventHashtagCopyButton = document.getElementById("event-hashtag-copy");
 const eventHashtagCopyStatus = document.getElementById(
   "event-hashtag-copy-status",
 );
+let GOODS_QUANTITY = [];
+
 let imageModalZoom = 1;
 let activeVenuePhotoIndex = -1;
 let activeVenuePhotoCategory = "all";
@@ -707,6 +735,183 @@ function closeCalculatorModal() {
   closeModalElement(calculatorModal);
 }
 
+async function fetchGoodsQuantity() {
+  isGoodsLoading = true;
+  renderGoodsQuantity();
+  try {
+    const res = await fetch(GOODS_API_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    GOODS_QUANTITY = data.map((item) => ({
+      id: item.id,
+      img: item.img || "",
+      name: item.name || "",
+      desc: item.desc || "",
+      qty: Math.max(0, parseInt(item.qty) || 0),
+      oozora: Math.max(0, parseInt(item.oozora) || 0),
+    }));
+  } catch (err) {
+    console.error("[GoodsQuantity] fetch failed:", err);
+  } finally {
+    isGoodsLoading = false;
+    renderGoodsQuantity();
+  }
+}
+
+function renderGoodsQuantity() {
+  const list = document.getElementById("goods-quantity-list");
+  if (!list) return;
+  if (isGoodsLoading) {
+    list.innerHTML = `<div class="goods-quantity-loading"><span class="material-symbols-outlined goods-quantity-loading-icon">sync</span>載入中…</div>`;
+    return;
+  }
+  list.innerHTML = GOODS_QUANTITY.map((item, index) => {
+    let infoBottomHtml;
+    if (isGoodsEditMode) {
+      infoBottomHtml = `
+        <textarea class="goods-quantity-textarea" rows="2" placeholder="說明（選填）"
+          data-index="${index}" data-field="desc">${item.desc || ""}</textarea>
+        <div class="goods-quantity-edit-row">
+          <label class="goods-quantity-field-label">商品數量
+            <input class="goods-quantity-input" type="number" min="0"
+              data-index="${index}" data-field="qty" value="${item.qty}" />
+          </label>
+          <label class="goods-quantity-field-label">大空數量
+            <input class="goods-quantity-input" type="number" min="0"
+              data-index="${index}" data-field="oozora" value="${item.oozora}" />
+          </label>
+        </div>`;
+    } else {
+      const descHtml = item.desc
+        ? `<div class="goods-quantity-desc">${item.desc}</div>`
+        : "";
+      const soldOut = item.qty === 0 && item.oozora === 0;
+      const tagsHtml = soldOut
+        ? `<div class="goods-quantity-tags"><span class="goods-quantity-soldout">已售完</span></div>`
+        : `<div class="goods-quantity-tags">
+            <span class="goods-quantity-tag goods-quantity-tag-normal">
+              <span class="goods-quantity-tag-label">商品數量</span>
+              <span class="goods-quantity-tag-value">${item.qty}</span>
+            </span>
+            <span class="goods-quantity-tag goods-quantity-tag-oozora">
+              <span class="goods-quantity-tag-label">大空數量</span>
+              <span class="goods-quantity-tag-value">${item.oozora}</span>
+            </span>
+          </div>`;
+      infoBottomHtml = descHtml + tagsHtml;
+    }
+    return `<div class="goods-quantity-item">
+      <img class="goods-quantity-thumb" src="${item.img}" alt="${item.name}" loading="lazy" />
+      <div class="goods-quantity-info">
+        <div class="goods-quantity-name">${item.name}</div>
+        ${infoBottomHtml}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function saveGoodsQuantity() {
+  document
+    .querySelectorAll(".goods-quantity-input, .goods-quantity-textarea")
+    .forEach((el) => {
+      const idx = parseInt(el.dataset.index);
+      const field = el.dataset.field;
+      if (!GOODS_QUANTITY[idx]) return;
+      if (field === "desc") {
+        GOODS_QUANTITY[idx][field] = el.value.trim();
+      } else {
+        GOODS_QUANTITY[idx][field] = Math.max(0, parseInt(el.value) || 0);
+      }
+    });
+  Promise.all(
+    GOODS_QUANTITY.map((item) =>
+      fetch(`${GOODS_API_URL}/${item.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: item.id,
+          img: item.img,
+          name: item.name,
+          desc: item.desc,
+          qty: item.qty,
+          oozora: item.oozora,
+        }),
+      }),
+    ),
+  ).catch((err) => console.error("[GoodsQuantity] save failed:", err));
+}
+
+function syncGoodsEditButton() {
+  const icon = goodsEditButton?.querySelector(".goods-quantity-edit-icon");
+  const label = document.getElementById("goods-quantity-edit-label");
+  if (icon) icon.textContent = isGoodsEditMode ? "save" : "edit";
+  if (label) label.textContent = isGoodsEditMode ? "儲存" : "小精靈編輯";
+  goodsEditButton?.classList.toggle("is-saving", isGoodsEditMode);
+}
+
+function showGoodsPwRow() {
+  goodsPwRow?.classList.remove("hidden");
+  goodsPwError?.classList.add("hidden");
+  if (goodsPwInput) {
+    goodsPwInput.value = "";
+    goodsPwInput.focus();
+  }
+}
+
+function hideGoodsPwRow() {
+  goodsPwRow?.classList.add("hidden");
+  goodsPwError?.classList.add("hidden");
+  if (goodsPwInput) goodsPwInput.value = "";
+}
+
+function submitGoodsPassword() {
+  if (goodsPwInput?.value === GOODS_EDIT_PASSWORD) {
+    isGoodsAuthenticated = true;
+    hideGoodsPwRow();
+    isGoodsEditMode = true;
+    renderGoodsQuantity();
+    syncGoodsEditButton();
+  } else {
+    goodsPwError?.classList.remove("hidden");
+    if (goodsPwInput) {
+      goodsPwInput.value = "";
+      goodsPwInput.focus();
+    }
+  }
+}
+
+function toggleGoodsEditMode() {
+  if (isGoodsEditMode) {
+    saveGoodsQuantity();
+    isGoodsEditMode = false;
+    renderGoodsQuantity();
+    syncGoodsEditButton();
+  } else if (isGoodsAuthenticated) {
+    isGoodsEditMode = true;
+    renderGoodsQuantity();
+    syncGoodsEditButton();
+  } else {
+    showGoodsPwRow();
+  }
+}
+
+function openGoodsQuantityModal() {
+  if (!goodsQuantityModal) return;
+  isGoodsEditMode = false;
+  syncGoodsEditButton();
+  openModalElement(goodsQuantityModal);
+  fetchGoodsQuantity();
+}
+
+function closeGoodsQuantityModal() {
+  if (!goodsQuantityModal) return;
+  if (isGoodsEditMode) {
+    saveGoodsQuantity();
+    isGoodsEditMode = false;
+  }
+  closeModalElement(goodsQuantityModal);
+}
+
 function setModalText(element, value, options = {}) {
   if (!element) return;
 
@@ -1295,8 +1500,32 @@ calculatorTriggers.forEach((btn) =>
 );
 calculatorCloseButton?.addEventListener("click", closeCalculatorModal);
 calculatorFrame?.addEventListener("load", syncCalculatorLanguage);
+const speedDialPanels = [speedDialProductQuantity, speedDialProductPhoto];
+function closeSpeedDial() {
+  speedDialPanels.forEach((p) => p?.classList.remove("is-open"));
+  speedDialButton?.setAttribute("aria-expanded", "false");
+}
+speedDialButton?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const isOpen = !speedDialProductQuantity?.classList.contains("is-open");
+  speedDialPanels.forEach((p) => p?.classList.toggle("is-open", isOpen));
+  speedDialButton.setAttribute("aria-expanded", String(isOpen));
+});
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#speed-dial-container")) closeSpeedDial();
+});
 venuePhotoOpenButton?.addEventListener("click", () => {
+  closeSpeedDial();
   activeVenuePhotoCategory = "all";
+  openVenuePhoto(0);
+});
+speedDialProductQuantity?.addEventListener("click", () => {
+  closeSpeedDial();
+  openGoodsQuantityModal();
+});
+speedDialProductPhoto?.addEventListener("click", () => {
+  closeSpeedDial();
+  activeVenuePhotoCategory = "Merchs";
   openVenuePhoto(0);
 });
 featuredPostOpenButton?.addEventListener("click", openFeaturedPostModal);
@@ -1313,6 +1542,15 @@ window.addEventListener("aoi-language-change", () => {
 });
 closeModalOnBackdrop(transportModal, closeTransportModal);
 closeModalOnBackdrop(calculatorModal, closeCalculatorModal);
+goodsQuantityCloseButton?.addEventListener("click", closeGoodsQuantityModal);
+goodsEditButton?.addEventListener("click", toggleGoodsEditMode);
+goodsPwSubmit?.addEventListener("click", submitGoodsPassword);
+goodsPwCancel?.addEventListener("click", hideGoodsPwRow);
+goodsPwInput?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") submitGoodsPassword();
+  if (e.key === "Escape") hideGoodsPwRow();
+});
+closeModalOnBackdrop(goodsQuantityModal, closeGoodsQuantityModal);
 lightboxTriggers.forEach((img) => {
   const openLightbox = async () => {
     await window.AoiI18n?.ready;
@@ -1469,6 +1707,7 @@ document.addEventListener("keydown", (event) => {
     closePvModal();
     closeTransportModal();
     closeCalculatorModal();
+    closeGoodsQuantityModal();
     closeImageModal();
   }
 });

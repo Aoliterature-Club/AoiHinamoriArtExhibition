@@ -1397,18 +1397,114 @@
       </div>
     </footer>
 
-    <button
-      class="venue-photo-fab"
-      id="venue-photo-open"
-      type="button"
-      aria-label="Open venue photos"
+    <!-- Goods Quantity Modal -->
+    <div
+      class="goods-quantity-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md px-4 md:px-8"
+      id="goods-quantity-modal"
+      aria-hidden="true"
     >
-      <span class="material-symbols-outlined">photo_library</span>
-      <span class="venue-photo-fab-label">展場照片</span>
-    </button>
+      <div class="goods-quantity-panel">
+        <div class="goods-quantity-header">
+          <div class="flex items-center gap-3">
+            <span
+              class="material-symbols-outlined text-secondary"
+              style="font-size: 20px"
+              >inventory_2</span
+            >
+            <h2 class="font-label-sm text-secondary tracking-[0.2em] text-sm">
+              商品剩餘數量
+            </h2>
+          </div>
+          <button
+            id="goods-quantity-close"
+            type="button"
+            aria-label="關閉"
+            class="text-secondary hover:text-primary transition-colors"
+          >
+            <span class="material-symbols-outlined text-3xl">close</span>
+          </button>
+        </div>
+        <div class="goods-quantity-toolbar">
+          <button
+            id="goods-quantity-edit"
+            type="button"
+            class="goods-quantity-edit-btn"
+          >
+            <span class="material-symbols-outlined goods-quantity-edit-icon"
+              >edit</span
+            >
+            <span id="goods-quantity-edit-label">編輯數量</span>
+          </button>
+          <div id="goods-quantity-pw-row" class="goods-quantity-pw-row hidden">
+            <input
+              id="goods-quantity-pw-input"
+              type="password"
+              class="goods-quantity-pw-input"
+              placeholder="輸入密碼"
+              maxlength="32"
+              autocomplete="current-password"
+            />
+            <button
+              id="goods-quantity-pw-submit"
+              type="button"
+              class="goods-quantity-pw-btn"
+            >
+              確認
+            </button>
+            <button
+              id="goods-quantity-pw-cancel"
+              type="button"
+              class="goods-quantity-pw-cancel"
+            >
+              取消
+            </button>
+            <span
+              id="goods-quantity-pw-error"
+              class="goods-quantity-pw-error hidden"
+              >密碼錯誤</span
+            >
+          </div>
+        </div>
+        <div id="goods-quantity-list" class="goods-quantity-list"></div>
+      </div>
+    </div>
+
+    <div class="speed-dial-container" id="speed-dial-container">
+      <div class="speed-dial-actions" id="speed-dial-product-quantity">
+        <button
+          class="speed-dial-action"
+          id="item-quantity-open"
+          type="button"
+          aria-label="商品數量"
+        >
+          <span class="speed-dial-action-label">商品數量</span>
+          <span class="material-symbols-outlined">receipt_long</span>
+        </button>
+      </div>
+      <div class="speed-dial-actions" id="speed-dial-product-photo">
+        <button
+          class="speed-dial-action"
+          id="venue-photo-open"
+          type="button"
+          aria-label="展場照片"
+        >
+          <span class="speed-dial-action-label">展場照片</span>
+          <span class="material-symbols-outlined">photo_library</span>
+        </button>
+      </div>
+      <button
+        class="speed-dial"
+        id="speed-dial"
+        type="button"
+        aria-label="功能集"
+        aria-expanded="false"
+      >
+        <span class="material-symbols-outlined">business_center</span>
+      </button>
+    </div>
 
     <script src="js/i18n.js?v=20260607-01"></script>
-    <script src="js/index.js?v=20260607-02"></script>
+    <script src="js/index.js?v=20260611-01"></script>
     <script src="js/faq.js?v=20260608-01"></script>
   </body>
 </html>
