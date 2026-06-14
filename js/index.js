@@ -93,11 +93,7 @@ const goodsPwCancel = document.getElementById("goods-quantity-pw-cancel");
 const goodsPwError = document.getElementById("goods-quantity-pw-error");
 /** 商品數量編輯密碼 */
 const GOODS_EDIT_PASSWORD = "Aoi22Goods!";
-/** 商品數量 API */
-const GOODS_API_URL =
-  "https://67651da352b2a7619f5e6fe7.mockapi.io/aoi/aoi-exhibition-product-quantity";
 let isGoodsEditMode = false;
-let isGoodsLoading = false;
 let isGoodsAuthenticated = false;
 const randomPhotoStrip = document.getElementById("random-photo-strip");
 const randomPhotoProgress = document.getElementById("random-photo-progress");
@@ -642,7 +638,7 @@ function closeTransportModal(event) {
 }
 
 const ANNOUNCEMENT_DEFAULT =
-  "感謝各位患者參與✦ 畫作已全數賣出✦（2026/06/10）周邊目前可能還剩：Aoi's Diary原創漫畫、夏日 TCG 卡套、沁涼一下 B5 卡冊、隨機徽章，以現場剩餘商品為主✦ 狂人大空掃了一堆商品，目前現場可索取透明應援扇子（現場消費送）✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori";
+  "Aoi Hinamori《蝕 / 光》展覽已於 2026/06/14 完美落幕，感謝各位患者的參與 ✦ 展覽畫作均已找到各自的歸屬 ✦ 特別感謝 大空、可魯、猩猩、漫畫殺手 ✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori ✦ 由隨機徽章扛下最後的傷害，所以就讓隨機徽章取代紅鼻子八 (造謠)，恭喜 Aoi 成為最後的贏家，贏下這場賭局。 ✦ 期待下次與各位患者的相遇。";
 const TICKER_SPEED = 80; // px per second
 
 let tickerOffset = 0;
@@ -736,35 +732,135 @@ function closeCalculatorModal() {
 }
 
 async function fetchGoodsQuantity() {
-  isGoodsLoading = true;
+  GOODS_QUANTITY = [
+    {
+      id: "1",
+      img: "images/Goods/極光色立牌.png",
+      name: "極光色立牌",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "2",
+      img: "images/Goods/雙層壓克力畫版.png",
+      name: "雙層壓克力畫版",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "3",
+      img: "images/Goods/豪華套裝親簽名板.png",
+      name: "豪華套裝親簽名板",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "4",
+      img: "images/Goods/透明應援扇子.png",
+      name: "透明應援扇子",
+      desc: "大空法器",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "5",
+      img: "images/Goods/雙層壓克力鑰匙圈.png",
+      name: "雙層壓克力鑰匙圈",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "6",
+      img: "images/Goods/明信片套組＋PVC包裝.png",
+      name: "蝕光明信片套組 + PVC包裝",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "7",
+      img: "images/Goods/塊狀秋葵.png",
+      name: "塊狀秋葵",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "8",
+      img: "images/Goods/原創漫畫.png",
+      name: "Aoi's Diary 原創漫畫",
+      desc: "這隻狼還沒被抓出來",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "9",
+      img: "images/Goods/夏日風TCG卡套.png",
+      name: "夏日風 TCG 卡套（雙尺寸）",
+      desc: "被衝塔的可魯 * 100",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "10",
+      img: "images/Goods/B5卡冊.png",
+      name: "沁涼一夏 B5 卡冊",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "11",
+      img: "images/Goods/眼罩套組.png",
+      name: "AOI 緞面眼罩套組",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "12",
+      img: "images/Goods/萬用墊.png",
+      name: "熱情夏日 萬用墊",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "13",
+      img: "images/Goods/隨機徽章.png",
+      name: "隨機徽章（共 6 款圖案）",
+      desc: "這次是 Aoi 的勝利",
+      qty: 800,
+      oozora: 0,
+    },
+    {
+      id: "14",
+      img: "images/Goods/徽章套＋發光徽章組.png",
+      name: "患者絨毛徽章套 + LED 發光徽章組",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+    {
+      id: "15",
+      img: "images/Goods/鋁板畫.png",
+      name: "蝕光 鋁板畫（現場／預購）",
+      desc: "",
+      qty: 0,
+      oozora: 0,
+    },
+  ];
+
   renderGoodsQuantity();
-  try {
-    const res = await fetch(GOODS_API_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    GOODS_QUANTITY = data.map((item) => ({
-      id: item.id,
-      img: item.img || "",
-      name: item.name || "",
-      desc: item.desc || "",
-      qty: Math.max(0, parseInt(item.qty) || 0),
-      oozora: Math.max(0, parseInt(item.oozora) || 0),
-    }));
-  } catch (err) {
-    console.error("[GoodsQuantity] fetch failed:", err);
-  } finally {
-    isGoodsLoading = false;
-    renderGoodsQuantity();
-  }
 }
 
 function renderGoodsQuantity() {
   const list = document.getElementById("goods-quantity-list");
   if (!list) return;
-  if (isGoodsLoading) {
-    list.innerHTML = `<div class="goods-quantity-loading"><span class="material-symbols-outlined goods-quantity-loading-icon">sync</span>載入中…</div>`;
-    return;
-  }
   list.innerHTML = GOODS_QUANTITY.map((item, index) => {
     let infoBottomHtml;
     if (isGoodsEditMode) {
@@ -823,29 +919,16 @@ function saveGoodsQuantity() {
         GOODS_QUANTITY[idx][field] = Math.max(0, parseInt(el.value) || 0);
       }
     });
-  Promise.all(
-    GOODS_QUANTITY.map((item) =>
-      fetch(`${GOODS_API_URL}/${item.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: item.id,
-          img: item.img,
-          name: item.name,
-          desc: item.desc,
-          qty: item.qty,
-          oozora: item.oozora,
-        }),
-      }),
-    ),
-  ).catch((err) => console.error("[GoodsQuantity] save failed:", err));
 }
 
 function syncGoodsEditButton() {
   const icon = goodsEditButton?.querySelector(".goods-quantity-edit-icon");
   const label = document.getElementById("goods-quantity-edit-label");
   if (icon) icon.textContent = isGoodsEditMode ? "save" : "edit";
-  if (label) label.textContent = isGoodsEditMode ? "儲存" : "小精靈編輯";
+  if (label)
+    label.textContent = isGoodsEditMode
+      ? "儲存 ( 僅保存於本地 )"
+      : "小精靈編輯 ( 功能關閉 )";
   goodsEditButton?.classList.toggle("is-saving", isGoodsEditMode);
 }
 
@@ -1514,8 +1597,7 @@ speedDialButton?.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#speed-dial-container")) closeSpeedDial();
 });
-venuePhotoOpenButton?.addEventListener("click", (event) => {
-  event.stopPropagation();
+venuePhotoOpenButton?.addEventListener("click", () => {
   closeSpeedDial();
   activeVenuePhotoCategory = "all";
   openVenuePhoto(0);
