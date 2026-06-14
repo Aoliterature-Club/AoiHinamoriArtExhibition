@@ -638,7 +638,7 @@ function closeTransportModal(event) {
 }
 
 const ANNOUNCEMENT_DEFAULT =
-  "感謝各位患者參與✦ 畫作已全數賣出✦（2026/06/10）周邊目前可能還剩：Aoi's Diary原創漫畫、夏日 TCG 卡套、沁涼一下 B5 卡冊、隨機徽章，以現場剩餘商品為主✦ 狂人大空掃了一堆商品，目前現場可索取透明應援扇子（現場消費送）✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori";
+  "Aoi Hinamori《蝕 / 光》展覽已於 2026/06/14 完美落幕，感謝各位患者的參與 ✦ 展覽畫作均已找到各自的歸屬 ✦ 特別感謝 大空、可魯、猩猩、漫畫殺手 ✦ #所有周邊賣完，我帶三個月的紅鼻子，這是我的豪賭了 — by Aoi Hinamori ✦ 由隨機徽章扛下最後的傷害，所以就讓隨機徽章取代紅鼻子八 (造謠)，恭喜 Aoi 成為最後的贏家，贏下這場賭局。 ✦ 期待下次與各位患者的相遇。";
 const TICKER_SPEED = 80; // px per second
 
 let tickerOffset = 0;
