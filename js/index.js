@@ -1606,11 +1606,6 @@ speedDialProductQuantity?.addEventListener("click", () => {
   closeSpeedDial();
   openGoodsQuantityModal();
 });
-speedDialProductPhoto?.addEventListener("click", () => {
-  closeSpeedDial();
-  activeVenuePhotoCategory = "Merchs";
-  openVenuePhoto(0);
-});
 featuredPostOpenButton?.addEventListener("click", openFeaturedPostModal);
 imageCarouselPrevButton?.addEventListener("click", () => moveVenuePhoto(-1));
 imageCarouselNextButton?.addEventListener("click", () => moveVenuePhoto(1));
